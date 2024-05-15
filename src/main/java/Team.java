@@ -1,0 +1,115 @@
+import java.util.List;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Team {
+    String name;
+    List<Player> players;
+    List<Player> lineup;
+    List<Player> bench;
+    private Pitch pitch;
+    private int number;
+
+    public Team(Pitch pitch, int number){
+        this.number = number;
+        this.pitch = pitch;
+        this.name = choose_team();
+        this.players = new ArrayList<>();
+        this.lineup = new ArrayList<>();
+        this.bench = new ArrayList<>();
+        load_players();
+        set_lineup();
+    }
+
+    private String choose_team(){
+        Scanner scanner1 = new Scanner(System.in);
+        String team = scanner1.nextLine();
+        try{
+            File file = new File("teams.txt");
+            Scanner scanner2 = new Scanner(file);
+            while(scanner2.hasNextLine()){
+                String current = scanner2.nextLine();
+                if (current.equals(team)){
+                    return current;
+                }
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("NIE");
+            return "";
+        }
+        return "";
+    }
+
+    private void load_players(){
+        try{
+            File file = new File(name+".txt");
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                String playername = scanner.nextLine();
+                String[] names = playername.split(" ");
+                if(names[2].equals("G")){
+                    Goalkeeper player = new Goalkeeper(names[0], names[1]);
+                    players.add(player);
+                }
+                else if(names[2].equals("D")){
+                    Defender player = new Defender(names[0], names[1]);
+                    players.add(player);
+                }
+                else if(names[2].equals("M")){
+                    Midfielder player = new Midfielder(names[0], names[1]);
+                    players.add(player);
+                }
+                else{
+                    Forward player = new Forward(names[0], names[1]);
+                    players.add(player);
+                }
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("NIE");
+        }
+    }
+
+    public void set_lineup(){
+        for(int i=0; i<11; i++){
+            lineup.add(players.get(i));
+        }
+        set_default_lineup();
+        for(int i=11; i<22; i++){
+            bench.add(players.get(i));
+        }
+    }
+
+    public void set_default_lineup(){
+        for(int i=0; i<11; i++){
+            if(number==1){
+                if(i==0) lineup.get(i).setPlace(pitch, 2, 5);
+                else if(i==1) lineup.get(i).setPlace(pitch, 3, 4);
+                else if(i==2 || i==3) lineup.get(i).setPlace(pitch, 2, 4);
+                else if(i==4) lineup.get(i).setPlace(pitch, 1, 4);
+                else if(i==5) lineup.get(i).setPlace(pitch, 3, 3);
+                else if(i==6) lineup.get(i).setPlace(pitch, 2, 3);
+                else if(i==7) lineup.get(i).setPlace(pitch, 1, 3);
+                else if(i==8) lineup.get(i).setPlace(pitch, 4, 3);
+                else if(i==9) lineup.get(i).setPlace(pitch, 2, 3);
+                else if(i==10) lineup.get(i).setPlace(pitch, 0, 3);
+            }
+            else if(number==2){
+                if(i==0) lineup.get(i).setPlace(pitch, 2, 0);
+                else if(i==1) lineup.get(i).setPlace(pitch, 1, 1);
+                else if(i==2 || i==3) lineup.get(i).setPlace(pitch, 2, 1);
+                else if(i==4) lineup.get(i).setPlace(pitch, 3, 1);
+                else if(i==5) lineup.get(i).setPlace(pitch, 1, 2);
+                else if(i==6) lineup.get(i).setPlace(pitch, 2, 2);
+                else if(i==7) lineup.get(i).setPlace(pitch, 3, 2);
+                else if(i==8) lineup.get(i).setPlace(pitch, 0, 2);
+                else if(i==9) lineup.get(i).setPlace(pitch, 2, 2);
+                else if(i==10) lineup.get(i).setPlace(pitch, 4, 2);
+            }
+        }
+    }
+
+}
