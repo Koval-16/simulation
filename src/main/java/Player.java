@@ -1,8 +1,10 @@
 import java.util.Random;
 
 public class Player {
+    StatsPlayer stats;
     String name;
     String surname;
+    int side;
     int shooting;
     int dribbling;
     int speed;
@@ -17,10 +19,21 @@ public class Player {
     private Field place;
     boolean ball_possessed;
 
-    public Player(String name, String surname){
+    public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing, int defending, int heading, int aggression, int risk_taking, int intelligence){
+        this.side = side;
         this.name = name;
         this.surname = surname;
         this.ball_possessed = false;
+        this.stats = new StatsPlayer();
+        this.shooting = shooting;
+        this.dribbling = dribbling;
+        this.speed = speed;
+        this.passing = passing;
+        this.defending = defending;
+        this.heading = heading;
+        this.aggression = aggression;
+        this.risk_taking = risk_taking;
+        this.intelligence = intelligence;
     }
 
     public Field getPlace(){

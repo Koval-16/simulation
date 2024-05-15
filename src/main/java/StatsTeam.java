@@ -1,5 +1,4 @@
 public class StatsTeam {
-    private Team team;
     double ball_possession;
     int shoots;
     int shoots_on_target;
@@ -12,7 +11,6 @@ public class StatsTeam {
     int yellow_cards;
     int red_cards;
 
-    public StatsTeam(Team team){
-        this.team = team;
+    public StatsTeam(){
     }
 }

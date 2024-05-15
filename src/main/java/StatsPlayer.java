@@ -1,5 +1,4 @@
 public class StatsPlayer {
-    private Player player;
     int minutes_played;
     int shoots;
     int shoots_on_target;
@@ -14,7 +13,6 @@ public class StatsPlayer {
     int red_cards;
     int lost_possession;
 
-    public StatsPlayer(Player player){
-        this.player = player;
+    public StatsPlayer(){
     }
 }

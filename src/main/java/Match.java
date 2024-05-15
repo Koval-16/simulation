@@ -13,7 +13,13 @@ public class Match {
     }
 
     public void simulate(){
-        while(time<=5400){
+        while(time<5400){
+            if(time%60==0){
+                for(int i=1; i<11; i++){
+                    team1.lineup.get(i).stats.minutes_played++;
+                    team2.lineup.get(i).stats.minutes_played++;
+                }
+            }
             if(time==0 || time==2700){
                 System.out.println("KICK OFF");
                 team1.set_default_lineup();
@@ -28,6 +34,8 @@ public class Match {
             System.out.println(team1.lineup.get(8).surname+": "+team1.lineup.get(8).getPlace().getWidth()+"x"+team1.lineup.get(8).getPlace().getLength());
             System.out.println(team2.lineup.get(8).surname+": "+team2.lineup.get(8).getPlace().getWidth()+"x"+team2.lineup.get(8).getPlace().getLength());
             time = time+3;
+
         }
+        System.out.println(team2.lineup.get(8).stats.minutes_played);
     }
 }

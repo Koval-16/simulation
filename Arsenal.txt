@@ -1,22 +1,22 @@
-David Raya G
-Ben White D
-Gabriel Magalhaes D
-William Saliba D
-Oleksandr Zinchenko D
-Martin Odegaard M
-Kai Havertz M
-Declan Rice M
-Bukayo Saka F
-Gabriel Jesus F
-Leandro Trossard F
-Aaron Ramsdale G
-Thomas Partey D
-Jurrien Timber D
-Jakub Kiwior D
-Takehiro Tomiyasu D
-Filho Jorginho M
-Emile Smith-Rowe M
-Fabio Vieira M
-Gabriel Martinelli F
-Reiss Nelson F
-Eddie Nketiah F
+David Raya G 2 2 3 3 15 17 12 13 3 17
+Ben White D 3 12 15 18 15 17 16 15 15 16
+Gabriel Magalhaes D 2 11 14 14 15 19 18 17 13 17
+William Saliba D 2 11 14 14 15 19 18 17 13 17
+Oleksandr Zinchenko D 1 12 15 18 15 17 16 15 15 16
+Martin Odegaard M 3 15 16 15 19 16 15 15 15 17
+Kai Havertz M 2 15 16 15 19 16 15 15 15 17
+Declan Rice M 1 15 16 15 19 16 15 15 15 17
+Bukayo Saka F 3 17 19 19 18 10 12 11 17 14
+Gabriel Jesus F 2 19 17 17 16 10 16 12 15 15
+Leandro Trossard F 1 17 19 19 18 10 12 11 17 14
+Aaron Ramsdale G 2 2 3 3 15 17 12 13 3 17
+Thomas Partey D 3 12 15 18 15 17 16 15 15 16
+Jurrien Timber D 2 11 14 14 15 19 18 17 13 17
+Jakub Kiwior D 2 11 14 14 15 19 18 17 13 17
+Takehiro Tomiyasu D 1 12 15 18 15 17 16 15 15 16
+Filho Jorginho M 3 15 16 15 19 16 15 15 15 17
+Emile Smith-Rowe M 2 15 16 15 19 16 15 15 15 17
+Fabio Vieira M 1 15 16 15 19 16 15 15 15 17
+Gabriel Martinelli F 3 17 19 19 18 10 12 11 17 14
+Reiss Nelson F 2 19 17 17 16 10 16 12 15 15
+Eddie Nketiah F 1 17 19 19 18 10 12 11 17 14
