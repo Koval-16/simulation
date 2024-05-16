@@ -60,12 +60,14 @@ public class Player {
         }*/
         int newWidth = place.getWidth();
         Random random = new Random();
-        if(place.getWidth()==side){
+        int modifierx = 0;
+        if(team_number==2) modifierx=4;
+        if(place.getWidth()==Math.abs(side-modifierx)){
             int choice = random.nextInt(3);
             if(choice==0) newWidth++;
             else if(choice==1) newWidth--;
         }
-        else if(place.getWidth()>side){
+        else if(place.getWidth()>Math.abs(side-modifierx)){
             int choice = random.nextInt(2);
             if(choice==0) newWidth--;
         }
