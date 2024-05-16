@@ -59,28 +59,32 @@ public class Team {
                     Goalkeeper player = new Goalkeeper(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]));
+                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
+                            number);
                     players.add(player);
                 }
                 else if(names[2].equals("D")){
                     Defender player = new Defender(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]));
+                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
+                            number);
                     players.add(player);
                 }
                 else if(names[2].equals("M")){
                     Midfielder player = new Midfielder(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]));
+                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
+                            number);
                     players.add(player);
                 }
                 else{
                     Forward player = new Forward(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]));
+                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
+                            number);
                     players.add(player);
                 }
             }

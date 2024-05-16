@@ -15,10 +15,11 @@ public class Player {
     int risk_taking;
     int intelligence;
     int stamina;
-    private Field place;
+    protected Field place;
     boolean ball_possessed;
+    int team_number;
 
-    public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing, int defending, int heading, int aggression, int risk_taking, int intelligence){
+    public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing, int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number){
         this.side = side;
         this.name = name;
         this.surname = surname;
@@ -33,6 +34,7 @@ public class Player {
         this.aggression = aggression;
         this.risk_taking = risk_taking;
         this.intelligence = intelligence;
+        this.team_number = team_number;
     }
 
     public Field getPlace(){
@@ -43,8 +45,8 @@ public class Player {
         place = pitch.getPitch()[width][length];
     }
 
-    public void player_moving(Pitch pitch){
-        Random random = new Random();
+    public void player_moving(Pitch pitch, int ball_X, int ball_Y, int ball_team){
+        /*Random random = new Random();
         int choice = random.nextInt(3);
         int newWidth = place.getWidth();
         int newLength = place.getLength();
@@ -55,6 +57,24 @@ public class Player {
         else if(choice==1) newLength--;
         if(newWidth>=0 && newWidth<5 && newLength>=0 && newLength<6){
             place = pitch.getPitch()[newWidth][newLength];
+        }*/
+        int newWidth = place.getWidth();
+        Random random = new Random();
+        if(place.getWidth()==side){
+            int choice = random.nextInt(3);
+            if(choice==0) newWidth++;
+            else if(choice==1) newWidth--;
+        }
+        else if(place.getWidth()>side){
+            int choice = random.nextInt(2);
+            if(choice==0) newWidth--;
+        }
+        else{
+            int choice = random.nextInt(2);
+            if(choice==0) newWidth++;
+        }
+        if(newWidth>=0 && newWidth<5 && place.getLength()>=0 && place.getLength()<6){
+            place = pitch.getPitch()[newWidth][place.getLength()];
         }
     }
 
@@ -62,13 +82,26 @@ public class Player {
         this.ball_possessed = ball_possesed;
     }
 
-    public void player_shooting(){
+    public void player_shooting(int x){
+        System.out.println(x);
     }
 
     public void player_passing(){
     }
 
-    public void player_dribbling(){
+    public void player_dribbling(Pitch pitch){
+        Random random = new Random();
+        int choice = random.nextInt(3);
+        int newWidth = place.getWidth();
+        int newLength = place.getLength();
+        if(choice==0) newWidth++;
+        else if(choice==1) newWidth--;
+        choice = random.nextInt(3);
+        if(choice==0) newLength++;
+        else if(choice==1) newLength--;
+        if(newWidth>=0 && newWidth<5 && newLength>=0 && newLength<6) {
+            place = pitch.getPitch()[newWidth][newLength];
+        }
     }
 
     public void player_tackling(){

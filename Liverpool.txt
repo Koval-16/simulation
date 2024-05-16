@@ -3,9 +3,9 @@ Trent Alexander-Arnold D 3 12 15 18 15 17 16 15 15 16
 Virgil van-Dijk D 2 11 14 14 15 19 18 17 13 17
 Jarell Quansah D 2 11 14 14 15 19 18 17 13 17
 Andrew Robertson D 1 12 15 18 15 17 16 15 15 16
-Dominik Szoboszlai M 3 15 16 15 19 16 15 15 15 17
+Dominik Szoboszlai M 2 15 16 15 19 16 15 15 15 17
 Alexis MacAllister M 2 15 16 15 19 16 15 15 15 17
-Harvey Elliott M 1 15 16 15 19 16 15 15 15 17
+Harvey Elliott M 2 15 16 15 19 16 15 15 15 17
 Mohamed Salah F 3 17 19 19 18 10 12 11 17 14
 Darwin Nunez F 2 19 17 17 16 10 16 12 15 15
 Luis Diaz F 1 17 19 19 18 10 12 11 17 14
@@ -14,9 +14,9 @@ Conor Bradley D 3 12 15 18 15 17 16 15 15 16
 Joe Gomez D 2 11 14 14 15 19 18 17 13 17
 Ibrahima Konate D 2 11 14 14 15 19 18 17 13 17
 Konstantinos Tsimikas D 1 12 15 18 15 17 16 15 15 16
-Wataru Endo M 3 15 16 15 19 16 15 15 15 17
+Wataru Endo M 2 15 16 15 19 16 15 15 15 17
 Curtis Jones M 2 15 16 15 19 16 15 15 15 17
-Ryan Gravenberch M 1 15 16 15 19 16 15 15 15 17
+Ryan Gravenberch M 2 15 16 15 19 16 15 15 15 17
 Ben Doak F 3 17 19 19 18 10 12 11 17 14
 Cody Gakpo F 2 19 17 17 16 10 16 12 15 15
 Diogo Jota F 1 17 19 19 18 10 12 11 17 14
