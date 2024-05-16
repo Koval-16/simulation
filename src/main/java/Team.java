@@ -102,28 +102,16 @@ public class Team {
     public void set_default_lineup(){
         for(int i=0; i<11; i++){
             if(number==1){
-                if(i==0) lineup.get(i).setPlace(pitch, 2, 5);
-                else if(i==1) lineup.get(i).setPlace(pitch, 3, 4);
-                else if(i==2 || i==3) lineup.get(i).setPlace(pitch, 2, 4);
-                else if(i==4) lineup.get(i).setPlace(pitch, 1, 4);
-                else if(i==5) lineup.get(i).setPlace(pitch, 3, 3);
-                else if(i==6) lineup.get(i).setPlace(pitch, 2, 3);
-                else if(i==7) lineup.get(i).setPlace(pitch, 1, 3);
-                else if(i==8) lineup.get(i).setPlace(pitch, 4, 3);
-                else if(i==9) lineup.get(i).setPlace(pitch, 2, 3);
-                else if(i==10) lineup.get(i).setPlace(pitch, 0, 3);
+                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, lineup.get(i).side, 5);
+                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, lineup.get(i).side, 4);
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, lineup.get(i).side, 3);
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, lineup.get(i).side, 3);
             }
             else if(number==2){
-                if(i==0) lineup.get(i).setPlace(pitch, 2, 0);
-                else if(i==1) lineup.get(i).setPlace(pitch, 1, 1);
-                else if(i==2 || i==3) lineup.get(i).setPlace(pitch, 2, 1);
-                else if(i==4) lineup.get(i).setPlace(pitch, 3, 1);
-                else if(i==5) lineup.get(i).setPlace(pitch, 1, 2);
-                else if(i==6) lineup.get(i).setPlace(pitch, 2, 2);
-                else if(i==7) lineup.get(i).setPlace(pitch, 3, 2);
-                else if(i==8) lineup.get(i).setPlace(pitch, 0, 2);
-                else if(i==9) lineup.get(i).setPlace(pitch, 2, 2);
-                else if(i==10) lineup.get(i).setPlace(pitch, 4, 2);
+                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 0);
+                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 1);
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 2);
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 2);
             }
         }
     }

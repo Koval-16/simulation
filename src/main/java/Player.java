@@ -15,7 +15,6 @@ public class Player {
     int risk_taking;
     int intelligence;
     int stamina;
-    private Pitch placement;
     private Field place;
     boolean ball_possessed;
 
