@@ -74,6 +74,26 @@ public class Player {
 
     public void player_shooting(Ball ball){
         player_get_ball(false);
+        Random random = new Random();
+        int target = random.nextInt(2);
+        if(target==0){
+            ball.x = 2;
+            if(team_number==2) ball.y=5;
+            else ball.y=0;
+            System.out.println(surname+" shoots...");
+        }
+        else{
+            System.out.println(surname+" shoots, but he misses");
+        }
+    }
+
+    public Player recipient(Team team, int j){
+        Random random = new Random();
+        int index;
+        do {
+            index = (random.nextInt(10))+1;
+        }while(index==j);
+        return team.lineup.get(index);
     }
 
     public void player_passing(Player recipient, Ball ball){
