@@ -46,18 +46,6 @@ public class Player {
     }
 
     public void player_moving(Pitch pitch, int ball_X, int ball_Y, int ball_team){
-        /*Random random = new Random();
-        int choice = random.nextInt(3);
-        int newWidth = place.getWidth();
-        int newLength = place.getLength();
-        if(choice==0) newWidth++;
-        else if(choice==1) newWidth--;
-        choice = random.nextInt(3);
-        if(choice==0) newLength++;
-        else if(choice==1) newLength--;
-        if(newWidth>=0 && newWidth<5 && newLength>=0 && newLength<6){
-            place = pitch.getPitch()[newWidth][newLength];
-        }*/
         int newWidth = place.getWidth();
         Random random = new Random();
         int modifierx = 0;
@@ -84,14 +72,19 @@ public class Player {
         this.ball_possessed = ball_possesed;
     }
 
-    public void player_shooting(int x){
-        System.out.println(x);
+    public void player_shooting(Ball ball){
+        player_get_ball(false);
     }
 
-    public void player_passing(){
+    public void player_passing(Player recipient, Ball ball){
+        player_get_ball(false);
+        recipient.player_get_ball(true);
+        ball.x = recipient.getPlace().getWidth();
+        ball.y = recipient.getPlace().getLength();
+        System.out.println(surname+" passes to "+recipient.surname);
     }
 
-    public void player_dribbling(Pitch pitch){
+    public void player_dribbling(Pitch pitch, Ball ball){
         Random random = new Random();
         int choice = random.nextInt(3);
         int newWidth = place.getWidth();
@@ -103,7 +96,10 @@ public class Player {
         else if(choice==1) newLength--;
         if(newWidth>=0 && newWidth<5 && newLength>=0 && newLength<6) {
             place = pitch.getPitch()[newWidth][newLength];
+            ball.x = getPlace().getWidth();
+            ball.y = getPlace().getLength();
         }
+        System.out.println(surname+" dribbles");
     }
 
     public void player_tackling(){
