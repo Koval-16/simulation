@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Player {
@@ -88,12 +90,33 @@ public class Player {
     }
 
     public Player recipient(Team team, int j){
+        List<List<Player>> distances = new ArrayList<>();
+        for(int i=0;i<3;i++){
+            distances.add(new ArrayList<>());
+        }
+        for (int i=1; i<11; i++){
+            if(i!=j){
+                if(team.lineup.get(i).getPlace().getWidth()==place.getWidth()
+                        && team.lineup.get(i).getPlace().getLength()==place.getLength()){
+                    distances.get(0).add(team.lineup.get(i));
+                }
+                else if(Math.abs(team.lineup.get(i).getPlace().getLength()-place.getLength())<=1
+                && Math.abs(team.lineup.get(i).getPlace().getWidth()-place.getWidth())<=1){
+                    distances.get(1).add(team.lineup.get(i));
+                }
+                else distances.get(2).add(team.lineup.get(i));
+            }
+        }
         Random random = new Random();
-        int index;
+        int distance;
         do {
-            index = (random.nextInt(10))+1;
-        }while(index==j);
-        return team.lineup.get(index);
+            int prob = random.nextInt(10);
+            if(prob<6) distance=0;
+            else if(prob<9) distance=1;
+            else distance=2;
+        }while(distances.get(distance).isEmpty());
+        int index = random.nextInt(distances.get(distance).size());
+        return distances.get(distance).get(index);
     }
 
     public void player_passing(Player recipient, Ball ball){
