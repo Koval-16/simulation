@@ -8,7 +8,11 @@ public class Forward extends Player{
     public void player_moving(Pitch pitch, int ball_X, int ball_Y, int ball_team){
         super.player_moving(pitch, ball_X, ball_Y, ball_team);
         int modifier = 0;
-        if(team_number==2) modifier=5;
+        int m =1;
+        if(team_number==2){
+            modifier = 5;
+            m = -1;
+        }
         int newLength = place.getLength();
         if(ball_team==team_number){
             if(ball_Y==Math.abs(5-modifier) || ball_Y==Math.abs(4-modifier) || ball_Y==Math.abs(3-modifier)){
@@ -30,12 +34,12 @@ public class Forward extends Player{
                 else if(place.getLength()<ball_Y) newLength++;
             }
             else if(ball_Y==Math.abs(3-modifier) || ball_Y==Math.abs(4-modifier)){
-                if(place.getLength()>ball_Y-1)  newLength--;
-                else if(place.getLength()<ball_Y-1) newLength++;
+                if(place.getLength()>ball_Y-m*1)  newLength--;
+                else if(place.getLength()<ball_Y-m*1) newLength++;
             }
             else if(ball_Y==Math.abs(5-modifier)){
-                if(place.getLength()>ball_Y-2)  newLength--;
-                else if(place.getLength()<ball_Y-2) newLength++;
+                if(place.getLength()>ball_Y-m*2)  newLength--;
+                else if(place.getLength()<ball_Y-m*2) newLength++;
             }
         }
         if(place.getWidth()>=0 && place.getWidth()<5 && newLength>=0 && newLength<6){
