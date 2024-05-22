@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Match {
 
     Random random = new Random();
     private int time=0;
-    private int event=-2;
+    private int event=-2; // -2:kickoff, -1:goal, 0:play, 1:shoot, 2:corner, 3:ball lost
     Pitch football_pitch;
     Team team1;
     Team team2;
@@ -95,18 +97,27 @@ public class Match {
                     event = ((Goalkeeper)team.lineup.get(0)).decision_no_ball(event,ball.owner);
                     break;
                 }
-                for(int i=1; i<11; i++){
-                    if(team.lineup.get(i).getPlace().getWidth()==ball.owner.getPlace().getWidth() &&
-                    team.lineup.get(i).getPlace().getLength()==ball.owner.getPlace().getLength()){
-                        int action = random.nextInt(2);
-                        if(action==0) event = team.lineup.get(i).player_tackling(ball.owner,ball,event);
-                        break;
+                List<Player> available = new ArrayList<>();
+                int dist = 0;
+                do {
+                    for(int i=1; i<11; i++){
+                        if(Math.abs(team.lineup.get(i).getPlace().getWidth()-ball.x)<=dist &&
+                                Math.abs(team.lineup.get(i).getPlace().getLength()-ball.y)<=dist){
+                            available.add(team.lineup.get(i));
+                        }
                     }
+                    dist++;
+                }while(available.isEmpty());
+
+                if(!available.isEmpty()){
+                    int play = random.nextInt(available.size());
+                    event = available.get(play).decision_no_ball(event,team,ball);
                 }
             }
         }
     }
-
-
-
 }
+
+
+
+
