@@ -120,4 +120,8 @@ public class Team {
         }
     }
 
+    public int getNumber(){
+        return number;
+    }
+
 }

@@ -122,6 +122,7 @@ public class Player {
     public void player_passing(Player recipient, Ball ball){
         player_get_ball(false);
         recipient.player_get_ball(true);
+        ball.owner = recipient;
         ball.x = recipient.getPlace().getWidth();
         ball.y = recipient.getPlace().getLength();
         System.out.println(surname+" passes to "+recipient.surname);
@@ -145,7 +146,17 @@ public class Player {
         System.out.println(surname+" dribbles");
     }
 
-    public void player_tackling(){
+    public void player_tackling(Player opponent, Ball ball){
+        Random random = new Random();
+        int chance = random.nextInt(100);
+        if(chance<25){
+            System.out.println(surname+" makes a tackle! "+opponent.surname+" loses possession.");
+            opponent.player_get_ball(false);
+            player_get_ball(true);
+            ball.owner = this;
+            ball.team = team_number;
+        }
+        else System.out.println(surname+" tries to make a tackle but he isn't successful!");
     }
 
     public void player_crossing(){
