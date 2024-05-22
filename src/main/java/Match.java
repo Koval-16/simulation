@@ -4,7 +4,7 @@ public class Match {
 
     Random random = new Random();
     private int time=0;
-    private int event;
+    private int event=-2;
     Pitch football_pitch;
     Team team1;
     Team team2;
@@ -22,29 +22,21 @@ public class Match {
     public void simulate(){
         while(time<5400){
             display_time();
-            if(time==0 || time==2700){
+            if(event==-2){
                 kick_off();
-
+                time = time+3;
             }
-            else{
+            else if(event==-1){
+                System.out.println();
+                time = time+60;
+                event = -2;
+            }
+            else if (event==0){
                 moving();
-                for(Team team: teams){
-                    for(int j=1; j<11; j++){
-                        if(team.lineup.get(j).ball_possessed){
-                            int player_choice = random.nextInt(10);
-                            if(player_choice<7){
-                                team.lineup.get(j).player_passing(team.lineup.get(j).recipient(team,j),ball);
-                            }
-                            else{
-                                team.lineup.get(j).player_dribbling(football_pitch, ball);
-                            }
-                            break;
-                        }
-                    }
-                }
+                action();
                 players_react();
+                time = time+3;
             }
-            time = time+3;
         }
     }
 
@@ -60,12 +52,13 @@ public class Match {
         team1.lineup.get(9).player_get_ball(true);
         ball.owner = team1.lineup.get(9);
         ball.team = team1.lineup.get(9).team_number;
+        event = 0;
     }
 
     private void display_time(){
         int min = time/60;
         int sec = time%60;
-        System.out.print(String.format("%02d:%02d",min,sec));
+        System.out.print(String.format("%02d:%02d ",min,sec));
     }
 
     private void moving(){
@@ -78,14 +71,35 @@ public class Match {
         }
     }
 
+    private void action(){
+        for(Team team: teams){
+            if(team.lineup.get(0).ball_possessed){
+                if(team.lineup.get(0) instanceof Goalkeeper){
+                    event = team.lineup.get(0).decision_ball(football_pitch,ball,team,0,event);
+                    break;
+                }
+            }
+            for(int j=1; j<11; j++){
+                if(team.lineup.get(j).ball_possessed){
+                    event = team.lineup.get(j).decision_ball(football_pitch,ball,team,j,event);
+                    break;
+                }
+            }
+        }
+    }
+
     private void players_react(){
         for(Team team: teams){
             if(team.getNumber()!=ball.owner.team_number){
+                if((event==1 || event==2)&& team.lineup.get(0) instanceof Goalkeeper){
+                    event = ((Goalkeeper)team.lineup.get(0)).decision_no_ball(event,ball.owner);
+                    break;
+                }
                 for(int i=1; i<11; i++){
                     if(team.lineup.get(i).getPlace().getWidth()==ball.owner.getPlace().getWidth() &&
                     team.lineup.get(i).getPlace().getLength()==ball.owner.getPlace().getLength()){
                         int action = random.nextInt(2);
-                        if(action==0) team.lineup.get(i).player_tackling(ball.owner,ball);
+                        if(action==0) event = team.lineup.get(i).player_tackling(ball.owner,ball,event);
                         break;
                     }
                 }

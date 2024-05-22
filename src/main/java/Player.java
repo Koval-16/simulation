@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Player {
+    Random random = new Random();
     StatsPlayer stats;
     String name;
     String surname;
@@ -39,6 +40,31 @@ public class Player {
         this.team_number = team_number;
     }
 
+    public int decision_ball(Pitch pitch, Ball ball, Team team, int j, int event){
+        int modx = 0;
+        if(team_number==2) modx=5;
+        if(Math.abs(getPlace().getLength()-modx)==0 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
+            int action = random.nextInt(10);
+            if(action<2) player_dribbling(pitch, ball);
+            else if(action<6) event=player_shooting(ball, event);
+            else player_passing(recipient(team,j), ball);
+        }
+        else if(Math.abs(getPlace().getLength()-modx)==1 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
+            int action = random.nextInt(10);
+            if(action<4) player_dribbling(pitch, ball);
+            else if(action<6) event=player_shooting(ball, event);
+            else player_passing(recipient(team,j), ball);
+        }
+        else{
+            int action = random.nextInt(10);
+            if(action<3) player_dribbling(pitch, ball);
+            else player_passing(recipient(team,j), ball);
+        }
+        return event;
+    }
+
+    public void decision_no_ball(){
+    }
     public Field getPlace(){
         return place;
     }
@@ -74,8 +100,7 @@ public class Player {
         this.ball_possessed = ball_possesed;
     }
 
-    public void player_shooting(Ball ball){
-        player_get_ball(false);
+    public int player_shooting(Ball ball, int event){
         Random random = new Random();
         int target = random.nextInt(2);
         if(target==0){
@@ -83,9 +108,13 @@ public class Player {
             if(team_number==2) ball.y=5;
             else ball.y=0;
             System.out.println(surname+" shoots...");
+            event = 1;
+            return event;
         }
         else{
             System.out.println(surname+" shoots, but he misses");
+            event = 2;
+            return event;
         }
     }
 
@@ -146,7 +175,7 @@ public class Player {
         System.out.println(surname+" dribbles");
     }
 
-    public void player_tackling(Player opponent, Ball ball){
+    public int player_tackling(Player opponent, Ball ball, int event){
         Random random = new Random();
         int chance = random.nextInt(100);
         if(chance<25){
@@ -157,6 +186,7 @@ public class Player {
             ball.team = team_number;
         }
         else System.out.println(surname+" tries to make a tackle but he isn't successful!");
+        return event;
     }
 
     public void player_crossing(){
