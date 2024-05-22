@@ -168,15 +168,16 @@ public class Player {
             ball.x = recipient.getPlace().getWidth();
             ball.y = recipient.getPlace().getLength();
             System.out.println(surname+" passes to "+recipient.surname);
-            return event;
+            event = 0;
         }
         else {
             player_get_ball(false);
             ball.x = recipient.getPlace().getWidth();
             ball.y = recipient.getPlace().getLength();
             System.out.println(surname+" passes, but he misses!");
-            return 3;
+            event = 3;
         }
+        return event;
     }
 
     public void player_dribbling(Pitch pitch, Ball ball){
@@ -206,9 +207,14 @@ public class Player {
             player_get_ball(true);
             ball.owner = this;
             ball.team = team_number;
+            event = 0;
+        }
+        else if(chance<50){
+            System.out.println(surname+" fouls! Free kick!");
+            opponent.player_get_ball(false);
+            event = 4;
         }
         else System.out.println(surname+" tries to make a tackle but he isn't successful!");
-        event = 0;
         return event;
     }
 
@@ -230,7 +236,18 @@ public class Player {
     public void player_penalty(){
     }
 
-    public void player_freekick(){
+    public int player_freekick(Ball ball, int event, Team team, int j){
+        int mod = 0;
+        if(team_number==2) mod=5;
+        if(Math.abs(getPlace().getLength()-mod)<=1){
+            int choice = random.nextInt(2);
+            if(choice==0) event = player_shooting(ball, event);
+            else event = player_passing(recipient(team, j), ball, event);
+        }
+        else{
+            event = player_passing(recipient(team, j), ball, event);
+        }
+        return event;
     }
 
 

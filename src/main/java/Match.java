@@ -6,7 +6,7 @@ public class Match {
 
     Random random = new Random();
     private int time=0;
-    private int event=-2; // -2:kickoff, -1:goal, 0:play, 1:shoot, 2:corner, 3:ball lost
+    private int event=-2; // -2:kickoff, -1:goal, 0:play, 1:shoot, 2:corner, 3:ball lost, 4:freekick
     Pitch football_pitch;
     Team team1;
     Team team2;
@@ -36,6 +36,26 @@ public class Match {
             else if (event==0){
                 moving();
                 action();
+                players_react();
+                time = time+3;
+            }
+            else if(event==4){
+                int j = 0;
+                for(Team team: teams){
+                    if(team.getNumber()==ball.team){
+                        Player taker = team.lineup.get(1);
+                        taker = team.lineup.get(1);
+                        j = 1;
+                        for(int i=2; i<11; i++){
+                            if(team.lineup.get(i).passing>=taker.passing) taker = team.lineup.get(i);
+                            j = i;
+                        }
+                        taker.player_get_ball(true);
+                        ball.owner = taker;
+                        taker.setPlace(football_pitch, ball.x, ball.y);
+                        event = taker.player_freekick(ball, event, team, j);
+                    }
+                }
                 players_react();
                 time = time+3;
             }
