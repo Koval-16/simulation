@@ -239,7 +239,26 @@ public class Player {
         return event;
     }
 
-    public void player_crossing(){
+    public int player_crossing(Player recipient, Ball ball, int event){
+        int success = (random.nextInt(100))+1;
+        float ability = ((float)attributes.getPassing()/20)*100;
+        if(success<ability){
+            player_get_ball(false);
+            recipient.player_get_ball(true);
+            ball.setOwner(recipient);
+            ball.setX(recipient.getPlace().getWidth());
+            ball.setY(recipient.getPlace().getLength());
+            System.out.println(surname+" crosses to "+recipient.surname);
+            event = 3;
+        }
+        else {
+            player_get_ball(false);
+            ball.setX(recipient.getPlace().getWidth());
+            ball.setY(recipient.getPlace().getLength());
+            System.out.println(surname+" crosses, but he misses!");
+            event = 4;
+        }
+        return event;
     }
 
     public void player_heading(){
