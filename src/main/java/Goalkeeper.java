@@ -10,8 +10,8 @@ public class Goalkeeper extends Player{
     }
 
     @Override
-    public int decision_ball(Pitch pitch, Ball ball, Team team, int j, int event){
-        event = player_passing(recipient(team, j), ball, event);
+    public int decision_ball(Pitch pitch, Ball ball, Team team, int event){
+        event = player_passing(recipient(team), ball, event);
         return event;
     }
 

@@ -215,4 +215,16 @@ public class Team {
         return number;
     }
 
+    public Player getCorners_taker(){
+        return corners_taker;
+    }
+
+    public Player getFreekicks_taker(){
+        return freekicks_taker;
+    }
+
+    public Player getPenalties_taker(){
+        return penalties_taker;
+    }
+
 }

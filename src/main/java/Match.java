@@ -40,25 +40,28 @@ public class Match {
                 players_react();
                 time = time+3;
             }
-
             else if(event==7){
-                int j = 0;
                 for(Team team: teams){
                     if(team.getNumber()==ball.getTeam()){
-                        Player taker = team.lineup.get(1);
-                        taker = team.lineup.get(1);
-                        j = 1;
-                        for(int i=2; i<11; i++){
-                            if(team.lineup.get(i).attributes.getPassing()>=taker.attributes.getPassing()) taker = team.lineup.get(i);
-                            j = i;
-                        }
-                        taker.player_get_ball(true);
-                        ball.setOwner(taker);
-                        taker.setPlace(football_pitch, ball.getX(), ball.getY());
-                        event = taker.player_freekick(ball, event, team, j);
+                        ball.setOwner(team.getFreekicks_taker());
+                        event = team.getFreekicks_taker().decision_ball(football_pitch,ball,team,event);
+                        players_react();
                     }
                 }
-                players_react();
+                time = time+3;
+            }
+            else if(event==8){
+                for(Team team: teams){
+                    if(team.getNumber()==ball.getTeam()){
+                        ball.setOwner(team.getPenalties_taker());
+                        ball.setX(2);
+                        if(team.getNumber()==2) ball.setY(5);
+                        else ball.setY(0);
+                        team.getPenalties_taker().setPlace(football_pitch,ball.getX(), ball.getY());
+                        event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event);
+                        players_react();
+                    }
+                }
                 time = time+3;
             }
         }
@@ -99,13 +102,13 @@ public class Match {
         for(Team team: teams){
             if(team.lineup.get(0).ball_possessed){
                 if(team.lineup.get(0) instanceof Goalkeeper){
-                    event = team.lineup.get(0).decision_ball(football_pitch,ball,team,0,event);
+                    event = team.lineup.get(0).decision_ball(football_pitch,ball,team,event);
                     break;
                 }
             }
             for(int j=1; j<11; j++){
                 if(team.lineup.get(j).ball_possessed){
-                    event = team.lineup.get(j).decision_ball(football_pitch,ball,team,j,event);
+                    event = team.lineup.get(j).decision_ball(football_pitch,ball,team,event);
                     break;
                 }
             }
