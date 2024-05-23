@@ -9,7 +9,6 @@ public class AttributesPlayer {
     private final int aggression;
     private final int risk_taking;
     private final int intelligence;
-
     public AttributesPlayer(int side, int shooting, int dribbling, int speed, int passing, int defending,
                             int heading, int aggression, int risk_taking, int intelligence){
         this.side = side;
