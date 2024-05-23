@@ -42,7 +42,7 @@ public class Match {
             else if(event==4){
                 int j = 0;
                 for(Team team: teams){
-                    if(team.getNumber()==ball.team){
+                    if(team.getNumber()==ball.getTeam()){
                         Player taker = team.lineup.get(1);
                         taker = team.lineup.get(1);
                         j = 1;
@@ -51,8 +51,8 @@ public class Match {
                             j = i;
                         }
                         taker.player_get_ball(true);
-                        ball.owner = taker;
-                        taker.setPlace(football_pitch, ball.x, ball.y);
+                        ball.setOwner(taker);
+                        taker.setPlace(football_pitch, ball.getX(), ball.getY());
                         event = taker.player_freekick(ball, event, team, j);
                     }
                 }
@@ -72,8 +72,8 @@ public class Match {
             }
         }
         team1.lineup.get(9).player_get_ball(true);
-        ball.owner = team1.lineup.get(9);
-        ball.team = team1.lineup.get(9).team_number;
+        ball.setOwner(team1.lineup.get(9));
+        ball.setTeam(team1.lineup.get(9).team_number);
         event = 0;
     }
 
@@ -87,7 +87,7 @@ public class Match {
         for(Team team: teams){
             for(int i=1; i<11; i++){
                 if(!team.lineup.get(i).ball_possessed){
-                    team.lineup.get(i).player_moving(football_pitch, ball.x, ball.y, ball.team);
+                    team.lineup.get(i).player_moving(football_pitch, ball.getX(), ball.getY(), ball.getTeam());
                 }
             }
         }
@@ -112,17 +112,17 @@ public class Match {
 
     private void players_react(){
         for(Team team: teams){
-            if(team.getNumber()!=ball.owner.team_number){
+            if(team.getNumber()!=ball.getOwner().team_number){
                 if((event==1 || event==2)&& team.lineup.get(0) instanceof Goalkeeper){
-                    event = ((Goalkeeper)team.lineup.get(0)).decision_no_ball(event,ball.owner);
+                    event = ((Goalkeeper)team.lineup.get(0)).decision_no_ball(event,ball.getOwner());
                     break;
                 }
                 List<Player> available = new ArrayList<>();
                 int dist = 0;
                 do {
                     for(int i=1; i<11; i++){
-                        if(Math.abs(team.lineup.get(i).getPlace().getWidth()-ball.x)<=dist &&
-                                Math.abs(team.lineup.get(i).getPlace().getLength()-ball.y)<=dist){
+                        if(Math.abs(team.lineup.get(i).getPlace().getWidth()-ball.getX())<=dist &&
+                                Math.abs(team.lineup.get(i).getPlace().getLength()-ball.getY())<=dist){
                             available.add(team.lineup.get(i));
                         }
                     }

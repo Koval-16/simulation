@@ -65,10 +65,10 @@ public class Player {
 
     public int decision_no_ball(int event, Team team, Ball ball){
         if(event==0){
-            if(getPlace().getWidth()==ball.owner.getPlace().getWidth() &&
-                    getPlace().getLength()==ball.owner.getPlace().getLength()){
+            if(getPlace().getWidth()==ball.getOwner().getPlace().getWidth() &&
+                    getPlace().getLength()==ball.getOwner().getPlace().getLength()){
                 int action = random.nextInt(2);
-                if(action==0) event = player_tackling(ball.owner,ball,event);
+                if(action==0) event = player_tackling(ball.getOwner(),ball,event);
             }
         }
         else if(event==3){
@@ -115,9 +115,9 @@ public class Player {
         Random random = new Random();
         int target = random.nextInt(2);
         if(target==0){
-            ball.x = 2;
-            if(team_number==2) ball.y=5;
-            else ball.y=0;
+            ball.setX(2);
+            if(team_number==2) ball.setY(5);
+            else ball.setY(0);
             System.out.println(surname+" shoots...");
             event = 1;
             return event;
@@ -164,16 +164,16 @@ public class Player {
         if(success<9){
             player_get_ball(false);
             recipient.player_get_ball(true);
-            ball.owner = recipient;
-            ball.x = recipient.getPlace().getWidth();
-            ball.y = recipient.getPlace().getLength();
+            ball.setOwner(recipient);
+            ball.setX(recipient.getPlace().getWidth());
+            ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" passes to "+recipient.surname);
             event = 0;
         }
         else {
             player_get_ball(false);
-            ball.x = recipient.getPlace().getWidth();
-            ball.y = recipient.getPlace().getLength();
+            ball.setX(recipient.getPlace().getWidth());
+            ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" passes, but he misses!");
             event = 3;
         }
@@ -192,8 +192,8 @@ public class Player {
         else if(choice==1) newLength--;
         if(newWidth>=0 && newWidth<5 && newLength>=0 && newLength<6) {
             place = pitch.getPitch()[newWidth][newLength];
-            ball.x = getPlace().getWidth();
-            ball.y = getPlace().getLength();
+            ball.setX(getPlace().getWidth());
+            ball.setY(getPlace().getLength());
         }
         System.out.println(surname+" dribbles");
     }
@@ -205,8 +205,8 @@ public class Player {
             System.out.println(surname+" makes a tackle! "+opponent.surname+" loses possession.");
             opponent.player_get_ball(false);
             player_get_ball(true);
-            ball.owner = this;
-            ball.team = team_number;
+            ball.setOwner(this);
+            ball.setTeam(team_number);
             event = 0;
         }
         else if(chance<50){
@@ -225,8 +225,8 @@ public class Player {
     }
 
     public int player_intercepting(Ball ball, int event){
-        ball.owner = this;
-        ball.team = team_number;
+        ball.setOwner(this);
+        ball.setTeam(team_number);
         player_get_ball(true);
         event = 0;
         System.out.println(surname+" takes over the ball!");
