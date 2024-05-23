@@ -2,8 +2,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Team {
@@ -14,6 +12,9 @@ public class Team {
     private Pitch pitch;
     private int number;
     StatsTeam stats;
+    private Player corners_taker;
+    private Player freekicks_taker;
+    private Player penalties_taker;
 
     public Team(Pitch pitch, int number){
         this.number = number;
@@ -25,6 +26,9 @@ public class Team {
         load_players();
         set_lineup();
         this.stats = new StatsTeam();
+        this.corners_taker = setCornersTaker();
+        this.freekicks_taker = setFreeKicksTaker();
+        this.penalties_taker = setPenaltiesTaker();
     }
 
     private String choose_team(){
@@ -106,18 +110,62 @@ public class Team {
     public void set_default_lineup(){
         for(int i=0; i<11; i++){
             if(number==1){
-                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, lineup.get(i).side, 5);
-                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, lineup.get(i).side, 4);
-                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, lineup.get(i).side, 3);
-                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, lineup.get(i).side, 3);
+                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 5);
+                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 4);
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 3);
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 3);
             }
             else if(number==2){
-                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 0);
-                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 1);
-                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 2);
-                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, 4-lineup.get(i).side, 2);
+                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 0);
+                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 1);
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 2);
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 2);
             }
         }
+    }
+
+    private Player setCornersTaker(){
+        Player taker = lineup.get(1);
+        for(int i=2; i<11; i++){
+            if(lineup.get(i).attributes.getPassing()>=taker.attributes.getPassing()){
+                taker = lineup.get(i);
+            }
+        }
+        return taker;
+    }
+
+    private Player setFreeKicksTaker(){
+        Player taker = lineup.get(1);
+        for(int i=2; i<11; i++){
+            if(lineup.get(i).attributes.getPassing()+lineup.get(i).attributes.getShooting()>=
+            taker.attributes.getPassing()+taker.attributes.getShooting()){
+                taker = lineup.get(i);
+            }
+        }
+        return taker;
+    }
+
+    private Player setPenaltiesTaker(){
+        Player taker = lineup.get(1);
+        for(int i=2; i<11; i++){
+            if(lineup.get(i).attributes.getShooting()>=taker.attributes.getShooting()){
+                taker = lineup.get(i);
+            }
+        }
+        return taker;
+    }
+
+    public void substitution(Player player){
+        Player holder = player;
+        for(int i=0; i<11; i++){
+            if(lineup.get(i)==player){
+                lineup.set(i, bench.get(i));
+                bench.set(i, holder);
+            }
+        }
+        corners_taker = setCornersTaker();
+        freekicks_taker = setFreeKicksTaker();
+        penalties_taker = setPenaltiesTaker();
     }
 
     public int getNumber(){

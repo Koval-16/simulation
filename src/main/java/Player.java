@@ -5,38 +5,22 @@ import java.util.Random;
 public class Player {
     Random random = new Random();
     StatsPlayer stats;
-    String name;
-    String surname;
-    int side;
-    int shooting;
-    int dribbling;
-    int speed;
-    int passing;
-    int defending;
-    int heading;
-    int aggression;
-    int risk_taking;
-    int intelligence;
+    AttributesPlayer attributes;
+    protected final String name;
+    protected final String surname;
     int stamina;
     protected Field place;
-    boolean ball_possessed;
-    int team_number;
+    protected boolean ball_possessed;
+    protected int team_number;
 
-    public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing, int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number){
-        this.side = side;
+    public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
+                  int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number){
         this.name = name;
         this.surname = surname;
         this.ball_possessed = false;
         this.stats = new StatsPlayer();
-        this.shooting = shooting;
-        this.dribbling = dribbling;
-        this.speed = speed;
-        this.passing = passing;
-        this.defending = defending;
-        this.heading = heading;
-        this.aggression = aggression;
-        this.risk_taking = risk_taking;
-        this.intelligence = intelligence;
+        this.attributes = new AttributesPlayer(side, shooting, dribbling, speed, passing, defending, heading,
+                aggression, risk_taking, intelligence);
         this.team_number = team_number;
     }
 
@@ -89,12 +73,12 @@ public class Player {
         Random random = new Random();
         int modifierx = 0;
         if(team_number==2) modifierx=4;
-        if(place.getWidth()==Math.abs(side-modifierx)){
+        if(place.getWidth()==Math.abs(attributes.getSide()-modifierx)){
             int choice = random.nextInt(3);
             if(choice==0) newWidth++;
             else if(choice==1) newWidth--;
         }
-        else if(place.getWidth()>Math.abs(side-modifierx)){
+        else if(place.getWidth()>Math.abs(attributes.getSide()-modifierx)){
             int choice = random.nextInt(2);
             if(choice==0) newWidth--;
         }

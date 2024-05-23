@@ -47,7 +47,7 @@ public class Match {
                         taker = team.lineup.get(1);
                         j = 1;
                         for(int i=2; i<11; i++){
-                            if(team.lineup.get(i).passing>=taker.passing) taker = team.lineup.get(i);
+                            if(team.lineup.get(i).attributes.getPassing()>=taker.attributes.getPassing()) taker = team.lineup.get(i);
                             j = i;
                         }
                         taker.player_get_ball(true);
