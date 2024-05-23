@@ -1,15 +1,15 @@
 public class StatsTeam {
-    double ball_possession;
-    int shoots;
-    int shoots_on_target;
-    int passes;
-    int free_kicks;
-    int corners;
-    int penalties;
-    int offsides;
-    int fouls;
-    int yellow_cards;
-    int red_cards;
+    private double ball_possession;
+    private int shoots;
+    private int shoots_on_target;
+    private int passes;
+    private int free_kicks;
+    private int corners;
+    private int penalties;
+    private int offsides;
+    private int fouls;
+    private int yellow_cards;
+    private int red_cards;
 
     public StatsTeam(){
     }

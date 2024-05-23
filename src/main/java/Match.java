@@ -73,12 +73,12 @@ public class Match {
         team2.set_default_lineup();
         for(int i=1; i<11; i++){
             for(Team team: teams){
-                team.lineup.get(i).player_get_ball(false);
+                team.getLineup().get(i).player_get_ball(false);
             }
         }
-        team1.lineup.get(9).player_get_ball(true);
-        ball.setOwner(team1.lineup.get(9));
-        ball.setTeam(team1.lineup.get(9).team_number);
+        team1.getLineup().get(9).player_get_ball(true);
+        ball.setOwner(team1.getLineup().get(9));
+        ball.setTeam(team1.getLineup().get(9).team_number);
         event = 1;
     }
 
@@ -91,8 +91,8 @@ public class Match {
     private void moving(){
         for(Team team: teams){
             for(int i=1; i<11; i++){
-                if(!team.lineup.get(i).ball_possessed){
-                    team.lineup.get(i).player_moving(football_pitch, ball.getX(), ball.getY(), ball.getTeam());
+                if(!team.getLineup().get(i).ball_possessed){
+                    team.getLineup().get(i).player_moving(football_pitch, ball.getX(), ball.getY(), ball.getTeam());
                 }
             }
         }
@@ -100,15 +100,15 @@ public class Match {
 
     private void action(){
         for(Team team: teams){
-            if(team.lineup.get(0).ball_possessed){
-                if(team.lineup.get(0) instanceof Goalkeeper){
-                    event = team.lineup.get(0).decision_ball(football_pitch,ball,team,event);
+            if(team.getLineup().get(0).ball_possessed){
+                if(team.getLineup().get(0) instanceof Goalkeeper){
+                    event = team.getLineup().get(0).decision_ball(football_pitch,ball,team,event);
                     break;
                 }
             }
             for(int j=1; j<11; j++){
-                if(team.lineup.get(j).ball_possessed){
-                    event = team.lineup.get(j).decision_ball(football_pitch,ball,team,event);
+                if(team.getLineup().get(j).ball_possessed){
+                    event = team.getLineup().get(j).decision_ball(football_pitch,ball,team,event);
                     break;
                 }
             }
@@ -118,17 +118,17 @@ public class Match {
     private void players_react(){
         for(Team team: teams){
             if(team.getNumber()!=ball.getOwner().team_number){
-                if((event==2 || event==9)&& team.lineup.get(0) instanceof Goalkeeper){
-                    event = ((Goalkeeper)team.lineup.get(0)).decision_no_ball(event,ball.getOwner());
+                if((event==2 || event==9)&& team.getLineup().get(0) instanceof Goalkeeper){
+                    event = ((Goalkeeper)team.getLineup().get(0)).decision_no_ball(event,ball.getOwner());
                     break;
                 }
                 List<Player> available = new ArrayList<>();
                 int dist = 0;
                 do {
                     for(int i=1; i<11; i++){
-                        if(Math.abs(team.lineup.get(i).getPlace().getWidth()-ball.getX())<=dist &&
-                                Math.abs(team.lineup.get(i).getPlace().getLength()-ball.getY())<=dist){
-                            available.add(team.lineup.get(i));
+                        if(Math.abs(team.getLineup().get(i).getPlace().getWidth()-ball.getX())<=dist &&
+                                Math.abs(team.getLineup().get(i).getPlace().getLength()-ball.getY())<=dist){
+                            available.add(team.getLineup().get(i));
                         }
                     }
                     dist++;

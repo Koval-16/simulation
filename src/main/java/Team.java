@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class Team {
     Random random = new Random();
-    String name;
-    List<Player> players;
-    List<Player> lineup;
-    List<Player> bench;
+    private String name;
+    private List<Player> players;
+    private List<Player> lineup;
+    private List<Player> bench;
     private Pitch pitch;
     private int number;
-    StatsTeam stats;
+    private StatsTeam stats;
     private Player corners_taker;
     private Player freekicks_taker;
     private Player penalties_taker;
@@ -112,16 +112,16 @@ public class Team {
     public void set_default_lineup(){
         for(int i=0; i<11; i++){
             if(number==1){
-                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 5);
-                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 4);
-                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 3);
-                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, lineup.get(i).attributes.getSide(), 3);
+                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 5);
+                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 4);
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 3);
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 3);
             }
             else if(number==2){
-                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 0);
-                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 1);
-                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 2);
-                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, 4-lineup.get(i).attributes.getSide(), 2);
+                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 0);
+                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 1);
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 2);
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 2);
             }
         }
     }
@@ -129,7 +129,7 @@ public class Team {
     private Player setCornersTaker(){
         Player taker = lineup.get(1);
         for(int i=2; i<11; i++){
-            if(lineup.get(i).attributes.getPassing()>=taker.attributes.getPassing()){
+            if(lineup.get(i).getAttributes().getPassing()>=taker.getAttributes().getPassing()){
                 taker = lineup.get(i);
             }
         }
@@ -139,8 +139,8 @@ public class Team {
     private Player setFreeKicksTaker(){
         Player taker = lineup.get(1);
         for(int i=2; i<11; i++){
-            if(lineup.get(i).attributes.getPassing()+lineup.get(i).attributes.getShooting()>=
-            taker.attributes.getPassing()+taker.attributes.getShooting()){
+            if(lineup.get(i).getAttributes().getPassing()+lineup.get(i).getAttributes().getShooting()>=
+            taker.getAttributes().getPassing()+taker.getAttributes().getShooting()){
                 taker = lineup.get(i);
             }
         }
@@ -150,7 +150,7 @@ public class Team {
     private Player setPenaltiesTaker(){
         Player taker = lineup.get(1);
         for(int i=2; i<11; i++){
-            if(lineup.get(i).attributes.getShooting()>=taker.attributes.getShooting()){
+            if(lineup.get(i).getAttributes().getShooting()>=taker.getAttributes().getShooting()){
                 taker = lineup.get(i);
             }
         }
@@ -174,7 +174,7 @@ public class Team {
         for(int i=0; i<corner.size()-1; i++){
             for(int j=i+1; j<corner.size(); j++){
                 Player temp;
-                if(corner.get(i).attributes.getHeading()>corner.get(j).attributes.getHeading()){
+                if(corner.get(i).getAttributes().getHeading()>corner.get(j).getAttributes().getHeading()){
                     temp = corner.get(i);
                     corner.set(i, corner.get(j));
                     corner.set(j, temp);
@@ -225,6 +225,10 @@ public class Team {
 
     public Player getPenalties_taker(){
         return penalties_taker;
+    }
+
+    public List<Player> getLineup(){
+        return lineup;
     }
 
 }

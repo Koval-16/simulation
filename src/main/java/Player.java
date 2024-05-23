@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class Player {
     Random random = new Random();
-    StatsPlayer stats;
-    AttributesPlayer attributes;
+    private StatsPlayer stats;
+    private AttributesPlayer attributes;
     protected final String name;
     protected final String surname;
     int stamina;
@@ -143,16 +143,16 @@ public class Player {
             distances.add(new ArrayList<>());
         }
         for (int i=1; i<11; i++){
-            if(team.lineup.get(i)!=this){
-                if(team.lineup.get(i).getPlace().getWidth()==place.getWidth()
-                        && team.lineup.get(i).getPlace().getLength()==place.getLength()){
-                    distances.get(0).add(team.lineup.get(i));
+            if(team.getLineup().get(i)!=this){
+                if(team.getLineup().get(i).getPlace().getWidth()==place.getWidth()
+                        && team.getLineup().get(i).getPlace().getLength()==place.getLength()){
+                    distances.get(0).add(team.getLineup().get(i));
                 }
-                else if(Math.abs(team.lineup.get(i).getPlace().getLength()-place.getLength())<=1
-                && Math.abs(team.lineup.get(i).getPlace().getWidth()-place.getWidth())<=1){
-                    distances.get(1).add(team.lineup.get(i));
+                else if(Math.abs(team.getLineup().get(i).getPlace().getLength()-place.getLength())<=1
+                && Math.abs(team.getLineup().get(i).getPlace().getWidth()-place.getWidth())<=1){
+                    distances.get(1).add(team.getLineup().get(i));
                 }
-                else distances.get(2).add(team.lineup.get(i));
+                else distances.get(2).add(team.getLineup().get(i));
             }
         }
         Random random = new Random();
@@ -284,6 +284,10 @@ public class Player {
             event = player_passing(recipient(team), ball, event);
         }
         return event;
+    }
+
+    public AttributesPlayer getAttributes(){
+        return attributes;
     }
 
 
