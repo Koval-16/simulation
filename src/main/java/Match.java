@@ -6,7 +6,8 @@ public class Match {
 
     Random random = new Random();
     private int time=0;
-    private int event=-2; // -2:kickoff, -1:goal, 0:play, 1:shoot, 2:corner, 3:ball lost, 4:freekick
+    private int event=-1; /* -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:balllost ; 5:offside
+    ; 6:corner ; 7:freekick ; 8:penalty ; 9:ballout */
     Pitch football_pitch;
     Team team1;
     Team team2;
@@ -24,22 +25,23 @@ public class Match {
     public void simulate(){
         while(time<5400){
             display_time();
-            if(event==-2){
+            if(event==-1){
                 kick_off();
                 time = time+3;
             }
-            else if(event==-1){
+            else if(event==0){
                 System.out.println();
                 time = time+60;
-                event = -2;
+                event = -1;
             }
-            else if (event==0){
+            else if (event==1){
                 moving();
                 action();
                 players_react();
                 time = time+3;
             }
-            else if(event==4){
+
+            else if(event==7){
                 int j = 0;
                 for(Team team: teams){
                     if(team.getNumber()==ball.getTeam()){
@@ -74,7 +76,7 @@ public class Match {
         team1.lineup.get(9).player_get_ball(true);
         ball.setOwner(team1.lineup.get(9));
         ball.setTeam(team1.lineup.get(9).team_number);
-        event = 0;
+        event = 1;
     }
 
     private void display_time(){
@@ -113,7 +115,7 @@ public class Match {
     private void players_react(){
         for(Team team: teams){
             if(team.getNumber()!=ball.getOwner().team_number){
-                if((event==1 || event==2)&& team.lineup.get(0) instanceof Goalkeeper){
+                if((event==2 || event==9)&& team.lineup.get(0) instanceof Goalkeeper){
                     event = ((Goalkeeper)team.lineup.get(0)).decision_no_ball(event,ball.getOwner());
                     break;
                 }
@@ -128,7 +130,6 @@ public class Match {
                     }
                     dist++;
                 }while(available.isEmpty());
-
                 if(!available.isEmpty()){
                     int play = random.nextInt(available.size());
                     event = available.get(play).decision_no_ball(event,team,ball);

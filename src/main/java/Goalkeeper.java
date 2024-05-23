@@ -11,18 +11,27 @@ public class Goalkeeper extends Player{
 
     @Override
     public int decision_ball(Pitch pitch, Ball ball, Team team, int j, int event){
-        player_passing(recipient(team, j), ball, event);
+        event = player_passing(recipient(team, j), ball, event);
         return event;
     }
 
     public int decision_no_ball(int event, Player shooter){
-        if(event==1){
+        if(event==-1){}
+        else if(event==0){}
+        else if(event==1){}
+        else if(event==2){
             event = player_saving(shooter, event);
         }
-        else if(event==2){
+        else if(event==3){}
+        else if(event==4){}
+        else if(event==5){}
+        else if(event==6){}
+        else if(event==7){}
+        else if(event==8){}
+        else if(event==9){
             shooter.player_get_ball(false);
             player_get_ball(true);
-            event = 0;
+            event = 1;
         }
         return event;
     }
@@ -33,18 +42,18 @@ public class Goalkeeper extends Player{
             System.out.println(surname+" catches the shot.");
             shooter.player_get_ball(false);
             player_get_ball(true);
-            event = 0;
+            event = 1;
         }
         else if(success<8){
             System.out.println(surname+" saves the shot.");
             shooter.player_get_ball(false);
             player_get_ball(true);
-            event = 0;
+            event = 1;
         }
         else{
             System.out.println(shooter.surname+" scores a goal!");
             shooter.player_get_ball(false);
-            event = -1;
+            event = 0;
         }
         return event;
     }

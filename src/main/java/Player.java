@@ -25,39 +25,63 @@ public class Player {
     }
 
     public int decision_ball(Pitch pitch, Ball ball, Team team, int j, int event){
-        int modx = 0;
-        if(team_number==2) modx=5;
-        if(Math.abs(getPlace().getLength()-modx)==0 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
-            int action = random.nextInt(10);
-            if(action<2) player_dribbling(pitch, ball);
-            else if(action<6) event=player_shooting(ball, event);
-            else event=player_passing(recipient(team,j), ball, event);
+        if(event==-1){}
+        else if(event==0){}
+        else if(event==1){
+            int modx = 0;
+            if(team_number==2) modx=5;
+            if(Math.abs(getPlace().getLength()-modx)==0 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
+                int action = random.nextInt(10);
+                if(action<2) player_dribbling(pitch, ball);
+                else if(action<6) event=player_shooting(ball, event);
+                else event=player_passing(recipient(team,j), ball, event);
+            }
+            else if(Math.abs(getPlace().getLength()-modx)==1 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
+                int action = random.nextInt(10);
+                if(action<4) player_dribbling(pitch, ball);
+                else if(action<6) event=player_shooting(ball, event);
+                else event=player_passing(recipient(team,j), ball, event);
+            }
+            else{
+                int action = random.nextInt(10);
+                if(action<3) player_dribbling(pitch, ball);
+                else event=player_passing(recipient(team,j), ball, event);
+            }
         }
-        else if(Math.abs(getPlace().getLength()-modx)==1 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
-            int action = random.nextInt(10);
-            if(action<4) player_dribbling(pitch, ball);
-            else if(action<6) event=player_shooting(ball, event);
-            else event=player_passing(recipient(team,j), ball, event);
+        else if(event==2){}
+        else if(event==3){}
+        else if(event==4){}
+        else if(event==5){}
+        else if(event==6){}
+        else if(event==7){
+            player_freekick(ball, event, team, j);
         }
-        else{
-            int action = random.nextInt(10);
-            if(action<3) player_dribbling(pitch, ball);
-            else event=player_passing(recipient(team,j), ball, event);
+        else if(event==8){
+            player_penalty(ball, event);
         }
+
         return event;
     }
 
     public int decision_no_ball(int event, Team team, Ball ball){
-        if(event==0){
+        if(event==-1){}
+        else if(event==0){}
+        else if(event==1){
             if(getPlace().getWidth()==ball.getOwner().getPlace().getWidth() &&
                     getPlace().getLength()==ball.getOwner().getPlace().getLength()){
                 int action = random.nextInt(2);
                 if(action==0) event = player_tackling(ball.getOwner(),ball,event);
             }
         }
-        else if(event==3){
+        else if(event==2){}
+        else if(event==3){}
+        else if(event==4){
             event = player_intercepting(ball, event);
         }
+        else if(event==5){}
+        else if(event==6){}
+        else if(event==7){}
+        else if(event==8){}
         return event;
     }
     public Field getPlace(){
@@ -96,19 +120,19 @@ public class Player {
     }
 
     public int player_shooting(Ball ball, int event){
-        Random random = new Random();
-        int target = random.nextInt(2);
-        if(target==0){
+        int success = (random.nextInt(100))+1;
+        int ability = (attributes.getShooting()/20)*100;
+        if(success<ability){
             ball.setX(2);
             if(team_number==2) ball.setY(5);
             else ball.setY(0);
             System.out.println(surname+" shoots...");
-            event = 1;
+            event = 2;
             return event;
         }
         else{
             System.out.println(surname+" shoots, but he misses");
-            event = 2;
+            event = 9;
             return event;
         }
     }
@@ -144,22 +168,23 @@ public class Player {
     }
 
     public int player_passing(Player recipient, Ball ball, int event){
-        int success = random.nextInt(10);
-        if(success<9){
+        int success = (random.nextInt(100))+1;
+        int ability = (attributes.getPassing()/20)*100;
+        if(success<ability){
             player_get_ball(false);
             recipient.player_get_ball(true);
             ball.setOwner(recipient);
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" passes to "+recipient.surname);
-            event = 0;
+            event = 1;
         }
         else {
             player_get_ball(false);
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" passes, but he misses!");
-            event = 3;
+            event = 4;
         }
         return event;
     }
@@ -191,14 +216,17 @@ public class Player {
             player_get_ball(true);
             ball.setOwner(this);
             ball.setTeam(team_number);
-            event = 0;
+            event = 1;
         }
         else if(chance<50){
             System.out.println(surname+" fouls! Free kick!");
             opponent.player_get_ball(false);
-            event = 4;
+            event = 7;
         }
-        else System.out.println(surname+" tries to make a tackle but he isn't successful!");
+        else{
+            System.out.println(surname+" tries to make a tackle but he isn't successful!");
+            event = 1;
+        }
         return event;
     }
 
@@ -212,12 +240,27 @@ public class Player {
         ball.setOwner(this);
         ball.setTeam(team_number);
         player_get_ball(true);
-        event = 0;
+        event = 1;
         System.out.println(surname+" takes over the ball!");
         return event;
     }
 
-    public void player_penalty(){
+    public int player_penalty(Ball ball, int event){
+        int success = (random.nextInt(100))+1;
+        int ability = (attributes.getShooting()/20)*100;
+        if(success<ability){
+            ball.setX(2);
+            if(team_number==2) ball.setY(5);
+            else ball.setY(0);
+            System.out.println(surname+" shoots...");
+            event = 2;
+            return event;
+        }
+        else{
+            System.out.println(surname+" shoots, but he misses");
+            event = 9;
+            return event;
+        }
     }
 
     public int player_freekick(Ball ball, int event, Team team, int j){

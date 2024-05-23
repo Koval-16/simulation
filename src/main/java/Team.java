@@ -2,9 +2,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Team {
+    Random random = new Random();
     String name;
     List<Player> players;
     List<Player> lineup;
@@ -153,6 +155,47 @@ public class Team {
             }
         }
         return taker;
+    }
+
+    public void set_corner_lineup(){
+        int mod = 0;
+        if(number==2) mod=5;
+        int side = 4*random.nextInt(2);
+        if(corners_taker.ball_possessed){
+            corners_taker.setPlace(pitch, side, mod);
+        }
+        List<Player> corner = new ArrayList<>();
+        for(int i=1; i<11; i++){
+            if(corners_taker.ball_possessed){
+                if(lineup.get(i)!=corners_taker) corner.add(lineup.get(i));
+            }
+            else corner.add(lineup.get(i));
+        }
+        for(int i=0; i<corner.size()-1; i++){
+            for(int j=i+1; j<corner.size(); j++){
+                Player temp;
+                if(corner.get(i).attributes.getHeading()>corner.get(j).attributes.getHeading()){
+                    temp = corner.get(i);
+                    corner.set(i, corner.get(j));
+                    corner.set(j, temp);
+                }
+            }
+        }
+        if(corners_taker.ball_possessed){
+            for(int i=0; i<corner.size(); i++){
+                if(i<6) corner.get(i).setPlace(pitch, 2, mod);
+                else if(i<7) corner.get(i).setPlace(pitch, 2, Math.abs(mod-1));
+                else corner.get(i).setPlace(pitch, 2, Math.abs(mod-2));
+            }
+        }
+        else{
+            for(int i=0; i<corner.size(); i++){
+                if(i<6) corner.get(i).setPlace(pitch, 2, 5-mod);
+                else if(i<8) corner.get(i).setPlace(pitch, 2, 5-Math.abs(mod-1));
+                else corner.get(i).setPlace(pitch, 2, 5-Math.abs(mod-2));
+            }
+        }
+
     }
 
     public void substitution(Player player){
