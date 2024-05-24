@@ -198,6 +198,31 @@ public class Team {
 
     }
 
+    public void set_penalty_lineup(){
+        int modY=0;
+        int modX=0;
+        if(number==2){
+            modX=4;
+            modY=5;
+        }
+        if(penalties_taker.ball_possessed){
+            for(int i=1; i<11; i++){
+                if(lineup.get(i)!=corners_taker){
+                    if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, Math.abs(modX-lineup.get(i).getAttributes().getSide()), Math.abs(modY-2));
+                    else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, Math.abs(modX-lineup.get(i).getAttributes().getSide()), Math.abs(modY-1));
+                    else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, Math.abs(modX-lineup.get(i).getAttributes().getSide()), Math.abs(modY-1));
+                }
+            }
+        }
+        else{
+            for(int i=1; i<11; i++){
+                if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, Math.abs(modX-lineup.get(i).getAttributes().getSide()), Math.abs(modY-4));
+                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, Math.abs(modX-lineup.get(i).getAttributes().getSide()), Math.abs(modY-4));
+                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, Math.abs(modX-lineup.get(i).getAttributes().getSide()), Math.abs(modY-3));
+            }
+        }
+    }
+
     public void substitution(Player player){
         Player holder = player;
         for(int i=0; i<11; i++){
