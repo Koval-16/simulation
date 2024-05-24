@@ -15,4 +15,43 @@ public class StatsPlayer {
 
     public StatsPlayer(){
     }
+    public void addMinutes(){
+        minutes_played++;
+    }
+    public void addShoots(){
+        shoots++;
+    }
+    public void addShootOnTarget(){
+        shoots_on_target++;
+    }
+    public void addPassesAttempts(){
+        passes_attempts++;
+    }
+    public void addPassesCompleted(){
+        passes_completed++;
+    }
+    public void addDribblingAttempts(){
+        dribbling_attempts++;
+    }
+    public void addDribblingCompleted(){
+        dribbling_completed++;
+    }
+    public void addDuel(){
+        duels_attempts++;
+    }
+    public void addDuelWon(){
+        duels_won++;
+    }
+    public void addYellow(){
+        yellow_cards++;
+    }
+    public void addRed(){
+        red_cards++;
+    }
+    public void addOffside(){
+        offsides++;
+    }
+    public void addLost(){
+        lost_possession++;
+    }
 }

@@ -42,49 +42,26 @@ public class Match {
             }
             else if(event==6){
                 for(Team team: teams){
-                    if(team.getNumber()==ball.getTeam()){
-                        ball.setOwner(team.getCorners_taker());
-                        team.getCorners_taker().player_get_ball(true);
-                    }
-                    team.set_corner_lineup(event);
+                    set_piece_prep(team, team.getCorners_taker());
                 }
                 for(Team team: teams){
-                    if(team.getNumber()==ball.getTeam()){
-                        event = team.getCorners_taker().decision_ball(football_pitch,ball,team,event);
-                    }
+                    set_piece(team, team.getCorners_taker());
                 }
                 players_react();
                 time = time+3;
             }
             else if(event==7){
                 for(Team team: teams){
-                    if(team.getNumber()==ball.getTeam()){
-                        ball.setOwner(team.getFreekicks_taker());
-                        team.getCorners_taker().player_get_ball(true);
-                    }
-                    team.set_corner_lineup(event);
+                    set_piece_prep(team, team.getFreekicks_taker());
                 }
                 for(Team team: teams){
-                    if(team.getNumber()==ball.getTeam()){
-                        event = team.getFreekicks_taker().decision_ball(football_pitch,ball,team,event);
-                    }
+                    set_piece(team, team.getFreekicks_taker());
                 }
                 players_react();
                 time = time+3;
             }
             else if(event==8){
-                for(Team team: teams){
-                    team.set_penalty_lineup();
-                    if(team.getNumber()==ball.getTeam()){
-                        ball.setOwner(team.getPenalties_taker());
-                        team.getPenalties_taker().player_get_ball(true);
-                        ball.setX(2);
-                        if(team.getNumber()==2) ball.setY(5);
-                        else ball.setY(0);
-                        team.getPenalties_taker().setPlace(football_pitch,ball.getX(), ball.getY());
-                        event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event);
-                    }
-                }
+                set_penalty();
                 players_react();
                 time = time+3;
             }
@@ -144,7 +121,7 @@ public class Match {
             if(team.getNumber()!=ball.getOwner().team_number){
                 if((event==2 || event==9)&& team.getLineup().get(0) instanceof Goalkeeper){
                     event = ((Goalkeeper)team.getLineup().get(0)).decision_no_ball(event,ball.getOwner());
-                    break;
+                    return;
                 }
                 List<Player> available = new ArrayList<>();
                 int dist = 0;
@@ -161,6 +138,35 @@ public class Match {
                     int play = random.nextInt(available.size());
                     event = available.get(play).decision_no_ball(event,team,ball);
                 }
+                return;
+            }
+        }
+    }
+
+    private void set_piece(Team team, Player player){
+        if(team.getNumber()==ball.getTeam()){
+            event = player.decision_ball(football_pitch,ball,team,event);
+        }
+    }
+    private void set_piece_prep(Team team, Player player){
+        if(team.getNumber()==ball.getTeam()){
+            ball.setOwner(player);
+            player.player_get_ball(true);
+        }
+        team.set_corner_lineup(event);
+    }
+    
+    private void set_penalty(){
+        for(Team team: teams){
+            team.set_penalty_lineup();
+            if(team.getNumber()==ball.getTeam()){
+                ball.setOwner(team.getPenalties_taker());
+                team.getPenalties_taker().player_get_ball(true);
+                ball.setX(2);
+                if(team.getNumber()==2) ball.setY(5);
+                else ball.setY(0);
+                team.getPenalties_taker().setPlace(football_pitch,ball.getX(), ball.getY());
+                event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event);
             }
         }
     }
