@@ -157,17 +157,24 @@ public class Team {
         return taker;
     }
 
-    public void set_corner_lineup(){
+    public void set_corner_lineup(int event){
         int mod = 0;
         if(number==2) mod=5;
         int side = 4*random.nextInt(2);
-        if(corners_taker.ball_possessed){
-            corners_taker.setPlace(pitch, side, mod);
+        Player taker;
+        if(event==6){
+            taker = corners_taker;
+            if(taker.ball_possessed){
+                taker.setPlace(pitch, side, mod);
+            }
+        }
+        else{
+            taker = freekicks_taker;
         }
         List<Player> corner = new ArrayList<>();
         for(int i=1; i<11; i++){
-            if(corners_taker.ball_possessed){
-                if(lineup.get(i)!=corners_taker) corner.add(lineup.get(i));
+            if(taker.ball_possessed){
+                if(lineup.get(i)!=taker) corner.add(lineup.get(i));
             }
             else corner.add(lineup.get(i));
         }
@@ -181,7 +188,7 @@ public class Team {
                 }
             }
         }
-        if(corners_taker.ball_possessed){
+        if(taker.ball_possessed){
             for(int i=0; i<corner.size(); i++){
                 if(i<6) corner.get(i).setPlace(pitch, 2, mod);
                 else if(i<7) corner.get(i).setPlace(pitch, 2, Math.abs(mod-1));

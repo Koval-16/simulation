@@ -36,7 +36,7 @@ public class Player {
                 else if(action<6) event=player_shooting(ball, event);
                 else event=player_passing(recipient(team), ball, event);
             }
-            else if(Math.abs(getPlace().getLength()-modx)==1 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
+            else if(Math.abs(getPlace().getLength()-modx)==1 && (getPlace().getWidth()>0 && getPlace().getWidth()<4)){
                 int action = random.nextInt(10);
                 if(action<4) player_dribbling(pitch, ball);
                 else if(action<6) event=player_shooting(ball, event);
@@ -52,7 +52,9 @@ public class Player {
         else if(event==3){}
         else if(event==4){}
         else if(event==5){}
-        else if(event==6){}
+        else if(event==6){
+            event=player_passing(recipient(team),ball,event);
+        }
         else if(event==7){
             event=player_freekick(ball, event, team);
         }

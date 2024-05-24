@@ -45,10 +45,10 @@ public class Goalkeeper extends Player{
             event = 1;
         }
         else if(success<8){
-            System.out.println(surname+" saves the shot.");
+            System.out.println(surname+" saves the shot. Corner!");
             shooter.player_get_ball(false);
-            player_get_ball(true);
-            event = 1;
+            player_get_ball(false);
+            event = 6;
         }
         else{
             System.out.println(shooter.surname+" scores a goal!");

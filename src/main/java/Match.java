@@ -40,28 +40,52 @@ public class Match {
                 players_react();
                 time = time+3;
             }
+            else if(event==6){
+                for(Team team: teams){
+                    if(team.getNumber()==ball.getTeam()){
+                        ball.setOwner(team.getCorners_taker());
+                        team.getCorners_taker().player_get_ball(true);
+                    }
+                    team.set_corner_lineup(event);
+                }
+                for(Team team: teams){
+                    if(team.getNumber()==ball.getTeam()){
+                        event = team.getCorners_taker().decision_ball(football_pitch,ball,team,event);
+                    }
+                }
+                players_react();
+                time = time+3;
+            }
             else if(event==7){
                 for(Team team: teams){
                     if(team.getNumber()==ball.getTeam()){
                         ball.setOwner(team.getFreekicks_taker());
+                        team.getCorners_taker().player_get_ball(true);
+                    }
+                    team.set_corner_lineup(event);
+                }
+                for(Team team: teams){
+                    if(team.getNumber()==ball.getTeam()){
                         event = team.getFreekicks_taker().decision_ball(football_pitch,ball,team,event);
-                        players_react();
                     }
                 }
+                players_react();
                 time = time+3;
             }
             else if(event==8){
                 for(Team team: teams){
+                    team.set_penalty_lineup();
                     if(team.getNumber()==ball.getTeam()){
                         ball.setOwner(team.getPenalties_taker());
+                        team.getPenalties_taker().player_get_ball(true);
                         ball.setX(2);
                         if(team.getNumber()==2) ball.setY(5);
                         else ball.setY(0);
                         team.getPenalties_taker().setPlace(football_pitch,ball.getX(), ball.getY());
                         event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event);
-                        players_react();
                     }
                 }
+                players_react();
                 time = time+3;
             }
         }
