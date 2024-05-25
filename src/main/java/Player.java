@@ -32,8 +32,18 @@ public abstract class Player {
         else if(event==1){
             if(getPlace().getWidth()==ball.getOwner().getPlace().getWidth() &&
                     getPlace().getLength()==ball.getOwner().getPlace().getLength()){
-                int action = random.nextInt(2);
-                if(action==0) event = player_tackling(ball.getOwner(),ball,event);
+                int modY=0;
+                if(team_number==2) modY=5;
+                int action = random.nextInt(10);
+                if(Math.abs(getPlace().getLength()-modY)>=4){
+                    if(action<7) event=player_tackling(ball.getOwner(),ball,event);
+                }
+                else if(Math.abs(getPlace().getLength()-modY)>=2){
+                    if(action<5) event=player_tackling(ball.getOwner(),ball,event);
+                }
+                else{
+                    if(action<3) event=player_tackling(ball.getOwner(),ball,event);
+                }
             }
         }
         else if(event==2){}
