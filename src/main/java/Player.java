@@ -101,11 +101,14 @@ public abstract class Player {
             else ball.setY(0);
             System.out.println(surname+" shoots...");
             event = 2;
+            stats.addShoots();
+            stats.addShootOnTarget();
             return event;
         }
         else{
             System.out.println(surname+" shoots, but he misses");
             event = 9;
+            stats.addShoots();
             return event;
         }
     }
@@ -150,6 +153,8 @@ public abstract class Player {
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" passes to "+recipient.surname);
+            stats.addPassesAttempts();
+            stats.addPassesCompleted();
             event = 1;
         }
         else {
@@ -157,6 +162,8 @@ public abstract class Player {
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" passes, but he misses!");
+            stats.addPassesAttempts();
+            stats.addLost();
             event = 4;
         }
         return event;
@@ -190,6 +197,10 @@ public abstract class Player {
             ball.setOwner(this);
             ball.setTeam(team_number);
             event = 1;
+            stats.addDuel();
+            stats.addDuelWon();
+            opponent.getStats().addDuel();
+            opponent.getStats().addLost();
         }
         else if(chance<50){
             int mod = 0;
@@ -204,10 +215,14 @@ public abstract class Player {
                 opponent.player_get_ball(false);
                 event = 7;
             }
+            stats.addFoul();
         }
         else{
             System.out.println(surname+" tries to make a tackle but he isn't successful!");
             event = 1;
+            stats.addDuel();
+            opponent.getStats().addDuel();
+            opponent.getStats().addDuelWon();
         }
         return event;
     }
@@ -282,6 +297,8 @@ public abstract class Player {
         return attributes;
     }
 
-
+    public StatsPlayer getStats(){
+        return stats;
+    }
 
 }

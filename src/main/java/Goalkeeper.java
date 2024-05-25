@@ -53,6 +53,7 @@ public class Goalkeeper extends Player{
         else{
             System.out.println(shooter.surname+" scores a goal!");
             shooter.player_get_ball(false);
+            shooter.getStats().addGoals();
             event = 0;
         }
         return event;

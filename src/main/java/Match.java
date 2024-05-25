@@ -31,6 +31,7 @@ public class Match {
         while(time<5400){
             half();
         }
+        System.out.println(team1.getLineup().get(4).getStats().getMinutes_played());
     }
 
     private void half(){
@@ -74,6 +75,11 @@ public class Match {
             set_penalty();
             players_react();
             time = time+3;
+        }
+        for(Team team: teams){
+            for(int i=0; i<11; i++){
+                team.getLineup().get(i).getStats().addMinutes(time);
+            }
         }
     }
 
