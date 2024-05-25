@@ -28,25 +28,6 @@ public class Player {
         if(event==-1){}
         else if(event==0){}
         else if(event==1){
-            int modx = 0;
-            if(team_number==2) modx=5;
-            if(Math.abs(getPlace().getLength()-modx)==0 && getPlace().getWidth()>0 && getPlace().getWidth()<4){
-                int action = random.nextInt(10);
-                if(action<2) player_dribbling(pitch, ball);
-                else if(action<6) event=player_shooting(ball, event);
-                else event=player_passing(recipient(team), ball, event);
-            }
-            else if(Math.abs(getPlace().getLength()-modx)==1 && (getPlace().getWidth()>0 && getPlace().getWidth()<4)){
-                int action = random.nextInt(10);
-                if(action<4) player_dribbling(pitch, ball);
-                else if(action<6) event=player_shooting(ball, event);
-                else event=player_passing(recipient(team), ball, event);
-            }
-            else{
-                int action = random.nextInt(10);
-                if(action<3) player_dribbling(pitch, ball);
-                else event=player_passing(recipient(team), ball, event);
-            }
         }
         else if(event==2){}
         else if(event==3){}
@@ -251,7 +232,7 @@ public class Player {
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
             System.out.println(surname+" crosses to "+recipient.surname);
-            event = 3;
+            event = 1;
         }
         else {
             player_get_ball(false);
