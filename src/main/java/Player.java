@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Player {
+public abstract class Player {
     Random random = new Random();
     private StatsPlayer stats;
     private AttributesPlayer attributes;
@@ -24,27 +24,7 @@ public class Player {
         this.team_number = team_number;
     }
 
-    public int decision_ball(Pitch pitch, Ball ball, Team team, int event){
-        if(event==-1){}
-        else if(event==0){}
-        else if(event==1){
-        }
-        else if(event==2){}
-        else if(event==3){}
-        else if(event==4){}
-        else if(event==5){}
-        else if(event==6){
-            event=player_passing(recipient(team),ball,event);
-        }
-        else if(event==7){
-            event=player_freekick(ball, event, team);
-        }
-        else if(event==8){
-            event=player_penalty(ball, event);
-        }
-
-        return event;
-    }
+    public abstract int decision_ball(Pitch pitch, Ball ball, Team team, int event);
 
     public int decision_no_ball(int event, Team team, Ball ball){
         if(event==-1){}

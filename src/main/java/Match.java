@@ -23,48 +23,57 @@ public class Match {
     }
 
     public void simulate(){
+        while(time<2700){
+            half();
+        }
+        time=2700;
+        event=-1;
         while(time<5400){
-            display_time();
-            if(event==-1){
-                kick_off();
-                time = time+3;
+            half();
+        }
+    }
+
+    private void half(){
+        display_time();
+        if(event==-1){
+            kick_off();
+            time = time+3;
+        }
+        else if(event==0){
+            System.out.println();
+            time = time+60;
+            event = -1;
+        }
+        else if (event==1){
+            moving();
+            action();
+            players_react();
+            time = time+3;
+        }
+        else if(event==6){
+            for(Team team: teams){
+                set_piece_prep(team, team.getCorners_taker());
             }
-            else if(event==0){
-                System.out.println();
-                time = time+60;
-                event = -1;
+            for(Team team: teams){
+                set_piece(team, team.getCorners_taker());
             }
-            else if (event==1){
-                moving();
-                action();
-                players_react();
-                time = time+3;
+            players_react();
+            time = time+3;
+        }
+        else if(event==7){
+            for(Team team: teams){
+                set_piece_prep(team, team.getFreekicks_taker());
             }
-            else if(event==6){
-                for(Team team: teams){
-                    set_piece_prep(team, team.getCorners_taker());
-                }
-                for(Team team: teams){
-                    set_piece(team, team.getCorners_taker());
-                }
-                players_react();
-                time = time+3;
+            for(Team team: teams){
+                set_piece(team, team.getFreekicks_taker());
             }
-            else if(event==7){
-                for(Team team: teams){
-                    set_piece_prep(team, team.getFreekicks_taker());
-                }
-                for(Team team: teams){
-                    set_piece(team, team.getFreekicks_taker());
-                }
-                players_react();
-                time = time+3;
-            }
-            else if(event==8){
-                set_penalty();
-                players_react();
-                time = time+3;
-            }
+            players_react();
+            time = time+3;
+        }
+        else if(event==8){
+            set_penalty();
+            players_react();
+            time = time+3;
         }
     }
 
@@ -77,9 +86,27 @@ public class Match {
                 team.getLineup().get(i).player_get_ball(false);
             }
         }
-        team1.getLineup().get(9).player_get_ball(true);
-        ball.setOwner(team1.getLineup().get(9));
-        ball.setTeam(team1.getLineup().get(9).team_number);
+        if(time==0){
+            team1.getLineup().get(9).player_get_ball(true);
+            ball.setOwner(team1.getLineup().get(9));
+            ball.setTeam(team1.getLineup().get(9).team_number);
+        }
+        else if(time==2700){
+            team2.getLineup().get(9).player_get_ball(true);
+            ball.setOwner(team2.getLineup().get(9));
+            ball.setTeam(team2.getLineup().get(9).team_number);
+        }
+        else if(ball.getTeam()==2){
+            team1.getLineup().get(9).player_get_ball(true);
+            ball.setOwner(team1.getLineup().get(9));
+            ball.setTeam(team1.getLineup().get(9).team_number);
+        }
+        else if(ball.getTeam()==1){
+            team2.getLineup().get(9).player_get_ball(true);
+            ball.setOwner(team2.getLineup().get(9));
+            ball.setTeam(team2.getLineup().get(9).team_number);
+        }
+
         event = 1;
     }
 

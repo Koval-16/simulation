@@ -35,32 +35,32 @@ public class Forward extends Player{
             else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=0 && Math.abs(getPlace().getLength()-modY)<=1)){
                 if(action<35) event=player_passing(recipient(team),ball,event);
                 else if(action<75) player_dribbling(pitch,ball);
-                else player_crossing(recipient(team),ball,event);
+                else event=player_crossing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && (Math.abs(getPlace().getLength()-modY)>=2 && Math.abs(getPlace().getLength()-modY)<=3)){
                 if(action<40) event=player_passing(recipient(team),ball,event);
                 else if(action<80) player_dribbling(pitch,ball);
-                else player_crossing(recipient(team),ball,event);
+                else event=player_crossing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=2 && Math.abs(getPlace().getLength()-modY)<=3)){
                 if(action<40) event=player_passing(recipient(team),ball,event);
                 else if(action<80) player_dribbling(pitch,ball);
-                else player_crossing(recipient(team),ball,event);
+                else event=player_crossing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==4){
                 if(action<45) event=player_passing(recipient(team),ball,event);
                 else if(action<80) player_dribbling(pitch,ball);
-                else player_crossing(recipient(team),ball,event);
+                else event=player_crossing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==5){
                 if(action<40) event=player_passing(recipient(team),ball,event);
                 else if(action<80) player_dribbling(pitch,ball);
-                else player_crossing(recipient(team),ball,event);
+                else event=player_crossing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=4 && Math.abs(getPlace().getLength()-modY)<=5)){
                 if(action<40) event=player_passing(recipient(team),ball,event);
                 else if(action<80) player_dribbling(pitch,ball);
-                else player_crossing(recipient(team),ball,event);
+                else event=player_crossing(recipient(team),ball,event);
             }
         }
         else if(event==2){}
