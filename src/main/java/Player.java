@@ -8,7 +8,7 @@ public abstract class Player {
     private AttributesPlayer attributes;
     protected final String name;
     protected final String surname;
-    int stamina;
+    private double stamina = 100;
     protected Field place;
     protected boolean ball_possessed;
     protected int team_number;
@@ -173,13 +173,27 @@ public abstract class Player {
             event = 1;
         }
         else {
+            int modY=0;
+            if(team_number==2) modY=5;
+            int choi=0;
+            if((Math.abs(getPlace().getLength()-modY)<=1)){
+                choi = random.nextInt(2);
+            }
+            if(choi==0){
+                System.out.println(surname+" passes, but he misses!");
+                event =4;
+            }
+            else{
+                System.out.println(surname+" passes, but "+recipient.surname+" is off-side!");
+                event=7;
+            }
             player_get_ball(false);
+            if(team_number==1) ball.setTeam(2);
+            else ball.setTeam(1);
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
-            System.out.println(surname+" passes, but he misses!");
             stats.addPassesAttempts();
             stats.addLost();
-            event = 4;
         }
         return event;
     }
@@ -316,4 +330,10 @@ public abstract class Player {
         return stats;
     }
 
+    public double getStamina(){
+        return stamina;
+    }
+    public void setStamina(double stamina){
+        this.stamina = stamina;
+    }
 }

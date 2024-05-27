@@ -29,6 +29,14 @@ public class Match {
         time=2700;
         event=-1;
         while(time<5400){
+            if(time==3000) team1.getLineup().get(7).setStamina(7);
+            for(Team team: teams){
+                for(int i=0; i<11; i++){
+                    if(team.getLineup().get(i).getStamina()<10){
+                        team.substitution(team.getLineup().get(i));
+                    }
+                }
+            }
             half();
         }
         System.out.println(team1.getLineup().get(4).getStats().getMinutes_played());

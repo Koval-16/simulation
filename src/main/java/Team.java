@@ -234,8 +234,10 @@ public class Team {
         Player holder = player;
         for(int i=0; i<11; i++){
             if(lineup.get(i)==player){
+                System.out.println(lineup.get(i).surname+" is subbed off. "+bench.get(i).surname+" changes him.");
                 lineup.set(i, bench.get(i));
                 bench.set(i, holder);
+                lineup.get(i).setPlace(pitch,bench.get(i).getPlace().getWidth(),bench.get(i).getPlace().getLength());
             }
         }
         corners_taker = setCornersTaker();
