@@ -37,14 +37,29 @@ public class Goalkeeper extends Player{
     }
 
     public int player_saving(Player shooter, int event){
-        int success = random.nextInt(10);
-        if(success<4){
+        int modX=0; int modY=0;
+        if(shooter.team_number==2){
+            modX=4; modY=5;
+        }
+        double chance_mod=0;
+        if(Math.abs(shooter.getPlace().getLength()-modY)==0 && Math.abs(shooter.getPlace().getWidth()-modX)==2){
+            chance_mod = 0.65;
+        }
+        else if(Math.abs(shooter.getPlace().getLength()-modY)==0 && Math.abs(shooter.getPlace().getWidth()-modX)!=2){
+            chance_mod = 0.75;
+        }
+        else if(Math.abs(shooter.getPlace().getLength()-modY)==1){
+            chance_mod = 0.9;
+        }
+        int success = random.nextInt(100);
+        double ability = (((float)getAttributes().getDefending()/20)*100)*chance_mod;
+        if(success<(ability/2)){
             System.out.println(surname+" catches the shot.");
             shooter.player_get_ball(false);
             player_get_ball(true);
             event = 1;
         }
-        else if(success<8){
+        else if(success<ability){
             System.out.println(surname+" saves the shot. Corner!");
             shooter.player_get_ball(false);
             player_get_ball(false);

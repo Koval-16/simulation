@@ -93,8 +93,23 @@ public abstract class Player {
     }
 
     public int player_shooting(Ball ball, int event){
+        int modX=0; int modY=0;
+        if(team_number==2){
+            modX=4; modY=5;
+        }
+        double chance_mod=0;
+        if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)==2){
+            chance_mod = 0.9;
+        }
+        else if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)!=2){
+            chance_mod = 0.75;
+        }
+        else if(Math.abs(getPlace().getLength()-modY)==1){
+            chance_mod = 0.5;
+        }
         int success = (random.nextInt(100))+1;
-        float ability = ((float)attributes.getShooting()/20)*100;
+        double ability = (((float)attributes.getShooting()/20)*100)*chance_mod;
+        System.out.println(ability);
         if(success<ability){
             ball.setX(2);
             if(team_number==2) ball.setY(5);
