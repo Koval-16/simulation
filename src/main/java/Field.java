@@ -1,3 +1,7 @@
+/**
+ * Klasa <code>Field</code> reprezentująca pojedyńcze pole.
+ */
+
 public class Field {
     private final int width;
     private final int length;

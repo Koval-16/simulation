@@ -1,3 +1,7 @@
+/**
+ * Klasa <code>Player</code> reprezentująca piłkarza.
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,6 +17,22 @@ public abstract class Player {
     protected boolean ball_possessed;
     protected int team_number;
 
+    /**
+     * Constructor of class <code>Player</code> with his name, surname, and attributes
+     * @param name player's name
+     * @param surname player's surname
+     * @param side player's side, 1=left, 2=center, 3=right
+     * @param shooting player's shooting ability
+     * @param dribbling player's dribbling ability
+     * @param speed player's speed ability
+     * @param passing player's passing ability
+     * @param defending player's defending ability
+     * @param heading player's heading ability
+     * @param aggression player's aggression
+     * @param risk_taking player's tendency to take risks
+     * @param intelligence player's intelligence
+     * @param team_number the index of player's team
+     */
     public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
                   int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number){
         this.name = name;
@@ -24,8 +44,23 @@ public abstract class Player {
         this.team_number = team_number;
     }
 
+    /**
+     * Method <code>decision_ball</code> makes a player's with ball decision
+     * @param pitch the pitch of the game
+     * @param ball the ball of the game
+     * @param team the team of the player
+     * @param event the event which occurred
+     * @return new event which will happen
+     */
     public abstract int decision_ball(Pitch pitch, Ball ball, Team team, int event);
 
+    /**
+     * Method <code>decison_no_ball</code> makes a player's with no ball decision
+     * @param event the event which occurred
+     * @param team the team of the player
+     * @param ball the ball of the game
+     * @return new event which will happen
+     */
     public int decision_no_ball(int event, Team team, Ball ball){
         if(event==-1){}
         else if(event==0){}
@@ -65,6 +100,14 @@ public abstract class Player {
         place = pitch.getPitch()[width][length];
     }
 
+    /**
+     * Method <code>player_moving</code> moves a player without ball. Player's movement depends on his position,
+     * current ball state (where the ball is, which team owns the ball).
+     * @param pitch the pitch of the game
+     * @param ball_X X coordinate of the ball
+     * @param ball_Y Y coordinate of the ball
+     * @param ball_team team which owns the ball
+     */
     public void player_moving(Pitch pitch, int ball_X, int ball_Y, int ball_team){
         int newWidth = place.getWidth();
         Random random = new Random();
@@ -88,10 +131,21 @@ public abstract class Player {
         }
     }
 
+    /**
+     * Method <code>player_get_ball</code> sets if the player has the ball.
+     * @param ball_possesed true=has ball, false=doesn't have ball
+     */
     public void player_get_ball(boolean ball_possesed){
         this.ball_possessed = ball_possesed;
     }
 
+    /**
+     * Method <code>player_shooting</code> makes player shoots. Shot can be either on-target or missed. It depends on
+     * player's shooting ability and distance from the goal.
+     * @param ball the ball
+     * @param event the event
+     * @return the event which will happen, it might be shot on-target or ball out of game
+     */
     public int player_shooting(Ball ball, int event){
         int modX=0; int modY=0;
         if(team_number==2){
@@ -128,6 +182,13 @@ public abstract class Player {
         }
     }
 
+    /**
+     * Method <code>recipient</code> chooses the recipient of the pass. It divides players from the same team into
+     * few pots depending on their distance from the <code>Player</code>. It's more likely to choose a recipient
+     * who is closer to the player.
+     * @param team the player's team
+     * @return returns the recipient of the pass
+     */
     public Player recipient(Team team){
         List<List<Player>> distances = new ArrayList<>();
         for(int i=0;i<3;i++){
@@ -158,6 +219,14 @@ public abstract class Player {
         return distances.get(distance).get(index);
     }
 
+    /**
+     * Method <code>player_passing</code> makes Player pass. He passes to the chosen recipient. Pass can be either
+     * successful, missed, or off-side. It depends on player's pass ability, and the distance from the recipient.
+     * @param recipient the chosen recipient of the pass
+     * @param ball the ball
+     * @param event the event
+     * @return returns event that will happen, there might be normal game, missed ball or free kick(after off-side)
+     */
     public int player_passing(Player recipient, Ball ball, int event){
         int success = (random.nextInt(100))+1;
         float ability = ((float)attributes.getPassing()/20)*100;
@@ -198,6 +267,11 @@ public abstract class Player {
         return event;
     }
 
+    /**
+     * Method <code>player_dribbling</code> makes Player with ball dribbles.
+     * @param pitch the pitch
+     * @param ball the ball
+     */
     public void player_dribbling(Pitch pitch, Ball ball){
         Random random = new Random();
         int choice = random.nextInt(3);
@@ -216,6 +290,16 @@ public abstract class Player {
         System.out.println(surname+" dribbles");
     }
 
+    /**
+     * Method <code>player_tackling</code> makes Player tackle. Depending on player's defending ability, and opponent's
+     * dribbling ability it might be successful or unsuccessful. It might result in foul as well. There's a chance, that
+     * player who fouls will receive a yellow or red card. The higher player's aggression is the more chance for foul
+     * and card player has. Foul ends in free kick (if foul happened outside the box) or penalty (if inside the box).
+     * @param opponent the opponent with the ball, Player tries to take the ball from him.
+     * @param ball the ball
+     * @param event the event
+     * @return the event which will happen then, there might be: normal game, free kick, penalty
+     */
     public int player_tackling(Player opponent, Ball ball, int event){
         Random random = new Random();
         int chance = random.nextInt(100);
@@ -244,6 +328,19 @@ public abstract class Player {
                 opponent.player_get_ball(false);
                 event = 7;
             }
+            int card = random.nextInt(100);
+            if(card<3){
+                stats.addRed();
+                System.out.println(surname+" gets red card! He is sent off!");
+            }
+            else if(card<15){
+                stats.addYellow();
+                System.out.println(surname+" gets yellow card!");
+                if(stats.getYellow_cards()==2){
+                    stats.addRed();
+                    System.out.println("It's his second yellow card! "+surname+" receives red card and he's sent off!");
+                }
+            }
             stats.addFoul();
         }
         else{
@@ -256,6 +353,14 @@ public abstract class Player {
         return event;
     }
 
+    /**
+     * Method <code>player_crossing</code> makes Player cross. He crosses to the chosen recipient. Cross can be either
+     * successful, missed, or off-side. It depends on player's pass ability, and the distance from the recipient.
+     * @param recipient the chosen recipient of the cross
+     * @param ball the ball
+     * @param event the event
+     * @return returns event that will happen, there might be high ball, missed ball or free kick(after off-side)
+     */
     public int player_crossing(Player recipient, Ball ball, int event){
         int success = (random.nextInt(100))+1;
         float ability = ((float)attributes.getPassing()/20)*100;
@@ -281,6 +386,12 @@ public abstract class Player {
     public void player_heading(){
     }
 
+    /**
+     * Method <code>player_intercepting</code> makes Player take over the ball, when nobody owns the ball.
+     * @param ball the ball
+     * @param event the event
+     * @return the event that will happen, here it's always the normal game
+     */
     public int player_intercepting(Ball ball, int event){
         ball.setOwner(this);
         ball.setTeam(team_number);
@@ -290,6 +401,12 @@ public abstract class Player {
         return event;
     }
 
+    /**
+     * Method <code>player_penalty</code> makes Player take a penalty. It's simple shoot, but it's more possible to score.
+     * @param ball the ball
+     * @param event the event
+     * @return it returns the event that will happen, here shoot on-target or missed shoot
+     */
     public int player_penalty(Ball ball, int event){
         int success = (random.nextInt(100))+1;
         float ability = ((float)attributes.getShooting()/20)*100;
@@ -308,6 +425,13 @@ public abstract class Player {
         }
     }
 
+    /**
+     * Method <code>player_freekick</code> makes Player take a free kick. It can be either pass or shoot.
+     * @param ball the ball
+     * @param event the event
+     * @param team the team
+     * @return the event that will happen
+     */
     public int player_freekick(Ball ball, int event, Team team){
         int mod = 0;
         if(team_number==2) mod=5;

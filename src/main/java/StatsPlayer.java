@@ -66,4 +66,7 @@ public class StatsPlayer {
     public int getMinutes_played(){
         return minutes_played;
     }
+    public int getYellow_cards(){
+        return yellow_cards;
+    }
 }

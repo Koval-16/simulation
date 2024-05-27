@@ -1,3 +1,7 @@
+/**
+ * Klasa <code>Pitch</code> reprezentuje boisko o wymiarach 5x6 pól.
+ */
+
 public class Pitch {
     private Field[][] pitch;
 

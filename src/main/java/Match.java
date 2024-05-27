@@ -1,3 +1,7 @@
+/**
+ * Class <code>Match</code> it's the match.
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +18,9 @@ public class Match {
     Ball ball;
     Team[] teams;
 
+    /**
+     * The constructor of the class Match. It creates a pitch for the game, two teams and the ball.
+     */
     public Match(){
         this.football_pitch = new Pitch(5,6);
         this.team1 = new Team(football_pitch,1);
@@ -22,6 +29,10 @@ public class Match {
         this.teams = new Team[]{team1, team2};
     }
 
+    /**
+     * Method <code>simulate</code> simulates the match. The game is divided into two halfs. Time represents the
+     * game time in seconds. Each half lasts 45 min = 2700 sec.
+     */
     public void simulate(){
         while(time<2700){
             half();
@@ -29,7 +40,6 @@ public class Match {
         time=2700;
         event=-1;
         while(time<5400){
-            if(time==3000) team1.getLineup().get(7).setStamina(7);
             for(Team team: teams){
                 for(int i=0; i<11; i++){
                     if(team.getLineup().get(i).getStamina()<10){
@@ -42,6 +52,9 @@ public class Match {
         System.out.println(team1.getLineup().get(4).getStats().getMinutes_played());
     }
 
+    /**
+     * Method <code>half</code> checks which event currently happens, and depending on it certain actions take place.
+     */
     private void half(){
         display_time();
         if(event==-1){
@@ -91,6 +104,10 @@ public class Match {
         }
     }
 
+    /**
+     * Method <code>kick_off</code> happens after goals and at the beginning of each half. Players are set up at their
+     * starting fields and the ball is for team who has lost a goal.
+     */
     private void kick_off(){
         System.out.println("KICK OFF");
         team1.set_default_lineup();
@@ -130,6 +147,9 @@ public class Match {
         System.out.print(String.format("%02d:%02d ",min,sec));
     }
 
+    /**
+     * Method <code>moving</code> moves every player who doesn't have a ball.
+     */
     private void moving(){
         for(Team team: teams){
             for(int i=1; i<11; i++){
@@ -140,6 +160,9 @@ public class Match {
         }
     }
 
+    /**
+     * Method <code>action</code> makes an action of player who has the ball.
+     */
     private void action(){
         for(Team team: teams){
             if(team.getLineup().get(0).ball_possessed){
@@ -157,6 +180,10 @@ public class Match {
         }
     }
 
+    /**
+     * Method <code>players_react</code> makes one of the opponent team player's reaction. It might be tackle
+     * or interception, or goalkeepers save if it's a shoot.
+     */
     private void players_react(){
         for(Team team: teams){
             if(team.getNumber()!=ball.getOwner().team_number){

@@ -1,3 +1,7 @@
+/**
+ * Class <code>Team</code> represents team, with its players, set pieces takers, lineup, bench, name.
+ */
+
 import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
@@ -18,6 +22,11 @@ public class Team {
     private Player freekicks_taker;
     private Player penalties_taker;
 
+    /**
+     * Constructor of the class Team
+     * @param pitch pitch of the game
+     * @param number the index of the team
+     */
     public Team(Pitch pitch, int number){
         this.number = number;
         this.pitch = pitch;
@@ -33,6 +42,10 @@ public class Team {
         this.penalties_taker = setPenaltiesTaker();
     }
 
+    /**
+     * Choosing the team from the list of clubs
+     * @return name of the team
+     */
     private String choose_team(){
         Scanner scanner1 = new Scanner(System.in);
         String team = scanner1.nextLine();
@@ -52,6 +65,9 @@ public class Team {
         return "";
     }
 
+    /**
+     * Loading players with their attributes etc. from the team text file
+     */
     private void load_players(){
         try{
             File file = new File(name+".txt");
@@ -99,6 +115,9 @@ public class Team {
         }
     }
 
+    /**
+     * This method is setting the starting lineup and the bench of the team.
+     */
     public void set_lineup(){
         for(int i=0; i<11; i++){
             lineup.add(players.get(i));
@@ -109,6 +128,9 @@ public class Team {
         }
     }
 
+    /**
+     * This method is setting default lineup of the team (used before kick-offs)
+     */
     public void set_default_lineup(){
         for(int i=0; i<11; i++){
             if(number==1){
@@ -126,6 +148,10 @@ public class Team {
         }
     }
 
+    /**
+     * This method is setting corners taker
+     * @return the taker of corners
+     */
     private Player setCornersTaker(){
         Player taker = lineup.get(1);
         for(int i=2; i<11; i++){
@@ -136,6 +162,10 @@ public class Team {
         return taker;
     }
 
+    /**
+     * This method is setting free kicks taker
+     * @return the taker of free kicks
+     */
     private Player setFreeKicksTaker(){
         Player taker = lineup.get(1);
         for(int i=2; i<11; i++){
@@ -147,6 +177,10 @@ public class Team {
         return taker;
     }
 
+    /**
+     * This method is setting penalties taker
+     * @return the taker of penalties
+     */
     private Player setPenaltiesTaker(){
         Player taker = lineup.get(1);
         for(int i=2; i<11; i++){
@@ -157,6 +191,10 @@ public class Team {
         return taker;
     }
 
+    /**
+     * This method is setting lineup of the team for offensive corners and free kicks
+     * @param event the event which occurred
+     */
     public void set_corner_lineup(int event){
         int mod = 0;
         if(number==2) mod=5;
@@ -205,6 +243,9 @@ public class Team {
 
     }
 
+    /**
+     * This method is setting the team's lineup for penalties
+     */
     public void set_penalty_lineup(){
         int modY=0;
         int modX=0;
@@ -230,6 +271,10 @@ public class Team {
         }
     }
 
+    /**
+     * this method is making a substituion
+     * @param player the subbed-off player
+     */
     public void substitution(Player player){
         Player holder = player;
         for(int i=0; i<11; i++){
