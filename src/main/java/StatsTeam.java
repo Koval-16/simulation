@@ -1,4 +1,5 @@
 public class StatsTeam {
+    private int goals;
     private double ball_possession;
     private int shoots;
     private int shoots_on_target;
@@ -12,5 +13,12 @@ public class StatsTeam {
     private int red_cards;
 
     public StatsTeam(){
+    }
+
+    public void addGoal(){
+        goals++;
+    }
+    public int getGoals(){
+        return goals;
     }
 }

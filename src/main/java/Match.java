@@ -45,7 +45,7 @@ public class Match {
                     team.getLineup().get(i).setStamina(100);
                 }
                 else{
-                    team.getLineup().get(i).setStamina(team.getLineup().get(i).getStamina()+15);
+                    team.getLineup().get(i).setStamina(team.getLineup().get(i).getStamina()+10);
                 }
             }
         }
@@ -55,16 +55,16 @@ public class Match {
                     if(team.getLineup().get(i).getStamina()<25){
                         team.substitution(team.getLineup().get(i));
                     }
+                    if(ball.getOwner()==team.getBench().get(i)){
+                        ball.setOwner(team.getLineup().get(i));
+                        team.getBench().get(i).player_get_ball(false);
+                        team.getLineup().get(i).player_get_ball(true);
+                    }
                 }
             }
             half();
         }
-        System.out.println(team1.getLineup().get(4).getStats().getMinutes_played());
-        for(Team team: teams){
-            for(int i=0; i<11; i++){
-                System.out.println(team.getLineup().get(i).getStamina());
-            }
-        }
+        System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
     }
 
     /**
@@ -77,7 +77,7 @@ public class Match {
             time = time+3;
         }
         else if(event==0){
-            System.out.println();
+            System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
             time = time+60;
             event = -1;
         }

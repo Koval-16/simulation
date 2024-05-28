@@ -14,6 +14,8 @@ public class StatsPlayer {
     private int yellow_cards;
     private int red_cards;
     private int lost_possession;
+    private int interceptions;
+    private int saves;
 
     public StatsPlayer(){
     }
@@ -68,5 +70,14 @@ public class StatsPlayer {
     }
     public int getYellow_cards(){
         return yellow_cards;
+    }
+    public void addInterception(){
+        interceptions++;
+    }
+    public void addSave(){
+        saves++;
+    }
+    public int getGoals(){
+        return goals;
     }
 }

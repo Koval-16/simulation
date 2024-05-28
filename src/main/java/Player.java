@@ -9,6 +9,7 @@ import java.util.Random;
 public abstract class Player {
     Random random = new Random();
     private StatsPlayer stats;
+    private StatsTeam team_stats;
     private AttributesPlayer attributes;
     protected final String name;
     protected final String surname;
@@ -34,7 +35,8 @@ public abstract class Player {
      * @param team_number the index of player's team
      */
     public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
-                  int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number){
+                  int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number,
+                  StatsTeam team_stats){
         this.name = name;
         this.surname = surname;
         this.ball_possessed = false;
@@ -42,6 +44,7 @@ public abstract class Player {
         this.attributes = new AttributesPlayer(side, shooting, dribbling, speed, passing, defending, heading,
                 aggression, risk_taking, intelligence);
         this.team_number = team_number;
+        this.team_stats = team_stats;
     }
 
     /**
@@ -296,10 +299,14 @@ public abstract class Player {
             }
             if(choi==0){
                 System.out.println(surname+" passes, but he misses!");
+                stats.addPassesAttempts();
+                stats.addLost();
                 event =4;
             }
             else{
                 System.out.println(surname+" passes, but "+recipient.surname+" is off-side!");
+                stats.addPassesAttempts();
+                stats.addOffside();
                 event=7;
             }
             player_get_ball(false);
@@ -307,8 +314,7 @@ public abstract class Player {
             else ball.setTeam(1);
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
-            stats.addPassesAttempts();
-            stats.addLost();
+
         }
         stamina -= 0.15;
         return event;
@@ -335,6 +341,7 @@ public abstract class Player {
             ball.setY(getPlace().getLength());
         }
         System.out.println(surname+" dribbles");
+        stats.addDribblingCompleted();
         stamina -=1;
     }
 
@@ -460,6 +467,7 @@ public abstract class Player {
         event = 1;
         System.out.println(surname+" takes over the ball!");
         stamina -= 0.1;
+        stats.addInterception();
         return event;
     }
 
@@ -521,5 +529,8 @@ public abstract class Player {
     }
     public void setStamina(double stamina){
         this.stamina = stamina;
+    }
+    public StatsTeam getTeam_stats(){
+        return team_stats;
     }
 }

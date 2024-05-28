@@ -4,9 +4,9 @@ public class Goalkeeper extends Player{
 
     Random random = new Random();
     public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
-                      int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number) {
+                      int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number, StatsTeam stats) {
         super(name, surname, side, shooting, dribbling, speed, passing, defending,
-                heading, aggression, risk_taking, intelligence, team_number);
+                heading, aggression, risk_taking, intelligence, team_number, stats);
     }
 
     @Override
@@ -57,18 +57,21 @@ public class Goalkeeper extends Player{
             System.out.println(surname+" catches the shot.");
             shooter.player_get_ball(false);
             player_get_ball(true);
+            getStats().addSave();
             event = 1;
         }
         else if(success<ability){
             System.out.println(surname+" saves the shot. Corner!");
             shooter.player_get_ball(false);
             player_get_ball(false);
+            getStats().addSave();
             event = 6;
         }
         else{
             System.out.println(shooter.surname+" scores a goal!");
             shooter.player_get_ball(false);
             shooter.getStats().addGoals();
+            shooter.getTeam_stats().addGoal();
             event = 0;
         }
         return event;

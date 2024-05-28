@@ -30,13 +30,13 @@ public class Team {
     public Team(Pitch pitch, int number){
         this.number = number;
         this.pitch = pitch;
+        this.stats = new StatsTeam();
         this.name = choose_team();
         this.players = new ArrayList<>();
         this.lineup = new ArrayList<>();
         this.bench = new ArrayList<>();
         load_players();
         set_lineup();
-        this.stats = new StatsTeam();
         this.corners_taker = setCornersTaker();
         this.freekicks_taker = setFreeKicksTaker();
         this.penalties_taker = setPenaltiesTaker();
@@ -83,7 +83,7 @@ public class Team {
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
                             Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
-                            number);
+                            number, stats);
                     players.add(player);
                 }
                 else if(names[2].equals("D")){
@@ -91,7 +91,7 @@ public class Team {
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
                             Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
-                            number);
+                            number, stats);
                     players.add(player);
                 }
                 else if(names[2].equals("M")){
@@ -99,7 +99,7 @@ public class Team {
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
                             Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
-                            number);
+                            number, stats);
                     players.add(player);
                 }
                 else{
@@ -107,7 +107,7 @@ public class Team {
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
                             Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
-                            number);
+                            number, stats);
                     players.add(player);
                 }
             }
@@ -310,5 +310,13 @@ public class Team {
     public List<Player> getLineup(){
         return lineup;
     }
-
+    public String getName(){
+        return name;
+    }
+    public StatsTeam getStats(){
+        return stats;
+    }
+    public List<Player> getBench(){
+        return bench;
+    }
 }
