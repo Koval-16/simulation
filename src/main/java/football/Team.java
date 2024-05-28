@@ -1,5 +1,5 @@
-/**
- * Class <code>Team</code> represents team, with its players, set pieces takers, lineup, bench, name.
+package football; /**
+ * Class <code>football.Team</code> represents team, with its players, set pieces takers, lineup, bench, name.
  */
 
 import java.util.List;
@@ -23,15 +23,15 @@ public class Team {
     private Player penalties_taker;
 
     /**
-     * Constructor of the class Team
+     * Constructor of the class football.Team
      * @param pitch pitch of the game
      * @param number the index of the team
      */
-    public Team(Pitch pitch, int number){
+    public Team(Pitch pitch, int number, String name){
         this.number = number;
         this.pitch = pitch;
         this.stats = new StatsTeam();
-        this.name = choose_team();
+        this.name = name;
         this.players = new ArrayList<>();
         this.lineup = new ArrayList<>();
         this.bench = new ArrayList<>();

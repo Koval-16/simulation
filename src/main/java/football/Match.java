@@ -1,5 +1,5 @@
-/**
- * Class <code>Match</code> it's the match.
+package football; /**
+ * Class <code>football.Match</code> it's the match.
  */
 
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ public class Match {
     Team[] teams;
 
     /**
-     * The constructor of the class Match. It creates a pitch for the game, two teams and the ball.
+     * The constructor of the class football.Match. It creates a pitch for the game, two teams and the ball.
      */
-    public Match(){
+    public Match(String t1, String t2, int mental1, int mental2, int referee, int weather){
         this.football_pitch = new Pitch(5,6);
-        this.team1 = new Team(football_pitch,1);
-        this.team2 = new Team(football_pitch,2);
+        this.team1 = new Team(football_pitch,1, t1);
+        this.team2 = new Team(football_pitch,2, t2);
         this.ball = new Ball();
         this.teams = new Team[]{team1, team2};
     }

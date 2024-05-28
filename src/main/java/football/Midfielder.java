@@ -1,3 +1,5 @@
+package football;
+
 public class Midfielder extends Player{
     public Midfielder(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
                       int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number, StatsTeam stats) {

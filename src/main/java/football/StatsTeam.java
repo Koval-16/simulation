@@ -1,3 +1,5 @@
+package football;
+
 public class StatsTeam {
     private int goals;
     private double ball_possession;

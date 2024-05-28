@@ -1,3 +1,5 @@
+package football;
+
 public class StatsPlayer {
     private int minutes_played;
     private int goals;

@@ -1,3 +1,5 @@
+package football;
+
 import java.util.Random;
 
 public class Goalkeeper extends Player{

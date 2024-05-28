@@ -1,5 +1,7 @@
+package football;
+
 /**
- * Klasa <code>Pitch</code> reprezentuje boisko o wymiarach 5x6 pól.
+ * Klasa <code>football.Pitch</code> reprezentuje boisko o wymiarach 5x6 pól.
  */
 
 public class Pitch {

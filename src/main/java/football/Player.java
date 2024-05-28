@@ -1,5 +1,5 @@
-/**
- * Klasa <code>Player</code> reprezentująca piłkarza.
+package football; /**
+ * Klasa <code>football.Player</code> reprezentująca piłkarza.
  */
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public abstract class Player {
     protected int team_number;
 
     /**
-     * Constructor of class <code>Player</code> with his name, surname, and attributes
+     * Constructor of class <code>football.Player</code> with his name, surname, and attributes
      * @param name player's name
      * @param surname player's surname
      * @param side player's side, 1=left, 2=center, 3=right
@@ -104,7 +104,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_moving</code> moves a player without ball. Player's movement depends on his position,
+     * Method <code>player_moving</code> moves a player without ball. football.Player's movement depends on his position,
      * current ball state (where the ball is, which team owns the ball).
      * @param pitch the pitch of the game
      * @param ball_X X coordinate of the ball
@@ -188,7 +188,7 @@ public abstract class Player {
 
     /**
      * Method <code>recipient</code> chooses the recipient of the pass. It divides players from the same team into
-     * few pots depending on their distance from the <code>Player</code>. It's more likely to choose a recipient
+     * few pots depending on their distance from the <code>football.Player</code>. It's more likely to choose a recipient
      * who is closer to the player.
      * @param team the player's team
      * @return returns the recipient of the pass
@@ -224,7 +224,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_passing</code> makes Player pass. He passes to the chosen recipient. Pass can be either
+     * Method <code>player_passing</code> makes football.Player pass. He passes to the chosen recipient. Pass can be either
      * successful, missed, or off-side. It depends on player's pass ability, and the distance from the recipient.
      * @param recipient the chosen recipient of the pass
      * @param ball the ball
@@ -321,7 +321,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_dribbling</code> makes Player with ball dribbles.
+     * Method <code>player_dribbling</code> makes football.Player with ball dribbles.
      * @param pitch the pitch
      * @param ball the ball
      */
@@ -346,11 +346,11 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_tackling</code> makes Player tackle. Depending on player's defending ability, and opponent's
+     * Method <code>player_tackling</code> makes football.Player tackle. Depending on player's defending ability, and opponent's
      * dribbling ability it might be successful or unsuccessful. It might result in foul as well. There's a chance, that
      * player who fouls will receive a yellow or red card. The higher player's aggression is the more chance for foul
      * and card player has. Foul ends in free kick (if foul happened outside the box) or penalty (if inside the box).
-     * @param opponent the opponent with the ball, Player tries to take the ball from him.
+     * @param opponent the opponent with the ball, football.Player tries to take the ball from him.
      * @param ball the ball
      * @param event the event
      * @return the event which will happen then, there might be: normal game, free kick, penalty
@@ -421,7 +421,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_crossing</code> makes Player cross. He crosses to the chosen recipient. Cross can be either
+     * Method <code>player_crossing</code> makes football.Player cross. He crosses to the chosen recipient. Cross can be either
      * successful, missed, or off-side. It depends on player's pass ability, and the distance from the recipient.
      * @param recipient the chosen recipient of the cross
      * @param ball the ball
@@ -455,7 +455,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_intercepting</code> makes Player take over the ball, when nobody owns the ball.
+     * Method <code>player_intercepting</code> makes football.Player take over the ball, when nobody owns the ball.
      * @param ball the ball
      * @param event the event
      * @return the event that will happen, here it's always the normal game
@@ -472,7 +472,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_penalty</code> makes Player take a penalty. It's simple shoot, but it's more possible to score.
+     * Method <code>player_penalty</code> makes football.Player take a penalty. It's simple shoot, but it's more possible to score.
      * @param ball the ball
      * @param event the event
      * @return it returns the event that will happen, here shoot on-target or missed shoot
@@ -496,7 +496,7 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_freekick</code> makes Player take a free kick. It can be either pass or shoot.
+     * Method <code>player_freekick</code> makes football.Player take a free kick. It can be either pass or shoot.
      * @param ball the ball
      * @param event the event
      * @param team the team

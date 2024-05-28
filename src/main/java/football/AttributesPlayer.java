@@ -1,3 +1,5 @@
+package football;
+
 public class AttributesPlayer {
     private final int side;
     private final int shooting;
