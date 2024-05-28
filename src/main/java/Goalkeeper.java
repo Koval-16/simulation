@@ -41,18 +41,18 @@ public class Goalkeeper extends Player{
         if(shooter.team_number==2){
             modX=4; modY=5;
         }
-        double chance_mod=0;
+        int success = random.nextInt(100);
+        float ability = (((float)getAttributes().getDefending()/20)*100);
         if(Math.abs(shooter.getPlace().getLength()-modY)==0 && Math.abs(shooter.getPlace().getWidth()-modX)==2){
-            chance_mod = 0.65;
+            ability = 80+(((float)getAttributes().getDefending()-15)*2)+(((float)shooter.getAttributes().getShooting()-15)*2);
         }
         else if(Math.abs(shooter.getPlace().getLength()-modY)==0 && Math.abs(shooter.getPlace().getWidth()-modX)!=2){
-            chance_mod = 0.75;
+            ability = 85+(((float)getAttributes().getDefending()-15)*1.5f)+(((float)shooter.getAttributes().getShooting()-15)*1.5f);
         }
         else if(Math.abs(shooter.getPlace().getLength()-modY)==1){
-            chance_mod = 0.9;
+            ability = 90+(((float)getAttributes().getDefending()-15))+(((float)shooter.getAttributes().getShooting()-15));
         }
-        int success = random.nextInt(100);
-        double ability = (((float)getAttributes().getDefending()/20)*100)*chance_mod;
+
         if(success<(ability/2)){
             System.out.println(surname+" catches the shot.");
             shooter.player_get_ball(false);

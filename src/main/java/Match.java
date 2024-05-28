@@ -39,10 +39,20 @@ public class Match {
         }
         time=2700;
         event=-1;
+        for(Team team: teams){
+            for(int i=0; i<11; i++){
+                if((team.getLineup().get(i).getStamina()+15)>100){
+                    team.getLineup().get(i).setStamina(100);
+                }
+                else{
+                    team.getLineup().get(i).setStamina(team.getLineup().get(i).getStamina()+15);
+                }
+            }
+        }
         while(time<5400){
             for(Team team: teams){
                 for(int i=0; i<11; i++){
-                    if(team.getLineup().get(i).getStamina()<10){
+                    if(team.getLineup().get(i).getStamina()<25){
                         team.substitution(team.getLineup().get(i));
                     }
                 }
@@ -50,6 +60,11 @@ public class Match {
             half();
         }
         System.out.println(team1.getLineup().get(4).getStats().getMinutes_played());
+        for(Team team: teams){
+            for(int i=0; i<11; i++){
+                System.out.println(team.getLineup().get(i).getStamina());
+            }
+        }
     }
 
     /**

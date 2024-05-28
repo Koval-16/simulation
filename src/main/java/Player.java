@@ -129,6 +129,7 @@ public abstract class Player {
         if(newWidth>=0 && newWidth<5 && place.getLength()>=0 && place.getLength()<6){
             place = pitch.getPitch()[newWidth][place.getLength()];
         }
+        stamina -= 0.02;
     }
 
     /**
@@ -151,19 +152,19 @@ public abstract class Player {
         if(team_number==2){
             modX=4; modY=5;
         }
-        double chance_mod=0;
+        int success = (random.nextInt(100))+1;
+        float ability;
         if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)==2){
-            chance_mod = 0.9;
+            ability = 65+(((float)attributes.getShooting()-15)*3);
         }
         else if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)!=2){
-            chance_mod = 0.75;
+            ability = 55+(((float)attributes.getShooting()-15)*3);
         }
-        else if(Math.abs(getPlace().getLength()-modY)==1){
-            chance_mod = 0.5;
+        else {
+            ability = 45+(((float)attributes.getShooting()-15)*3);
         }
-        int success = (random.nextInt(100))+1;
-        double ability = (((float)attributes.getShooting()/20)*100)*chance_mod;
-        System.out.println(ability);
+
+        stamina -= 0.5;
         if(success<ability){
             ball.setX(2);
             if(team_number==2) ball.setY(5);
@@ -228,8 +229,54 @@ public abstract class Player {
      * @return returns event that will happen, there might be normal game, missed ball or free kick(after off-side)
      */
     public int player_passing(Player recipient, Ball ball, int event){
+        int modY=0;
+        if(team_number==2) modY=5;
         int success = (random.nextInt(100))+1;
-        float ability = ((float)attributes.getPassing()/20)*100;
+        float ability;
+        if(Math.abs(getPlace().getLength()-modY)<=5 && Math.abs(getPlace().getLength()-modY)>=4){
+            if(getPlace()==recipient.getPlace()){
+                ability = 90+(((float)attributes.getPassing()-15));
+            }
+            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
+                ability = 85+(((float)attributes.getPassing()-15));
+            }
+            else{
+                ability = 50+(((float)attributes.getPassing()-15)*6);
+            }
+        }
+        else if(Math.abs(getPlace().getLength()-modY)<=3 && Math.abs(getPlace().getLength()-modY)>=2){
+            if(getPlace()==recipient.getPlace()){
+                ability = 80+(((float)attributes.getPassing()-15)*2);
+            }
+            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
+                ability = 75+(((float)attributes.getPassing()-15)*2);
+            }
+            else{
+                ability = 50+(((float)attributes.getPassing()-15)*6);
+            }
+        }
+        else if(Math.abs(getPlace().getLength()-modY)==1){
+            if(getPlace()==recipient.getPlace()){
+                ability = 65+(((float)attributes.getPassing()-15)*3);
+            }
+            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
+                ability = 60+(((float)attributes.getPassing()-15)*3);
+            }
+            else{
+                ability = 40+(((float)attributes.getPassing()-15)*4);
+            }
+        }
+        else {
+            if(getPlace()==recipient.getPlace()){
+                ability = 40+(((float)attributes.getPassing()-15)*4);
+            }
+            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
+                ability = 35+(((float)attributes.getPassing()-15)*4);
+            }
+            else{
+                ability = 40+(((float)attributes.getPassing()-15)*4);
+            }
+        }
         if(success<ability){
             player_get_ball(false);
             recipient.player_get_ball(true);
@@ -242,8 +289,7 @@ public abstract class Player {
             event = 1;
         }
         else {
-            int modY=0;
-            if(team_number==2) modY=5;
+
             int choi=0;
             if((Math.abs(getPlace().getLength()-modY)<=1)){
                 choi = random.nextInt(2);
@@ -264,6 +310,7 @@ public abstract class Player {
             stats.addPassesAttempts();
             stats.addLost();
         }
+        stamina -= 0.15;
         return event;
     }
 
@@ -288,6 +335,7 @@ public abstract class Player {
             ball.setY(getPlace().getLength());
         }
         System.out.println(surname+" dribbles");
+        stamina -=1;
     }
 
     /**
@@ -301,9 +349,17 @@ public abstract class Player {
      * @return the event which will happen then, there might be: normal game, free kick, penalty
      */
     public int player_tackling(Player opponent, Ball ball, int event){
-        Random random = new Random();
+        int modY=0;
+        if(team_number==2) modY=5;
         int chance = random.nextInt(100);
-        if(chance<25){
+        float ability;
+        if(Math.abs(getPlace().getLength()-modY)>=2){
+            ability = 60+(((float)attributes.getDefending()-15)*2)+(((float)opponent.getAttributes().getDribbling()-15)*2);
+        }
+        else{
+            ability = 20+(((float)attributes.getDefending()-15)*2)+(((float)opponent.getAttributes().getDribbling()-15)*2);
+        }
+        if(chance<ability){
             System.out.println(surname+" makes a tackle! "+opponent.surname+" loses possession.");
             opponent.player_get_ball(false);
             player_get_ball(true);
@@ -315,41 +371,45 @@ public abstract class Player {
             opponent.getStats().addDuel();
             opponent.getStats().addLost();
         }
-        else if(chance<50){
-            int mod = 0;
-            if(team_number==2) mod=5;
-            if(getPlace().getWidth()<=3 && getPlace().getWidth()>=1 && getPlace().getLength()==mod){
-                System.out.println(surname+" fouls in the box! Penalty!");
-                opponent.player_get_ball(false);
-                event = 8;
-            }
-            else{
-                System.out.println(surname+" fouls! Free kick!");
-                opponent.player_get_ball(false);
-                event = 7;
-            }
-            int card = random.nextInt(100);
-            if(card<3){
-                stats.addRed();
-                System.out.println(surname+" gets red card! He is sent off!");
-            }
-            else if(card<15){
-                stats.addYellow();
-                System.out.println(surname+" gets yellow card!");
-                if(stats.getYellow_cards()==2){
-                    stats.addRed();
-                    System.out.println("It's his second yellow card! "+surname+" receives red card and he's sent off!");
-                }
-            }
-            stats.addFoul();
-        }
         else{
-            System.out.println(surname+" tries to make a tackle but he isn't successful!");
-            event = 1;
-            stats.addDuel();
-            opponent.getStats().addDuel();
-            opponent.getStats().addDuelWon();
+            float foulrate = 30+(((float)attributes.getAggression()-15)*2);
+            int foulrandom = random.nextInt(100);
+            if(foulrandom<foulrate){
+                if(getPlace().getWidth()<=3 && getPlace().getWidth()>=1 && getPlace().getLength()==modY){
+                    System.out.println(surname+" fouls in the box! Penalty!");
+                    opponent.player_get_ball(false);
+                    event = 8;
+                }
+                else{
+                    System.out.println(surname+" fouls! Free kick!");
+                    opponent.player_get_ball(false);
+                    event = 7;
+                }
+                int card = random.nextInt(100);
+                if(card<3){
+                    stats.addRed();
+                    System.out.println(surname+" gets red card! He is sent off!");
+                }
+                else if(card<15){
+                    stats.addYellow();
+                    System.out.println(surname+" gets yellow card!");
+                    if(stats.getYellow_cards()==2){
+                        stats.addRed();
+                        System.out.println("It's his second yellow card! "+surname+" receives red card and he's sent off!");
+                    }
+                }
+                opponent.setStamina(getStamina()-1);
+                stats.addFoul();
+            }
+            else {
+                System.out.println(surname+" tries to make a tackle but he isn't successful!");
+                event = 1;
+                stats.addDuel();
+                opponent.getStats().addDuel();
+                opponent.getStats().addDuelWon();
+            }
         }
+        stamina -= 0.25;
         return event;
     }
 
@@ -380,6 +440,7 @@ public abstract class Player {
             System.out.println(surname+" crosses, but he misses!");
             event = 4;
         }
+        stamina -= 0.2;
         return event;
     }
 
@@ -398,6 +459,7 @@ public abstract class Player {
         player_get_ball(true);
         event = 1;
         System.out.println(surname+" takes over the ball!");
+        stamina -= 0.1;
         return event;
     }
 

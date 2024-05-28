@@ -47,6 +47,7 @@ public class Team {
      * @return name of the team
      */
     private String choose_team(){
+        System.out.println("insert team:");
         Scanner scanner1 = new Scanner(System.in);
         String team = scanner1.nextLine();
         try{
