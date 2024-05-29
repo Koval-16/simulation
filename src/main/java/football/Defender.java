@@ -1,9 +1,10 @@
 package football;
 
 public class Defender extends Player{
-    public Defender(String name, String surname, int side, int shooting, int dribbling, int passing, int defending, int aggression, int intelligence, int team_number, StatsTeam stats) {
+    public Defender(String name, String surname, int side, int shooting, int dribbling, int passing, int defending,
+                    int aggression, int intelligence, int team_number, StatsTeam stats, int mentality, int motivation) {
         super(name, surname, side, shooting, dribbling, passing, defending, aggression, intelligence, team_number,
-                stats);
+                stats, mentality, motivation);
     }
     public int decision_ball(Pitch pitch, Ball ball, Team team, int event){
         if(event==-1){}
@@ -15,58 +16,26 @@ public class Defender extends Player{
                 modX=4;
                 modY=5;
             }
-            int action = random.nextInt(100);
-            if(Math.abs(getPlace().getWidth()-modX)==2 && Math.abs(getPlace().getLength()-modY)==0){
-                if(action<60) event=player_shooting(ball,event);
-                else if(action<90) event=player_passing(recipient(team),ball,event);
-                else player_dribbling(pitch,ball);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)==1 || Math.abs(getPlace().getWidth()-modX)==3) && Math.abs(getPlace().getLength()-modY)==0){
-                if(action<50) event=player_shooting(ball,event);
-                else if(action<85) event=player_passing(recipient(team),ball,event);
-                else player_dribbling(pitch,ball);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==1){
-                if(action<15) event=player_shooting(ball,event);
-                else if(action<45) event=player_passing(recipient(team),ball,event);
-                else if(action<70) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=0 && Math.abs(getPlace().getLength()-modY)<=1)){
-                if(action<35) event=player_passing(recipient(team),ball,event);
-                else if(action<65) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && (Math.abs(getPlace().getLength()-modY)>=2 && Math.abs(getPlace().getLength()-modY)<=3)){
-                if(action<60) event=player_passing(recipient(team),ball,event);
-                else if(action<70) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=2 && Math.abs(getPlace().getLength()-modY)<=3)){
-                if(action<50) event=player_passing(recipient(team),ball,event);
-                else if(action<70) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==4){
-                if(action<75) event=player_passing(recipient(team),ball,event);
-                else if(action<85) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
-            }
-            else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==5){
+            double action = random.nextInt(100)-((100-getStamina())/10)+mentality;
+            if(Math.abs(getPlace().getLength()-modY)>=2){
                 if(action<80) event=player_passing(recipient(team),ball,event);
-                else if(action<85) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
+                else player_dribbling(pitch,ball);
             }
-            else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=4 && Math.abs(getPlace().getLength()-modY)<=5)){
-                if(action<75) event=player_passing(recipient(team),ball,event);
+            else if(getPlace().getWidth()==0 || getPlace().getWidth()==4){
+                if(action<70) event=player_passing(recipient(team),ball,event);
+                else player_dribbling(pitch,ball);
+            }
+            else if(Math.abs(getPlace().getLength()-modY)>=1){
+                if(action<70) event=player_passing(recipient(team),ball,event);
+                else if(action<95) player_dribbling(pitch,ball);
+                else event=player_shooting(ball,event);
+            }
+            else {
+                if(action<80) event=player_passing(recipient(team),ball,event);
                 else if(action<90) player_dribbling(pitch,ball);
-                else event=player_passing(recipient(team),ball,event);
+                else event=player_shooting(ball,event);
             }
         }
-        else if(event==2){}
-        else if(event==3){}
-        else if(event==4){}
-        else if(event==5){}
         else if(event==6){
             event=player_passing(recipient(team),ball,event);
         }
@@ -87,33 +56,19 @@ public class Defender extends Player{
             m = -1;
         }
         int newLength = place.getLength();
+        int expY;
         if(ball_team==team_number){
-            if(ball_Y==Math.abs(5-modifier) || ball_Y==Math.abs(4-modifier) || ball_Y==Math.abs(3-modifier)){
-                if(place.getLength()>ball_Y)  newLength--;
-                else if(place.getLength()<ball_Y) newLength++;
-            }
-            else if(ball_Y==Math.abs(2-modifier) || ball_Y==Math.abs(1-modifier)){
-                if(place.getLength()>ball_Y+1)  newLength--;
-                else if(place.getLength()<ball_Y+1) newLength++;
-            }
-            else if(ball_Y==Math.abs(-modifier)){
-                if(place.getLength()>ball_Y+2)  newLength--;
-                else if(place.getLength()<ball_Y+2) newLength++;
-            }
+            if(ball_Y==Math.abs(5-modifier) || ball_Y==Math.abs(4-modifier) || ball_Y==Math.abs(3-modifier)) expY=ball_Y;
+            else if(ball_Y==Math.abs(2-modifier) || ball_Y==Math.abs(1-modifier)) expY=ball_Y+m;
+            else expY=ball_Y+(2*m);
         }
-        else {
-            if(ball_Y==Math.abs(-modifier) || ball_Y==Math.abs(1-modifier) || ball_Y==Math.abs(2-modifier)){
-                if(place.getLength()>ball_Y+m*2)  newLength--;
-                else if(place.getLength()<ball_Y+m*2) newLength++;
-            }
-            else if(ball_Y==Math.abs(3-modifier) || ball_Y==Math.abs(4-modifier) ){
-                if(place.getLength()>ball_Y+m*1)  newLength--;
-                else if(place.getLength()<ball_Y+m*1) newLength++;
-            }
-            else if(ball_Y==Math.abs(5-modifier)){
-                if(place.getLength()<ball_Y) newLength++;
-            }
+        else{
+            if(ball_Y==Math.abs(-modifier) || ball_Y==Math.abs(1-modifier) || ball_Y==Math.abs(2-modifier)) expY=ball_Y+(2*m);
+            else if(ball_Y==Math.abs(3-modifier) || ball_Y==Math.abs(4-modifier)) expY=ball_Y+m;
+            else expY=ball_Y;
         }
+        if(place.getLength()>expY) newLength--;
+        else if(place.getLength()<expY) newLength++;
         if(place.getWidth()>=0 && place.getWidth()<5 && newLength>=0 && newLength<6){
             place = pitch.getPitch()[place.getWidth()][newLength];
         }

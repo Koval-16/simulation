@@ -12,6 +12,8 @@ import java.util.Scanner;
 public class Team {
     Random random = new Random();
     private String name;
+    int mentality;
+    int motivation;
     private List<Player> players;
     private List<Player> lineup;
     private List<Player> bench;
@@ -27,11 +29,13 @@ public class Team {
      * @param pitch pitch of the game
      * @param number the index of the team
      */
-    public Team(Pitch pitch, int number, String name){
+    public Team(Pitch pitch, int number, String name, int mentality, int motivation){
         this.number = number;
         this.pitch = pitch;
         this.stats = new StatsTeam();
         this.name = name;
+        this.mentality = mentality;
+        this.motivation = motivation;
         this.players = new ArrayList<>();
         this.lineup = new ArrayList<>();
         this.bench = new ArrayList<>();
@@ -82,28 +86,28 @@ public class Team {
                     Goalkeeper player = new Goalkeeper(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats);
+                            number, stats, mentality, motivation);
                     players.add(player);
                 }
                 else if(names[2].equals("D")){
                     Defender player = new Defender(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats);
+                            number, stats, mentality, motivation);
                     players.add(player);
                 }
                 else if(names[2].equals("M")){
                     Midfielder player = new Midfielder(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats);
+                            number, stats, mentality,motivation);
                     players.add(player);
                 }
                 else{
                     Forward player = new Forward(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats);
+                            number, stats, mentality, motivation);
                     players.add(player);
                 }
             }

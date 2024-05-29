@@ -6,13 +6,15 @@ public class Goalkeeper extends Player{
 
     Random random = new Random();
     public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int passing,
-                      int defending, int aggression, int intelligence, int team_number, StatsTeam stats) {
+                      int defending, int aggression, int intelligence, int team_number, StatsTeam stats,
+                      int mentality, int motivation) {
         super(name, surname, side, shooting, dribbling, passing, defending,
-                aggression, intelligence, team_number, stats);
+                aggression, intelligence, team_number, stats, mentality,motivation);
     }
 
     @Override
     public int decision_ball(Pitch pitch, Ball ball, Team team, int event){
+        ball.setOwner(this);
         event = player_passing(recipient(team), ball, event);
         return event;
     }

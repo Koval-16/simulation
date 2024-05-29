@@ -23,8 +23,8 @@ public class Match {
      */
     public Match(String t1, String t2, int mental1, int mental2, int motiv1, int motiv2, int referee, int weather){
         this.football_pitch = new Pitch(5,6);
-        this.team1 = new Team(football_pitch,1, t1);
-        this.team2 = new Team(football_pitch,2, t2);
+        this.team1 = new Team(football_pitch,1, t1,mental1,motiv1);
+        this.team2 = new Team(football_pitch,2, t2,mental2,motiv2);
         this.ball = new Ball();
         this.teams = new Team[]{team1, team2};
     }
@@ -120,11 +120,19 @@ public class Match {
             time = time+3;
         }
         else if(event==7){
-            for(Team team: teams){
-                set_piece_prep(team, team.getFreekicks_taker());
+            for(Team team:teams){
+                int modY = 0;
+                if(team.getNumber()==2) modY= 5;
+                if(team.getNumber()==ball.getTeam()){
+                    if(Math.abs(ball.getOwner().getPlace().getLength()-modY)<=1){
+                        for(Team team1: teams){
+                            set_piece_prep(team1, team1.getFreekicks_taker());
+                        }
+                    }
+                }
             }
             for(Team team: teams){
-                set_piece(team, team.getFreekicks_taker());
+                set_piece(team, ball.getOwner());
             }
             players_react();
             time = time+3;
@@ -181,6 +189,7 @@ public class Match {
     private void display_time(){
         int min = time/60;
         int sec = time%60;
+        System.out.println("position: "+team2.getLineup().get(9).getPlace().getWidth()+"x"+team2.getLineup().get(9).getPlace().getLength());
         System.out.print(String.format("%02d:%02d ",min,sec));
     }
 
@@ -255,6 +264,7 @@ public class Match {
     }
     private void set_piece_prep(Team team, Player player){
         if(team.getNumber()==ball.getTeam()){
+            ball.getOwner().player_get_ball(false);
             ball.setOwner(player);
             player.player_get_ball(true);
         }

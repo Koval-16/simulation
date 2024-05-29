@@ -17,6 +17,8 @@ public abstract class Player {
     protected Field place;
     protected boolean ball_possessed;
     protected int team_number;
+    int mentality;
+    int motivation;
 
     /**
      * Constructor of class <code>football.Player</code> with his name, surname, and attributes
@@ -33,7 +35,7 @@ public abstract class Player {
      */
     public Player(String name, String surname, int side, int shooting, int dribbling,int passing,
                   int defending, int aggression, int intelligence, int team_number,
-                  StatsTeam team_stats){
+                  StatsTeam team_stats, int mentality, int motivation){
         this.name = name;
         this.surname = surname;
         this.ball_possessed = false;
@@ -41,6 +43,8 @@ public abstract class Player {
         this.attributes = new AttributesPlayer(side, shooting, dribbling, passing, defending, aggression, intelligence);
         this.team_number = team_number;
         this.team_stats = team_stats;
+        this.mentality = mentality;
+        this.motivation = motivation;
     }
 
     /**
@@ -181,6 +185,9 @@ public abstract class Player {
             event = 9;
             stats.addShoots();
             team_stats.addShoot();
+            ball.setX(2);
+            if(team_number==2) ball.setY(5);
+            else ball.setY(0);
             return event;
         }
     }
@@ -308,7 +315,7 @@ public abstract class Player {
                 stats.addPassesAttempts();
                 stats.addOffside();
                 team_stats.addOffside();
-                event=7;
+                event=4;
             }
             player_get_ball(false);
             if(team_number==1) ball.setTeam(2);
@@ -383,14 +390,13 @@ public abstract class Player {
             float foulrate = 30+(((float)attributes.getAggression()-15)*2);
             int foulrandom = random.nextInt(100);
             if(foulrandom<foulrate){
-                if(getPlace().getWidth()<=3 && getPlace().getWidth()>=1 && getPlace().getLength()==modY){
+                if(getPlace().getWidth()<=3 && getPlace().getWidth()>=1 && getPlace().getLength()==5-modY){
                     System.out.println(surname+" fouls in the box! Penalty!");
                     opponent.player_get_ball(false);
                     event = 8;
                 }
                 else{
                     System.out.println(surname+" fouls! Free kick!");
-                    opponent.player_get_ball(false);
                     event = 7;
                 }
                 int card = random.nextInt(100);
@@ -425,39 +431,6 @@ public abstract class Player {
         return event;
     }
 
-    /**
-     * Method <code>player_crossing</code> makes football.Player cross. He crosses to the chosen recipient. Cross can be either
-     * successful, missed, or off-side. It depends on player's pass ability, and the distance from the recipient.
-     * @param recipient the chosen recipient of the cross
-     * @param ball the ball
-     * @param event the event
-     * @return returns event that will happen, there might be high ball, missed ball or free kick(after off-side)
-     */
-    public int player_crossing(Player recipient, Ball ball, int event){
-        int success = (random.nextInt(100))+1;
-        float ability = ((float)attributes.getPassing()/20)*100;
-        if(success<ability){
-            player_get_ball(false);
-            recipient.player_get_ball(true);
-            ball.setOwner(recipient);
-            ball.setX(recipient.getPlace().getWidth());
-            ball.setY(recipient.getPlace().getLength());
-            System.out.println(surname+" crosses to "+recipient.surname);
-            event = 1;
-        }
-        else {
-            player_get_ball(false);
-            ball.setX(recipient.getPlace().getWidth());
-            ball.setY(recipient.getPlace().getLength());
-            System.out.println(surname+" crosses, but he misses!");
-            event = 4;
-        }
-        stamina -= 0.2;
-        return event;
-    }
-
-    public void player_heading(){
-    }
 
     /**
      * Method <code>player_intercepting</code> makes football.Player take over the ball, when nobody owns the ball.
