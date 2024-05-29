@@ -2,10 +2,10 @@ package football;
 
 public class AttributesPlayer {
     private final int side;
-    private final int shooting;
-    private final int dribbling;
-    private final int passing;
-    private final int defending;
+    private int shooting;
+    private int dribbling;
+    private int passing;
+    private int defending;
     private final int aggression;
     private final int intelligence;
     public AttributesPlayer(int side, int shooting, int dribbling, int passing, int defending, int aggression,int intelligence){
@@ -23,6 +23,15 @@ public class AttributesPlayer {
     }
     public int getShooting(){
         return shooting;
+    }
+    public void incShooting(){
+        shooting++;
+    }
+    public void incDribbling(){
+        dribbling++;
+    }
+    public void incDefending(){
+        defending++;
     }
     public int getDribbling(){
         return dribbling;

@@ -13,25 +13,16 @@ public class Goalkeeper extends Player{
     }
 
     @Override
-    public int decision_ball(Pitch pitch, Ball ball, Team team, int event){
+    public int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con){
         ball.setOwner(this);
-        event = player_passing(recipient(team), ball, event);
+        event = player_passing(recipient(team), ball, event,con);
         return event;
     }
 
     public int decision_no_ball(int event, Player shooter){
-        if(event==-1){}
-        else if(event==0){}
-        else if(event==1){}
-        else if(event==2){
+        if(event==2){
             event = player_saving(shooter, event);
         }
-        else if(event==3){}
-        else if(event==4){}
-        else if(event==5){}
-        else if(event==6){}
-        else if(event==7){}
-        else if(event==8){}
         else if(event==9){
             shooter.player_get_ball(false);
             player_get_ball(true);

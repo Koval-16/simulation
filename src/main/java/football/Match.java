@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Match {
-
     Random random = new Random();
     private int time=0;
     private int event=-1; /* -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:balllost ; 5:offside
@@ -17,6 +16,10 @@ public class Match {
     Team team2;
     Ball ball;
     Team[] teams;
+    int weather;
+    double condition_modifier = 1;
+    double rain_modifier = 0;
+    int referee = 0;
 
     /**
      * The constructor of the class football.Match. It creates a pitch for the game, two teams and the ball.
@@ -27,8 +30,23 @@ public class Match {
         this.team2 = new Team(football_pitch,2, t2,mental2,motiv2);
         this.ball = new Ball();
         this.teams = new Team[]{team1, team2};
+        this.weather = weather;
+        influenceWeather();
+        this.referee = referee;
     }
 
+    public void influenceWeather(){
+        switch (weather){
+            case 0:
+                break;
+            case 1:
+                condition_modifier=1.25;
+                break;
+            case 2:
+                rain_modifier=1;
+                break;
+        }
+    }
     /**
      * Method <code>simulate</code> simulates the match. The game is divided into two halfs. Time represents the
      * game time in seconds. Each half lasts 45 min = 2700 sec.
@@ -200,7 +218,7 @@ public class Match {
         for(Team team: teams){
             for(int i=1; i<11; i++){
                 if(!team.getLineup().get(i).ball_possessed){
-                    team.getLineup().get(i).player_moving(football_pitch, ball.getX(), ball.getY(), ball.getTeam());
+                    team.getLineup().get(i).player_moving(football_pitch, ball.getX(), ball.getY(), ball.getTeam(), condition_modifier);
                 }
             }
         }
@@ -213,13 +231,13 @@ public class Match {
         for(Team team: teams){
             if(team.getLineup().get(0).ball_possessed){
                 if(team.getLineup().get(0) instanceof Goalkeeper){
-                    event = team.getLineup().get(0).decision_ball(football_pitch,ball,team,event);
+                    event = team.getLineup().get(0).decision_ball(football_pitch,ball,team,event,condition_modifier);
                     break;
                 }
             }
             for(int j=1; j<11; j++){
                 if(team.getLineup().get(j).ball_possessed){
-                    event = team.getLineup().get(j).decision_ball(football_pitch,ball,team,event);
+                    event = team.getLineup().get(j).decision_ball(football_pitch,ball,team,event,condition_modifier);
                     break;
                 }
             }
@@ -250,7 +268,7 @@ public class Match {
                 }while(available.isEmpty());
                 if(!available.isEmpty()){
                     int play = random.nextInt(available.size());
-                    event = available.get(play).decision_no_ball(event,team,ball);
+                    event = available.get(play).decision_no_ball(event,team,ball,condition_modifier);
                 }
                 return;
             }
@@ -259,7 +277,7 @@ public class Match {
 
     private void set_piece(Team team, Player player){
         if(team.getNumber()==ball.getTeam()){
-            event = player.decision_ball(football_pitch,ball,team,event);
+            event = player.decision_ball(football_pitch,ball,team,event,condition_modifier);
         }
     }
     private void set_piece_prep(Team team, Player player){
@@ -281,7 +299,7 @@ public class Match {
                 if(team.getNumber()==2) ball.setY(5);
                 else ball.setY(0);
                 team.getPenalties_taker().setPlace(football_pitch,ball.getX(), ball.getY());
-                event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event);
+                event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event,condition_modifier);
             }
         }
     }
