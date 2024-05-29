@@ -21,7 +21,7 @@ public class Match {
     /**
      * The constructor of the class football.Match. It creates a pitch for the game, two teams and the ball.
      */
-    public Match(String t1, String t2, int mental1, int mental2, int referee, int weather){
+    public Match(String t1, String t2, int mental1, int mental2, int motiv1, int motiv2, int referee, int weather){
         this.football_pitch = new Pitch(5,6);
         this.team1 = new Team(football_pitch,1, t1);
         this.team2 = new Team(football_pitch,2, t2);
@@ -65,6 +65,28 @@ public class Match {
             half();
         }
         System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
+        for(Team team: teams){
+            for(int i=0; i<team.getLineup().size(); i++){
+                System.out.println(team.getLineup().get(i).surname+": minutes played: "+team.getLineup().get(i).getStats().getMinutes_played()+
+                        " goals: "+team.getLineup().get(i).getStats().getGoals()+" shoots(on target): "+team.getLineup().get(i).getStats().getShoots()+
+                        "("+team.getLineup().get(i).getStats().getShoots_on_target()+") passes(completed): "+
+                        team.getLineup().get(i).getStats().getPasses_attempts()+"("+team.getLineup().get(i).getStats().getPasses_completed()+
+                        ") dribblings: "+team.getLineup().get(i).getStats().getDribbling_completed()+" duels(won): "+
+                        team.getLineup().get(i).getStats().getDuels_attempts()+"("+team.getLineup().get(i).getStats().getDuels_won()+
+                        ") offsides: "+team.getLineup().get(i).getStats().getOffsides()+"\nfouls: "+team.getLineup().get(i).getStats().getFouls()+
+                        " yellow: "+team.getLineup().get(i).getStats().getYellow_cards()+" red: "+team.getLineup().get(i).getStats().getRed_cards()+
+                        " losts: "+team.getLineup().get(i).getStats().getLost_possession()+" interceptions: "+team.getLineup().get(i).getStats().getInterceptions()+
+                        " saves: "+team.getLineup().get(i).getStats().getSaves()+"\n");
+            }
+        }
+        for(Team team: teams){
+            System.out.println(team.getName()+": Goals: "+team.getStats().getGoals()+" Shoots(on target): "+
+                    team.getStats().getShoots()+"("+team.getStats().getShoots_on_target()+") Passes:"+
+                    team.getStats().getPasses()+" FreeKicks: "+team.getStats().getFree_kicks()+"\nCorners: "+
+                    team.getStats().getCorners()+" Penalties: "+team.getStats().getPenalties()+" Offsides: "+
+                    team.getStats().getOffsides()+" Fouls: "+team.getStats().getFouls()+" Yellow:"+
+                    team.getStats().getYellow_cards()+" Red:"+team.getStats().getRed_cards()+"\n");
+        }
     }
 
     /**

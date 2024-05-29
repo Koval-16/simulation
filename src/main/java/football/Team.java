@@ -82,7 +82,6 @@ public class Team {
                     Goalkeeper player = new Goalkeeper(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
                             number, stats);
                     players.add(player);
                 }
@@ -90,7 +89,6 @@ public class Team {
                     Defender player = new Defender(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
                             number, stats);
                     players.add(player);
                 }
@@ -98,7 +96,6 @@ public class Team {
                     Midfielder player = new Midfielder(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
                             number, stats);
                     players.add(player);
                 }
@@ -106,7 +103,6 @@ public class Team {
                     Forward player = new Forward(names[0], names[1], Integer.parseInt(names[3]),
                             Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
                             Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            Integer.parseInt(names[10]), Integer.parseInt(names[11]), Integer.parseInt(names[12]),
                             number, stats);
                     players.add(player);
                 }
@@ -220,7 +216,7 @@ public class Team {
         for(int i=0; i<corner.size()-1; i++){
             for(int j=i+1; j<corner.size(); j++){
                 Player temp;
-                if(corner.get(i).getAttributes().getHeading()>corner.get(j).getAttributes().getHeading()){
+                if(corner.get(i).getAttributes().getShooting()>corner.get(j).getAttributes().getShooting()){
                     temp = corner.get(i);
                     corner.set(i, corner.get(j));
                     corner.set(j, temp);

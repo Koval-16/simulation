@@ -5,10 +5,10 @@ import java.util.Random;
 public class Goalkeeper extends Player{
 
     Random random = new Random();
-    public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
-                      int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number, StatsTeam stats) {
-        super(name, surname, side, shooting, dribbling, speed, passing, defending,
-                heading, aggression, risk_taking, intelligence, team_number, stats);
+    public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int passing,
+                      int defending, int aggression, int intelligence, int team_number, StatsTeam stats) {
+        super(name, surname, side, shooting, dribbling, passing, defending,
+                aggression, intelligence, team_number, stats);
     }
 
     @Override
@@ -67,6 +67,7 @@ public class Goalkeeper extends Player{
             shooter.player_get_ball(false);
             player_get_ball(false);
             getStats().addSave();
+            shooter.getTeam_stats().addCorner();
             event = 6;
         }
         else{

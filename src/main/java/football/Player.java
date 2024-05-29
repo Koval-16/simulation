@@ -25,24 +25,20 @@ public abstract class Player {
      * @param side player's side, 1=left, 2=center, 3=right
      * @param shooting player's shooting ability
      * @param dribbling player's dribbling ability
-     * @param speed player's speed ability
      * @param passing player's passing ability
      * @param defending player's defending ability
-     * @param heading player's heading ability
      * @param aggression player's aggression
-     * @param risk_taking player's tendency to take risks
      * @param intelligence player's intelligence
      * @param team_number the index of player's team
      */
-    public Player(String name, String surname, int side, int shooting, int dribbling, int speed, int passing,
-                  int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number,
+    public Player(String name, String surname, int side, int shooting, int dribbling,int passing,
+                  int defending, int aggression, int intelligence, int team_number,
                   StatsTeam team_stats){
         this.name = name;
         this.surname = surname;
         this.ball_possessed = false;
         this.stats = new StatsPlayer();
-        this.attributes = new AttributesPlayer(side, shooting, dribbling, speed, passing, defending, heading,
-                aggression, risk_taking, intelligence);
+        this.attributes = new AttributesPlayer(side, shooting, dribbling, passing, defending, aggression, intelligence);
         this.team_number = team_number;
         this.team_stats = team_stats;
     }
@@ -176,12 +172,15 @@ public abstract class Player {
             event = 2;
             stats.addShoots();
             stats.addShootOnTarget();
+            team_stats.addShoot();
+            team_stats.addShootOnTarget();
             return event;
         }
         else{
             System.out.println(surname+" shoots, but he misses");
             event = 9;
             stats.addShoots();
+            team_stats.addShoot();
             return event;
         }
     }
@@ -289,6 +288,7 @@ public abstract class Player {
             System.out.println(surname+" passes to "+recipient.surname);
             stats.addPassesAttempts();
             stats.addPassesCompleted();
+            team_stats.addPass();
             event = 1;
         }
         else {
@@ -307,6 +307,7 @@ public abstract class Player {
                 System.out.println(surname+" passes, but "+recipient.surname+" is off-side!");
                 stats.addPassesAttempts();
                 stats.addOffside();
+                team_stats.addOffside();
                 event=7;
             }
             player_get_ball(false);
@@ -396,17 +397,21 @@ public abstract class Player {
                 if(card<3){
                     stats.addRed();
                     System.out.println(surname+" gets red card! He is sent off!");
+                    team_stats.addRed();
                 }
                 else if(card<15){
                     stats.addYellow();
                     System.out.println(surname+" gets yellow card!");
+                    team_stats.addYellow();
                     if(stats.getYellow_cards()==2){
                         stats.addRed();
+                        team_stats.addRed();
                         System.out.println("It's his second yellow card! "+surname+" receives red card and he's sent off!");
                     }
                 }
                 opponent.setStamina(getStamina()-1);
                 stats.addFoul();
+                team_stats.addFoul();
             }
             else {
                 System.out.println(surname+" tries to make a tackle but he isn't successful!");
@@ -478,21 +483,8 @@ public abstract class Player {
      * @return it returns the event that will happen, here shoot on-target or missed shoot
      */
     public int player_penalty(Ball ball, int event){
-        int success = (random.nextInt(100))+1;
-        float ability = ((float)attributes.getShooting()/20)*100;
-        if(success<ability){
-            ball.setX(2);
-            if(team_number==2) ball.setY(5);
-            else ball.setY(0);
-            System.out.println(surname+" shoots...");
-            event = 2;
-            return event;
-        }
-        else{
-            System.out.println(surname+" shoots, but he misses");
-            event = 9;
-            return event;
-        }
+        team_stats.addPenalty();
+        return player_shooting(ball, event);
     }
 
     /**
@@ -513,6 +505,7 @@ public abstract class Player {
         else{
             event = player_passing(recipient(team), ball, event);
         }
+        team_stats.addFreeKick();
         return event;
     }
 

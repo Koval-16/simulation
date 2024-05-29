@@ -1,8 +1,8 @@
 package football;
 
 public class Defender extends Player{
-    public Defender(String name, String surname, int side, int shooting, int dribbling, int speed, int passing, int defending, int heading, int aggression, int risk_taking, int intelligence, int team_number, StatsTeam stats) {
-        super(name, surname, side, shooting, dribbling, speed, passing, defending, heading, aggression, risk_taking, intelligence, team_number,
+    public Defender(String name, String surname, int side, int shooting, int dribbling, int passing, int defending, int aggression, int intelligence, int team_number, StatsTeam stats) {
+        super(name, surname, side, shooting, dribbling, passing, defending, aggression, intelligence, team_number,
                 stats);
     }
     public int decision_ball(Pitch pitch, Ball ball, Team team, int event){
@@ -30,37 +30,37 @@ public class Defender extends Player{
                 if(action<15) event=player_shooting(ball,event);
                 else if(action<45) event=player_passing(recipient(team),ball,event);
                 else if(action<70) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=0 && Math.abs(getPlace().getLength()-modY)<=1)){
                 if(action<35) event=player_passing(recipient(team),ball,event);
                 else if(action<65) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && (Math.abs(getPlace().getLength()-modY)>=2 && Math.abs(getPlace().getLength()-modY)<=3)){
                 if(action<60) event=player_passing(recipient(team),ball,event);
                 else if(action<70) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=2 && Math.abs(getPlace().getLength()-modY)<=3)){
                 if(action<50) event=player_passing(recipient(team),ball,event);
                 else if(action<70) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==4){
                 if(action<75) event=player_passing(recipient(team),ball,event);
                 else if(action<85) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)<=3 && Math.abs(getPlace().getWidth()-modX)>=1) && Math.abs(getPlace().getLength()-modY)==5){
                 if(action<80) event=player_passing(recipient(team),ball,event);
                 else if(action<85) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
             else if((Math.abs(getPlace().getWidth()-modX)==0 || Math.abs(getPlace().getWidth()-modX)==4) && (Math.abs(getPlace().getLength()-modY)>=4 && Math.abs(getPlace().getLength()-modY)<=5)){
                 if(action<75) event=player_passing(recipient(team),ball,event);
                 else if(action<90) player_dribbling(pitch,ball);
-                else event=player_crossing(recipient(team),ball,event);
+                else event=player_passing(recipient(team),ball,event);
             }
         }
         else if(event==2){}
