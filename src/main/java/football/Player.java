@@ -208,7 +208,7 @@ public abstract class Player {
         for(int i=0;i<3;i++){
             distances.add(new ArrayList<>());
         }
-        for (int i=1; i<11; i++){
+        for (int i=1; i<team.getLineup().size(); i++){
             if(team.getLineup().get(i)!=this){
                 if(team.getLineup().get(i).getPlace().getWidth()==place.getWidth()
                         && team.getLineup().get(i).getPlace().getLength()==place.getLength()){

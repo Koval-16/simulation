@@ -59,7 +59,7 @@ public class Match {
         time=2700;
         event=-1;
         for(Team team: teams){
-            for(int i=0; i<11; i++){
+            for(int i=0; i<team.getLineup().size(); i++){
                 if((team.getLineup().get(i).getStamina()+15)>100){
                     team.getLineup().get(i).setStamina(100);
                 }
@@ -70,7 +70,7 @@ public class Match {
         }
         while(time<5400){
             for(Team team: teams){
-                for(int i=0; i<11; i++){
+                for(int i=0; i<team.getLineup().size(); i++){
                     if(team.getLineup().get(i).getStamina()<25){
                         team.substitution(team.getLineup().get(i));
                     }
@@ -126,6 +126,9 @@ public class Match {
             players_react();
         }
         else if(event==7){
+            for(Team team: teams){
+                team.red_player();
+            }
             time += 3;
             teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
             for(Team team:teams){
@@ -145,6 +148,9 @@ public class Match {
             players_react();
         }
         else if(event==8){
+            for(Team team: teams){
+                team.red_player();
+            }
             time += 3;
             teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
             set_penalty();
@@ -153,7 +159,7 @@ public class Match {
         teams[ball.getTeam()-1].getStats().setTotal_time(time-no_play_time);
         teams[ball.getTeam()-1].getStats().caculate_possession();
         for(Team team: teams){
-            for(int i=0; i<11; i++){
+            for(int i=0; i<team.getLineup().size(); i++){
                 team.getLineup().get(i).getStats().addSeconds(time-help_time);
                 team.getLineup().get(i).getStats().calculateMinutes();
             }
@@ -168,8 +174,8 @@ public class Match {
         System.out.println("KICK OFF");
         team1.set_default_lineup();
         team2.set_default_lineup();
-        for(int i=1; i<11; i++){
-            for(Team team: teams){
+        for(Team team: teams){
+            for(int i=1; i<team.getLineup().size(); i++){
                 team.getLineup().get(i).player_get_ball(false);
             }
         }
@@ -200,7 +206,6 @@ public class Match {
     private void display_time(){
         int min = time/60;
         int sec = time%60;
-        System.out.println("position: "+team2.getLineup().get(9).getPlace().getWidth()+"x"+team2.getLineup().get(9).getPlace().getLength());
         System.out.print(String.format("%02d:%02d ",min,sec));
     }
 
@@ -209,7 +214,7 @@ public class Match {
      */
     private void moving(){
         for(Team team: teams){
-            for(int i=1; i<11; i++){
+            for(int i=1; i<team.getLineup().size(); i++){
                 if(!team.getLineup().get(i).ball_possessed){
                     team.getLineup().get(i).player_moving(football_pitch, ball.getX(), ball.getY(), ball.getTeam(), condition_modifier);
                 }
@@ -228,7 +233,7 @@ public class Match {
                     break;
                 }
             }
-            for(int j=1; j<11; j++){
+            for(int j=1; j<team.getLineup().size(); j++){
                 if(team.getLineup().get(j).ball_possessed){
                     event = team.getLineup().get(j).decision_ball(football_pitch,ball,team,event,condition_modifier);
                     break;
@@ -251,7 +256,7 @@ public class Match {
                 List<Player> available = new ArrayList<>();
                 int dist = 0;
                 do {
-                    for(int i=1; i<11; i++){
+                    for(int i=1; i<team.getLineup().size(); i++){
                         if(Math.abs(team.getLineup().get(i).getPlace().getWidth()-ball.getX())<=dist &&
                                 Math.abs(team.getLineup().get(i).getPlace().getLength()-ball.getY())<=dist){
                             available.add(team.getLineup().get(i));

@@ -38,7 +38,7 @@ public class MatchStats {
             }
             file.write("\n");
             for(Team team: match.teams){
-                for(int i=0; i<11; i++){
+                for(int i=0; i<team.getLineup().size(); i++){
                     file.write(team.getLineup().get(i).surname+"\t"+team.getLineup().get(i).getStats().getMinutes_played()+"\t"+
                             team.getLineup().get(i).getStats().getShoots()+"("+team.getLineup().get(i).getStats().getShoots_on_target()+
                             ")\t"+team.getLineup().get(i).getStats().getPasses_attempts()+"("+team.getLineup().get(i).getStats().getPasses_completed()+
@@ -48,7 +48,7 @@ public class MatchStats {
                             team.getLineup().get(i).getStats().getLost_possession()+"\t"+team.getLineup().get(i).getStats().getInterceptions()+"\t"+
                             team.getLineup().get(i).getStats().getSaves()+"\n");
                 }
-                for(int i=0; i<11; i++){
+                for(int i=0; i<team.getBench().size(); i++){
                     if(team.getBench().get(i).getStats().getMinutes_played()>0){
                         file.write(team.getBench().get(i).surname+"\t"+team.getBench().get(i).getStats().getMinutes_played()+"\t"+
                                 team.getBench().get(i).getStats().getShoots()+"("+team.getBench().get(i).getStats().getShoots_on_target()+
@@ -58,6 +58,18 @@ public class MatchStats {
                                 team.getBench().get(i).getStats().getYellow_cards()+"\t"+team.getBench().get(i).getStats().getRed_cards()+"\t"+
                                 team.getBench().get(i).getStats().getLost_possession()+"\t"+team.getBench().get(i).getStats().getInterceptions()+"\t"+
                                 team.getBench().get(i).getStats().getSaves()+"\n");
+                    }
+                }
+                for(int i=0; i<team.getRed_cards().size(); i++){
+                    if(team.getRed_cards().get(i).getStats().getMinutes_played()>0){
+                        file.write(team.getRed_cards().get(i).surname+"\t"+team.getRed_cards().get(i).getStats().getMinutes_played()+"\t"+
+                                team.getRed_cards().get(i).getStats().getShoots()+"("+team.getRed_cards().get(i).getStats().getShoots_on_target()+
+                                ")\t"+team.getRed_cards().get(i).getStats().getPasses_attempts()+"("+team.getRed_cards().get(i).getStats().getPasses_completed()+
+                                ")\t"+team.getRed_cards().get(i).getStats().getDribbling_completed()+"\t"+team.getRed_cards().get(i).getStats().getDuels_attempts()+
+                                "("+team.getRed_cards().get(i).getStats().getDuels_won()+")\t"+team.getRed_cards().get(i).getStats().getOffsides()+"\t"+
+                                team.getRed_cards().get(i).getStats().getYellow_cards()+"\t"+team.getRed_cards().get(i).getStats().getRed_cards()+"\t"+
+                                team.getRed_cards().get(i).getStats().getLost_possession()+"\t"+team.getRed_cards().get(i).getStats().getInterceptions()+"\t"+
+                                team.getRed_cards().get(i).getStats().getSaves()+"\n");
                     }
                 }
             }
