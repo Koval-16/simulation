@@ -114,6 +114,7 @@ public class Match {
      * Method <code>half</code> checks which event currently happens, and depending on it certain actions take place.
      */
     private void half(){
+        int help_time = time;
         display_time();
         if(event==-1){
             kick_off();
@@ -177,7 +178,8 @@ public class Match {
         teams[ball.getTeam()-1].getStats().caculate_possession();
         for(Team team: teams){
             for(int i=0; i<11; i++){
-                team.getLineup().get(i).getStats().addMinutes(time);
+                team.getLineup().get(i).getStats().addSeconds(time-help_time);
+                team.getLineup().get(i).getStats().calculateMinutes();
             }
         }
     }

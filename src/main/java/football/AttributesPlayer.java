@@ -7,15 +7,15 @@ public class AttributesPlayer {
     private int passing;
     private int defending;
     private final int aggression;
-    private final int intelligence;
-    public AttributesPlayer(int side, int shooting, int dribbling, int passing, int defending, int aggression,int intelligence){
+    private final int goalkeeping;
+    public AttributesPlayer(int side, int shooting, int dribbling, int passing, int defending, int aggression,int goalkeeping){
         this.side = side;
         this.shooting = shooting;
         this.dribbling = dribbling;
         this.passing = passing;
         this.defending = defending;
         this.aggression = aggression;
-        this.intelligence = intelligence;
+        this.goalkeeping = goalkeeping;
     }
 
     public int getSide(){
@@ -48,7 +48,7 @@ public class AttributesPlayer {
     public int getAggression(){
         return aggression;
     }
-    public int getIntelligence(){
-        return intelligence;
+    public int getGoalkeeping(){
+        return goalkeeping;
     }
 }

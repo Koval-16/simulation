@@ -1,6 +1,7 @@
 package football;
 
 public class StatsPlayer {
+    private int sec_played;
     private int minutes_played;
     private int goals;
     private int shoots;
@@ -20,8 +21,14 @@ public class StatsPlayer {
 
     public StatsPlayer(){
     }
-    public void addMinutes(int time){
-        minutes_played = time/60;
+    public void addSeconds(int time){
+        sec_played += time;
+    }
+    public int getSec_played(){
+        return sec_played;
+    }
+    public void calculateMinutes(){
+        minutes_played = sec_played/60;
     }
     public void addGoals(){
         goals++;
