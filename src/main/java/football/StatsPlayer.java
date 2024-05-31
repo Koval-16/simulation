@@ -7,7 +7,6 @@ public class StatsPlayer {
     private int shoots_on_target;
     private int passes_attempts;
     private int passes_completed;
-    private int dribbling_attempts;
     private int dribbling_completed;
     private int duels_attempts;
     private int duels_won;
@@ -38,9 +37,6 @@ public class StatsPlayer {
     }
     public void addPassesCompleted(){
         passes_completed++;
-    }
-    public void addDribblingAttempts(){
-        dribbling_attempts++;
     }
     public void addDribblingCompleted(){
         dribbling_completed++;

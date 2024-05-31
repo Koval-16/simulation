@@ -3,6 +3,8 @@ package football;
 public class StatsTeam {
     private int goals;
     private double ball_possession;
+    private int ball_time;
+    private static int total_time;
     private int shoots;
     private int shoots_on_target;
     private int passes;
@@ -17,6 +19,24 @@ public class StatsTeam {
     public StatsTeam(){
     }
 
+    public void caculate_possession(){
+        ball_possession = ((double)ball_time/(double)total_time);
+    }
+    public double getBall_possession(){
+        return ball_possession;
+    }
+    public int getBall_time(){
+        return ball_time;
+    }
+    public void setBall_time(int ball_time){
+        this.ball_time = ball_time;
+    }
+    public int getTotal_time(){
+        return total_time;
+    }
+    public void setTotal_time(int total_time){
+        StatsTeam.total_time = total_time;
+    }
     public void addGoal(){
         goals++;
     }

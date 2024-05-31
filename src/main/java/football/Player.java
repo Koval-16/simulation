@@ -46,12 +46,16 @@ public abstract class Player {
         this.mentality = mentality;
         this.motivation = motivation;
         if(mentality>0){
-            attributes.incShooting();
-            attributes.incDribbling();
+            attributes.setShooting(attributes.getShooting()+1);
+            attributes.setDribbling(attributes.getDribbling()+1);
         }
         else{
-            attributes.incDefending();
+            attributes.setDefending(attributes.getDefending()+1);
         }
+        attributes.setDefending(attributes.getDefending()+motivation);
+        attributes.setDribbling(attributes.getDribbling()+motivation);
+        attributes.setShooting(attributes.getShooting()+motivation);
+        attributes.setPassing(attributes.getPassing()+motivation);
     }
 
     /**
@@ -71,7 +75,7 @@ public abstract class Player {
      * @param ball the ball of the game
      * @return new event which will happen
      */
-    public int decision_no_ball(int event, Team team, Ball ball, double con){
+    public int decision_no_ball(int event, Team team, Ball ball, double con, int referee){
         if(event==-1){}
         else if(event==0){}
         else if(event==1){
@@ -81,13 +85,13 @@ public abstract class Player {
                 if(team_number==2) modY=5;
                 int action = random.nextInt(100);
                 if(Math.abs(getPlace().getLength()-modY)>=4){
-                    if(action<70) event=player_tackling(ball.getOwner(),ball,event,con);
+                    if(action<70) event=player_tackling(ball.getOwner(),ball,event,con,referee);
                 }
                 else if(Math.abs(getPlace().getLength()-modY)>=2){
-                    if(action<50) event=player_tackling(ball.getOwner(),ball,event,con);
+                    if(action<50) event=player_tackling(ball.getOwner(),ball,event,con,referee);
                 }
                 else{
-                    if(action<30) event=player_tackling(ball.getOwner(),ball,event,con);
+                    if(action<30) event=player_tackling(ball.getOwner(),ball,event,con,referee);
                 }
             }
         }
@@ -167,7 +171,6 @@ public abstract class Player {
         else {
             ability = 45+(((float)attributes.getShooting()-15)*3);
         }
-
         stamina -= 0.5*con;
         if(success<ability){
             ball.setX(2);
@@ -364,7 +367,7 @@ public abstract class Player {
      * @param event the event
      * @return the event which will happen then, there might be: normal game, free kick, penalty
      */
-    public int player_tackling(Player opponent, Ball ball, int event, double con){
+    public int player_tackling(Player opponent, Ball ball, int event, double con, int referee){
         int modY=0;
         if(team_number==2) modY=5;
         int chance = random.nextInt(100);
@@ -389,7 +392,7 @@ public abstract class Player {
         }
         else{
             float foulrate = 30+(((float)attributes.getAggression()-15)*2);
-            int foulrandom = random.nextInt(100);
+            int foulrandom = random.nextInt(100)+referee;
             if(foulrandom<foulrate){
                 if(getPlace().getWidth()<=3 && getPlace().getWidth()>=1 && getPlace().getLength()==5-modY){
                     System.out.println(surname+" fouls in the box! Penalty!");
@@ -400,7 +403,7 @@ public abstract class Player {
                     System.out.println(surname+" fouls! Free kick!");
                     event = 7;
                 }
-                int card = random.nextInt(100);
+                double card = random.nextInt(100)+(double)(referee/4);
                 if(card<3){
                     stats.addRed();
                     System.out.println(surname+" gets red card! He is sent off!");

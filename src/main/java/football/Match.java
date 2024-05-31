@@ -9,6 +9,7 @@ import java.util.Random;
 public class Match {
     Random random = new Random();
     private int time=0;
+    private int no_play_time=0;
     private int event=-1; /* -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:balllost ; 5:offside
     ; 6:corner ; 7:freekick ; 8:penalty ; 9:ballout */
     Pitch football_pitch;
@@ -82,6 +83,7 @@ public class Match {
             }
             half();
         }
+
         System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
         for(Team team: teams){
             for(int i=0; i<team.getLineup().size(); i++){
@@ -98,7 +100,8 @@ public class Match {
             }
         }
         for(Team team: teams){
-            System.out.println(team.getName()+": Goals: "+team.getStats().getGoals()+" Shoots(on target): "+
+            System.out.println(team.getName()+": Goals: "+team.getStats().getGoals()+
+                    " Ball Possession"+team.getStats().getBall_possession()+" Shoots(on target): "+
                     team.getStats().getShoots()+"("+team.getStats().getShoots_on_target()+") Passes:"+
                     team.getStats().getPasses()+" FreeKicks: "+team.getStats().getFree_kicks()+"\nCorners: "+
                     team.getStats().getCorners()+" Penalties: "+team.getStats().getPenalties()+" Offsides: "+
@@ -115,19 +118,28 @@ public class Match {
         if(event==-1){
             kick_off();
             time = time+3;
+            no_play_time +=3;
         }
         else if(event==0){
             System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
             time = time+60;
+            no_play_time += 60;
             event = -1;
         }
         else if (event==1){
+            time = time+3;
+            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
             moving();
             action();
             players_react();
-            time = time+3;
+            if(event!=1){
+                time += 15;
+                no_play_time += 15;
+            }
         }
         else if(event==6){
+            time += 3;
+            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
             for(Team team: teams){
                 set_piece_prep(team, team.getCorners_taker());
             }
@@ -135,9 +147,10 @@ public class Match {
                 set_piece(team, team.getCorners_taker());
             }
             players_react();
-            time = time+3;
         }
         else if(event==7){
+            time += 3;
+            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
             for(Team team:teams){
                 int modY = 0;
                 if(team.getNumber()==2) modY= 5;
@@ -153,13 +166,15 @@ public class Match {
                 set_piece(team, ball.getOwner());
             }
             players_react();
-            time = time+3;
         }
         else if(event==8){
+            time += 3;
+            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
             set_penalty();
             players_react();
-            time = time+3;
         }
+        teams[ball.getTeam()-1].getStats().setTotal_time(time-no_play_time);
+        teams[ball.getTeam()-1].getStats().caculate_possession();
         for(Team team: teams){
             for(int i=0; i<11; i++){
                 team.getLineup().get(i).getStats().addMinutes(time);
@@ -268,7 +283,7 @@ public class Match {
                 }while(available.isEmpty());
                 if(!available.isEmpty()){
                     int play = random.nextInt(available.size());
-                    event = available.get(play).decision_no_ball(event,team,ball,condition_modifier);
+                    event = available.get(play).decision_no_ball(event,team,ball,condition_modifier,referee);
                 }
                 return;
             }

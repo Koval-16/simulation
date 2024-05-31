@@ -24,14 +24,17 @@ public class AttributesPlayer {
     public int getShooting(){
         return shooting;
     }
-    public void incShooting(){
-        shooting++;
+    public void setShooting(int shooting){
+        this.shooting = shooting;
     }
-    public void incDribbling(){
-        dribbling++;
+    public void setDribbling(int dribbling){
+        this.dribbling = dribbling;
     }
-    public void incDefending(){
-        defending++;
+    public void setPassing(int passing){
+        this.passing = passing;
+    }
+    public void setDefending(int defending){
+        this.defending = defending;
     }
     public int getDribbling(){
         return dribbling;
