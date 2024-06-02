@@ -77,7 +77,7 @@ public class Team {
      */
     private void load_players(){
         try{
-            File file = new File(name+".txt");
+            File file = new File("Clubs/"+name+".txt");
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()){
                 String playername = scanner.nextLine();

@@ -21,14 +21,14 @@ public class MatchStats {
         String file_name = match.team1.getName()+"_"+match.team2.getName()+"_"+match.team1.getStats().getGoals()+"_"+match.team2.getStats().getGoals()+"_"+match_time;
         System.out.println(file_name);
         try{
-            File file = new File(file_name+".txt");
+            File file = new File("Matches/"+file_name+".txt");
             file.createNewFile();
 
         } catch (IOException e){
             e.printStackTrace();
         }
         try{
-            FileWriter file = new FileWriter(file_name+".txt");
+            FileWriter file = new FileWriter("Matches/"+file_name+".txt");
             for(Team team: match.teams){
                 file.write(team.getName()+"\t"+team.getStats().getGoals()+"\t"+team.getStats().getBall_possession()+
                         "\t"+team.getStats().getShoots()+"("+team.getStats().getShoots_on_target()+")\t"+

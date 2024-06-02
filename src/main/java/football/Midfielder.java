@@ -2,10 +2,10 @@ package football;
 
 public class Midfielder extends Player{
     public Midfielder(String name, String surname, int side, int shooting, int dribbling, int passing,
-                      int defending, int aggression, int intelligence, int team_number, StatsTeam stats,
+                      int defending, int aggression, int goalkeeping, int team_number, StatsTeam stats,
                       int mentality, int motivation) {
         super(name, surname, side, shooting, dribbling, passing, defending, aggression,
-                intelligence, team_number, stats, mentality, motivation);
+                goalkeeping, team_number, stats, mentality, motivation);
     }
 
     public int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con){
