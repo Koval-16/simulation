@@ -1,4 +1,4 @@
-Thomas Kaminski G 2
+Thomas Kaminski G 2 1 1 10 15 15 15
 Daiki Hashioka D 3
 Gabriel Osho D 2
 Teden Mengi D 2

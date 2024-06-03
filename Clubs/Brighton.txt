@@ -1,4 +1,4 @@
-Bart Verbruggen G 2
+Bart Verbruggen G 2 1 1 10 15 15 15
 Joel Veltman D 3
 Lewis Dunk D 2
 Julio Igor D 2

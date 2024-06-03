@@ -51,11 +51,20 @@ public abstract class Player {
         }
         else{
             attributes.setDefending(attributes.getDefending()+1);
+            attributes.setPassing(attributes.getPassing()-1);
         }
-        attributes.setDefending(attributes.getDefending()+motivation);
-        attributes.setDribbling(attributes.getDribbling()+motivation);
-        attributes.setShooting(attributes.getShooting()+motivation);
-        attributes.setPassing(attributes.getPassing()+motivation);
+        if(motivation>3){
+            attributes.setDefending(attributes.getDefending()+1);
+            attributes.setDribbling(attributes.getDribbling()+1);
+            attributes.setShooting(attributes.getShooting()+1);
+            attributes.setPassing(attributes.getPassing()+1);
+        }
+        else if(motivation<0){
+            attributes.setDefending(attributes.getDefending()-1);
+            attributes.setDribbling(attributes.getDribbling()-1);
+            attributes.setShooting(attributes.getShooting()-1);
+            attributes.setPassing(attributes.getPassing()-1);
+        }
     }
 
     /**
@@ -160,7 +169,7 @@ public abstract class Player {
         if(team_number==2){
             modX=4; modY=5;
         }
-        double success = ((random.nextInt(100))+1)+((100-getStamina())/10);
+        double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation;
         float ability;
         if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)==2){
             ability = 65+(((float)attributes.getShooting()-15)*3);
@@ -244,7 +253,7 @@ public abstract class Player {
     public int player_passing(Player recipient, Ball ball, int event, double con){
         int modY=0;
         if(team_number==2) modY=5;
-        double success = ((random.nextInt(100))+1)+((100-getStamina())/10);
+        double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation;
         float ability;
         if(Math.abs(getPlace().getLength()-modY)<=5 && Math.abs(getPlace().getLength()-modY)>=4){
             if(getPlace()==recipient.getPlace()){
@@ -370,7 +379,7 @@ public abstract class Player {
     public int player_tackling(Player opponent, Ball ball, int event, double con, int referee){
         int modY=0;
         if(team_number==2) modY=5;
-        int chance = random.nextInt(100);
+        double chance = random.nextInt(100)+((100-getStamina())/20)-motivation-((100-opponent.getStamina())/10)+opponent.motivation;
         float ability;
         if(Math.abs(getPlace().getLength()-modY)>=2){
             ability = 60+(((float)attributes.getDefending()-15)*2)+(((float)opponent.getAttributes().getDribbling()-15)*2);

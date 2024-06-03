@@ -1,4 +1,4 @@
-Matt Turner G 2
+Matt Turner G 2 1 1 10 15 15 13
 Gonzalo Montiel D 3
 Santiago Murillo D 2
 Moussa Niakhate D 2

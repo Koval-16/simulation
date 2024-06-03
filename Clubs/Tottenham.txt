@@ -1,4 +1,4 @@
-Guglielmo Vicario G 2
+Guglielmo Vicario G 2 1 1 12 15 15 18
 Pedro Porro D 3
 Cristian Romero D 2
 Micky van-de-Ven D 2

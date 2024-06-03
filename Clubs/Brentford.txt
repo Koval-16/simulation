@@ -1,4 +1,4 @@
-Mark Flekken G 2
+Mark Flekken G 2 1 1 10 15 15 14
 Aaron Hickey D 3
 Kristoffer Ajer D 2
 Ethan Pinnock D 2

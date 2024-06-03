@@ -1,4 +1,4 @@
-Sam Johnstone G 2
+Sam Johnstone G 2 1 1 11 15 15 15
 Daniel Munoz D 3
 Joachim Andersen D 2
 Marc Guehi D 2

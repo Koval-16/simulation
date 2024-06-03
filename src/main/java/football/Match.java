@@ -180,24 +180,24 @@ public class Match {
             }
         }
         if(time==0){
-            team1.getLineup().get(9).player_get_ball(true);
-            ball.setOwner(team1.getLineup().get(9));
-            ball.setTeam(team1.getLineup().get(9).team_number);
+            team1.getLineup().get(team1.getLineup().size()-2).player_get_ball(true);
+            ball.setOwner(team1.getLineup().get(team1.getLineup().size()-2));
+            ball.setTeam(team1.getLineup().get(team1.getLineup().size()-2).team_number);
         }
         else if(time==2700){
-            team2.getLineup().get(9).player_get_ball(true);
-            ball.setOwner(team2.getLineup().get(9));
-            ball.setTeam(team2.getLineup().get(9).team_number);
+            team2.getLineup().get(team2.getLineup().size()-2).player_get_ball(true);
+            ball.setOwner(team2.getLineup().get(team2.getLineup().size()-2));
+            ball.setTeam(team2.getLineup().get(team2.getLineup().size()-2).team_number);
         }
         else if(ball.getTeam()==2){
-            team1.getLineup().get(9).player_get_ball(true);
-            ball.setOwner(team1.getLineup().get(9));
-            ball.setTeam(team1.getLineup().get(9).team_number);
+            team1.getLineup().get(team1.getLineup().size()-2).player_get_ball(true);
+            ball.setOwner(team1.getLineup().get(team1.getLineup().size()-2));
+            ball.setTeam(team1.getLineup().get(team1.getLineup().size()-2).team_number);
         }
         else if(ball.getTeam()==1){
-            team2.getLineup().get(9).player_get_ball(true);
-            ball.setOwner(team2.getLineup().get(9));
-            ball.setTeam(team2.getLineup().get(9).team_number);
+            team2.getLineup().get(team2.getLineup().size()-2).player_get_ball(true);
+            ball.setOwner(team2.getLineup().get(team2.getLineup().size()-2));
+            ball.setTeam(team2.getLineup().get(team2.getLineup().size()-2).team_number);
         }
 
         event = 1;

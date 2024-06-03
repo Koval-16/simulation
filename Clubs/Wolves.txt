@@ -1,4 +1,4 @@
-Jose Sa G 2
+Jose Sa G 2 1 1 11 15 15 15
 Nelson Semedo D 3
 Max Kilman D 2
 Toti Gomes D 2
