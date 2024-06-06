@@ -8,27 +8,34 @@ import java.time.format.DateTimeFormatter;
 
 public class MatchStats {
     Match match;
+    String match_time;
+    String file_name;
 
     public MatchStats(Match match){
         this.match = match;
-        stats_to_file(match);
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter m_time = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmssSSSS");
+        this.match_time = now.format(m_time);
+        this.file_name = match.team1.getName()+"_"+match.team2.getName()+"_"+match_time;
     }
 
     public void stats_to_file(Match match){
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter m_time = DateTimeFormatter.ofPattern("ddMMyyyy_HHmmssSSSS");
-        String match_time = now.format(m_time);
-        String file_name = match.team1.getName()+"_"+match.team2.getName()+"_"+match.team1.getStats().getGoals()+"_"+match.team2.getStats().getGoals()+"_"+match_time;
-        System.out.println(file_name);
+        String directoryPath = "Matches/"+file_name;
+        File directory = new File(directoryPath);
+        if(!directory.exists()){
+            directory.mkdirs();
+        }
+        else{
+        }
         try{
-            File file = new File("Matches/"+file_name+".txt");
+            File file = new File(directoryPath+"/"+(match.getTime()/60)+"_"+file_name+".txt");
             file.createNewFile();
 
         } catch (IOException e){
             e.printStackTrace();
         }
         try{
-            FileWriter file = new FileWriter("Matches/"+file_name+".txt");
+            FileWriter file = new FileWriter(directoryPath+"/"+(match.getTime()/60)+"_"+file_name+".txt");
             file.write(String.format("%-20s %5s %5s %6s %3s %2s %3s %3s %3s %3s %2s %2s\n","Team Name","Goals","Ball%","Sh(oT)","Pas","FK","Cor","Pen","Off","Fou","YC","RD"));
             for(Team team: match.teams){
                 file.write(String.format("%-20s %5d %5.2f %2d(%2d) %3d %2d %3d %3d %3d %2d %2d %2d\n",team.getName(),

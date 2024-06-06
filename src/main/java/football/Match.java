@@ -21,6 +21,7 @@ public class Match {
     double condition_modifier = 1;
     double rain_modifier = 0;
     int referee = 0;
+    MatchStats stats;
 
     /**
      * The constructor of the class football.Match. It creates a pitch for the game, two teams and the ball.
@@ -34,6 +35,7 @@ public class Match {
         this.weather = weather;
         influenceWeather();
         this.referee = referee;
+        this.stats = new MatchStats(this);
     }
 
     public void influenceWeather(){
@@ -58,6 +60,7 @@ public class Match {
         }
         time=2700;
         event=-1;
+        stats.stats_to_file(this);
         for(Team team: teams){
             for(int i=0; i<team.getLineup().size(); i++){
                 if((team.getLineup().get(i).getStamina()+15)>100){
@@ -84,6 +87,7 @@ public class Match {
             half();
         }
         System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
+        stats.stats_to_file(this);
     }
 
     /**
@@ -300,6 +304,9 @@ public class Match {
                 event = team.getPenalties_taker().decision_ball(football_pitch,ball,team,event,condition_modifier);
             }
         }
+    }
+    public int getTime(){
+        return time;
     }
 }
 

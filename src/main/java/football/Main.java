@@ -12,6 +12,5 @@ public class Main {
         int weather = Integer.parseInt(args[7]);
         Match match = new Match(team1_name, team2_name, t1_mentality, t2_mentality,t1_motivation,t2_motivation,referee_strict,weather);
         match.simulate();
-        MatchStats stats = new MatchStats(match);
     }
 }
