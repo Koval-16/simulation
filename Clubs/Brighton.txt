@@ -1,22 +1,22 @@
-Bart Verbruggen G 2 1 1 10 15 15 15
-Joel Veltman D 3
-Lewis Dunk D 2
-Julio Igor D 2
-Pervis Estupinan D 1
-Billy Gilmour M 2
-Pascal Gross M 2
-Jakub Moder M 2
-Solly March F 3
-Joao Pedro F 2
-Kaoru Mitoma F 1
-Jason Steele G 2
-Tariq Lamptey D 3
-Adam Webster D 2
-Jan-Paul van-Hecke D 2
-Valentin Barco D 1
-James Milner M 2
-Facundo Buonanotte M 2
-Carlos Baleba M 2
-Simon Adingra F 3
-Evan Ferguson F 2
-Julio Enciso F 1
+Bart Verbruggen G 2 1 1 12 15 15 15
+Joel Veltman D 3 10 10 15 15 15 1
+Lewis Dunk D 2 10 10 15 15 15 1
+Julio Igor D 2 10 10 15 15 15 1
+Pervis Estupinan D 1 10 10 15 15 15 1
+Billy Gilmour M 2 15 15 15 15 15 1
+Pascal Gross M 2 15 15 15 15 15 1
+Jakub Moder M 2 15 15 15 15 15 1
+Solly March F 3 15 15 15 11 13 1
+Joao Pedro F 2 16 16 16 13 14 1
+Kaoru Mitoma F 1 15 16 16 12 13 1
+Jason Steele G 2 1 1 12 15 15 14
+Tariq Lamptey D 3 10 10 14 14 15 1
+Adam Webster D 2 10 10 14 14 15 1
+Jan-Paul van-Hecke D 2 10 10 14 14 15 1
+Valentin Barco D 1 10 10 14 14 15 1
+James Milner M 2 12 12 11 12 15 1
+Facundo Buonanotte M 2 13 13 14 14 1
+Carlos Baleba M 2 12 12 12 12 15 1
+Simon Adingra F 3 14 14 13 9 13 1
+Evan Ferguson F 2 14 14 13 9 12 1
+Julio Enciso F 1 14 14 14 10 12 1

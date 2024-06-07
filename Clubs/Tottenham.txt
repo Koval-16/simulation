@@ -1,22 +1,22 @@
 Guglielmo Vicario G 2 1 1 12 15 15 18
-Pedro Porro D 3
-Cristian Romero D 2
-Micky van-de-Ven D 2
-Destiny Udogie D 1
-Pape Matar-Sarr M 2
-James Maddison M 2
-Yves Bissouma M 2
-Brennan Johnson F 3
-Andrade Richarlison F 2
-Hueng-Min Son F 1
-Fraser Forster G 2
-Emerson Royal D 3
-Radu Dragusin D 2
-Oliver Skipp D 2
-Ben Davies D 1
-Pierre-Emile Hojbjerg M 2
-Manor Solomon M 2
-Rodrigo Bentancur M 2
-Bryan Gil F 3
-Timo Werner F 2
-Dejan Kulusevski F 1
+Pedro Porro D 3 15 16 17 17 14 1
+Cristian Romero D 2 11 11 17 18 20 1
+Micky van-de-Ven D 2 11 12 16 17 15 1
+Destiny Udogie D 1 14 15 16 17 13 1
+Pape Matar-Sarr M 2 16 16 17 17 17 1
+James Maddison M 2 17 17 16 16 12 1
+Yves Bissouma M 2 16 16 17 17 17 1
+Brennan Johnson F 3 17 17 17 12 12 1
+Andrade Richarlison F 2 16 17 17 13 14 1
+Hueng-Min Son F 1 18 19 19 12 13 1
+Fraser Forster G 2 1 1 11 14 15 14
+Emerson Royal D 3 11 14 16 15 16 1
+Radu Dragusin D 2 10 9 14 15 16 1
+Oliver Skipp D 2 9 9 15 15 16 1
+Ben Davies D 1 12 13 17 17 14 1
+Pierre-Emile Hojbjerg M 2 16 16 17 17 15 1
+Manor Solomon M 2 13 13 14 14 15 1
+Rodrigo Bentancur M 2 16 17 17 16 15 1
+Bryan Gil F 3 15 16 15 9 13 1
+Timo Werner F 2 16 17 16 10 11 1
+Dejan Kulusevski F 1 17 17 17 13 13 1

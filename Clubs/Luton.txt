@@ -1,22 +1,22 @@
-Thomas Kaminski G 2 1 1 10 15 15 15
-Daiki Hashioka D 3
-Gabriel Osho D 2
-Teden Mengi D 2
-Alfie Doughty D 1
-Albert-Sambi Lokongda M 2
-Ross Barkley M 2
-Marvelous Nakamba M 2
-Tahith Chong F 3
-Carlton Morris F 2
-Chiedozie Ogbene F 1
-Tim Krul G 2
-Dan Potts D 3
-Mads Andersen D 2
-Tom Lockyer D 2
-Amari Bell D 1
-Pelly Mpanzu M 2
-Jordan Clark M 2
-Luke Berry M 2
-Andros Townsend F 3
-Elijah Adebayo F 2
-Jacob Brown F 1
+Thomas Kaminski G 2 1 1 8 15 15 11
+Daiki Hashioka D 3 7 8 10 11 15 1
+Gabriel Osho D 2 7 7 10 11 15 1
+Teden Mengi D 2 7 7 11 11 15 1
+Alfie Doughty D 1 7 8 10 11 15 1
+Albert-Sambi Lokonga M 2 11 11 11 11 15 1
+Ross Barkley M 2 11 11 11 11 15 1
+Marvelous Nakamba M 2 11 11 11 11 15 1
+Tahith Chong F 3 11 11 10 7 15 1
+Carlton Morris F 2 11 11 10 7 15 1
+Chiedozie Ogbene F 1 11 11 10 7 15 1
+Tim Krul G 2 1 1 7 15 15 10
+Dan Potts D 3 7 7 10 10 15 1
+Mads Andersen D 2 7 7 10 10 15 1
+Tom Lockyer D 2 7 7 10 10 15 1
+Amari Bell D 1 7 7 10 10 15 1
+Pelly Mpanzu M 2 10 10 10 10 15 1
+Jordan Clark M 2 10 10 10 10 15 1
+Luke Berry M 2 10 10 10 10 15 1
+Andros Townsend F 3 10 10 9 7 15 1
+Elijah Adebayo F 2 10 10 9 7 15 1
+Jacob Brown F 1 10 10 9 7 15 1

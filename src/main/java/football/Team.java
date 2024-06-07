@@ -24,6 +24,7 @@ public class Team {
     private Player corners_taker;
     private Player freekicks_taker;
     private Player penalties_taker;
+    boolean team_exists;
 
     /**
      * Constructor of the class football.Team
@@ -40,12 +41,16 @@ public class Team {
         this.players = new ArrayList<>();
         this.lineup = new ArrayList<>();
         this.bench = new ArrayList<>();
-        load_players();
-        set_lineup();
-        this.corners_taker = setCornersTaker();
-        this.freekicks_taker = setFreeKicksTaker();
-        this.penalties_taker = setPenaltiesTaker();
-        this.red_cards = new ArrayList<>();
+        this.team_exists = load_players();
+        if(team_exists){
+            if(set_lineup()){
+                this.corners_taker = setCornersTaker();
+                this.freekicks_taker = setFreeKicksTaker();
+                this.penalties_taker = setPenaltiesTaker();
+                this.red_cards = new ArrayList<>();
+            }
+            else team_exists = false;
+        }
     }
 
     /**
@@ -75,7 +80,7 @@ public class Team {
     /**
      * Loading players with their attributes etc. from the team text file
      */
-    private void load_players(){
+    public boolean load_players(){
         try{
             File file = new File("Clubs/"+name+".txt");
             Scanner scanner = new Scanner(file);
@@ -113,21 +118,35 @@ public class Team {
                     players.add(player);
                 }
             }
+            return true;
         } catch (FileNotFoundException e){
-            System.out.println("NIE");
+            System.out.println("Nie znaleziono pliku: Clubs/" + name + ".txt");
+            return false;
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Plik Clubs/"+name+".txt zawiera niepelne dane");
+            return false;
+        } catch (NumberFormatException e){
+            System.out.println("Plik Clubs/"+name+".txt zawiera nieprawidlowe dane");
+            return false;
         }
     }
 
     /**
      * This method is setting the starting lineup and the bench of the team.
      */
-    public void set_lineup(){
-        for(int i=0; i<11; i++){
-            lineup.add(players.get(i));
-        }
-        set_default_lineup();
-        for(int i=11; i<22; i++){
-            bench.add(players.get(i));
+    public boolean set_lineup(){
+        try {
+            for(int i=0; i<11; i++){
+                lineup.add(players.get(i));
+            }
+            set_default_lineup();
+            for(int i=11; i<22; i++){
+                bench.add(players.get(i));
+            }
+            return true;
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("Plik Clubs/"+name+".txt zawiera zbyt małą liczbę graczy");
+            return false;
         }
     }
 
@@ -296,6 +315,8 @@ public class Team {
         for(int i=0; i<lineup.size(); i++){
             if(lineup.get(i)==player){
                 System.out.println(lineup.get(i).surname+" is subbed off. "+bench.get(i).surname+" changes him.");
+                System.out.println(lineup.get(i).getStamina());
+                System.out.println(bench.get(i).getStamina());
                 lineup.set(i, bench.get(i));
                 bench.set(i, holder);
                 lineup.get(i).setPlace(pitch,bench.get(i).getPlace().getWidth(),bench.get(i).getPlace().getLength());

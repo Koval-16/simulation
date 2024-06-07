@@ -1,22 +1,22 @@
 Emiliano Martinez G 2 1 1 11 15 17 18
-Matty Cash D 3
-Pau Torres D 2
-Ezri Konsa D 2
-Lucas Digne D 1
-John McGinn M 2
-Douglas Luiz M 2
-Youri Tielemans M 2
-Moussa Diaby F 3
-Ollie Watkins F 2
-Leon Bailey F 1
-Robin Olsen G 2
-Kaine Kesler-Hayden D 3
-Diego Carlos D 2
-Clement Lenglet D 2
-Alex Moreno D 1
-Boubacar Kamara M 2
-Jaco Ramsey M 2
-Nicolo Zaniolo M 2
-Emiliano Bunedia F 3
-Jhon Duran F 2
-Morgan Rogers F 1
+Matty Cash D 3 12 15 17 16 14 1
+Pau Torres D 2 11 11 17 17 13 1
+Ezri Konsa D 2 11 11 17 17 14 1
+Lucas Digne D 1 11 11 16 17 13 1
+John McGinn M 2 17 16 17 16 15 1
+Douglas Luiz M 2 17 17 18 17 14 1
+Youri Tielemans M 2 16 17 17 16 14 1
+Moussa Diaby F 3 17 18 16 10 14 1
+Ollie Watkins F 2 18 17 16 9 14 1
+Leon Bailey F 1 16 17 17 9 13 1
+Robin Olsen G 2 1 1 11 14 15 13
+Kaine Kesler-Hayden D 3 8 10 14 14 14 1
+Diego Carlos D 2 11 11 16 17 14 1
+Clement Lenglet D 2 10 10 16 16 12 1
+Alex Moreno D 1 11 11 16 16 13 1
+Boubacar Kamara M 2 16 16 16 16 15 1
+Jaco Ramsey M 2 16 16 16 16 16 15 1
+Nicolo Zaniolo M 2 16 16 16 16 15 1
+Emiliano Bunedia F 3 16 16 16 9 14 1
+Jhon Duran F 2 16 16 15 8 14 1
+Morgan Rogers F 1 15 15 15 8 14 1

@@ -1,22 +1,22 @@
-Alhponse Areola G 2 1 1 12 15 15 16
-Vladimir Coufal D 3
-Nayef Aguerd D 2
-Kurt Zouma D 2
-Emerson Palmieri D 1
-Edson Alvarez M 2
-Tomas Soucek M 2
-James Ward-Prowse M 2
-Mohammed Kudus F 3
-Jarrod Bowen F 2
-Lucas Paqueta F 1
-Lukasz Fabianski G 2
-Ben Johnson D 3
-Konstantinos Mavropanos D 2
-Angelo Ogbonna D 2
-Aaron Cresswell D 1
-George Earthy M 2
-Kalvin Philipps M 2
-Flynn Downes M 2
-Maxwel Cornet F 3
-Danny Ings F 2
-Michail Antonio F 1
+Alhponse Areola G 2 1 1 12 15 15 15
+Vladimir Coufal D 3 10 10 15 15 15 1
+Nayef Aguerd D 2 10 10 15 15 15 1
+Kurt Zouma D 2 10 10 15 15 15 1
+Emerson Palmieri D 1 10 10 15 15 15 1
+Edson Alvarez M 2 15 15 15 15 15 1
+Tomas Soucek M 2 15 15 15 15 15 1
+James Ward-Prowse M 2 15 15 15 15 15 1
+Mohammed Kudus F 3 15 15 15 11 13 1
+Jarrod Bowen F 2 16 16 16 13 14 1
+Lucas Paqueta F 1 15 16 16 12 13 1
+Lukasz Fabianski G 2 1 1 12 15 15 14
+Ben Johnson D 3 10 10 14 14 15 1
+Konstantinos Mavropanos D 2 10 10 14 14 15 1
+Angelo Ogbonna D 2 10 10 14 14 15 1
+Aaron Cresswell D 1 10 10 14 14 15 1
+George Earthy M 2 12 12 11 12 15 1
+Kalvin Philipps M 2 13 13 14 14 1
+Flynn Downes M 2 12 12 12 12 15 1
+Maxwel Cornet F 3 14 14 13 9 13 1
+Danny Ings F 2 14 14 13 9 12 1
+Michail Antonio F 1 14 14 14 10 12 1

@@ -75,7 +75,7 @@ public abstract class Player {
      * @param event the event which occurred
      * @return new event which will happen
      */
-    public abstract int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con);
+    public abstract int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con, int rain);
 
     /**
      * Method <code>decison_no_ball</code> makes a player's with no ball decision
@@ -84,7 +84,7 @@ public abstract class Player {
      * @param ball the ball of the game
      * @return new event which will happen
      */
-    public int decision_no_ball(int event, Team team, Ball ball, double con, int referee){
+    public int decision_no_ball(int event, Team team, Ball ball, double con, int referee, int rain){
         if(event==-1){}
         else if(event==0){}
         else if(event==1){
@@ -94,13 +94,13 @@ public abstract class Player {
                 if(team_number==2) modY=5;
                 int action = random.nextInt(100);
                 if(Math.abs(getPlace().getLength()-modY)>=4){
-                    if(action<70) event=player_tackling(ball.getOwner(),ball,event,con,referee);
+                    if(action<70) event=player_tackling(ball.getOwner(),ball,event,con,referee,rain);
                 }
                 else if(Math.abs(getPlace().getLength()-modY)>=2){
-                    if(action<50) event=player_tackling(ball.getOwner(),ball,event,con,referee);
+                    if(action<50) event=player_tackling(ball.getOwner(),ball,event,con,referee,rain);
                 }
                 else{
-                    if(action<30) event=player_tackling(ball.getOwner(),ball,event,con,referee);
+                    if(action<30) event=player_tackling(ball.getOwner(),ball,event,con,referee,rain);
                 }
             }
         }
@@ -146,7 +146,8 @@ public abstract class Player {
         if(newWidth>=0 && newWidth<5 && place.getLength()>=0 && place.getLength()<6){
             place = pitch.getPitch()[newWidth][place.getLength()];
         }
-        stamina -= 0.02*con;
+        if(team_number==ball_team) stamina -= 0.02*con;
+        else stamina -= 0.03*con;
     }
 
     /**
@@ -164,21 +165,21 @@ public abstract class Player {
      * @param event the event
      * @return the event which will happen, it might be shot on-target or ball out of game
      */
-    public int player_shooting(Ball ball, int event, double con){
+    public int player_shooting(Ball ball, int event, double con, int rain){
         int modX=0; int modY=0;
         if(team_number==2){
             modX=4; modY=5;
         }
-        double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation;
+        double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation+(rain*5);
         float ability;
         if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)==2){
-            ability = 65+(((float)attributes.getShooting()-15)*3);
+            ability = 90+(((float)attributes.getShooting()-20)*3);
         }
         else if(Math.abs(getPlace().getLength()-modY)==0 && Math.abs(getPlace().getWidth()-modX)!=2){
-            ability = 55+(((float)attributes.getShooting()-15)*3);
+            ability = 90+(((float)attributes.getShooting()-20)*4);
         }
         else {
-            ability = 45+(((float)attributes.getShooting()-15)*3);
+            ability = 70+(((float)attributes.getShooting()-20)*4);
         }
         stamina -= 0.5*con;
         if(success<ability){
@@ -250,53 +251,53 @@ public abstract class Player {
      * @param event the event
      * @return returns event that will happen, there might be normal game, missed ball or free kick(after off-side)
      */
-    public int player_passing(Player recipient, Ball ball, int event, double con){
+    public int player_passing(Player recipient, Ball ball, int event, double con,int rain){
         int modY=0;
         if(team_number==2) modY=5;
-        double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation;
-        float ability;
+        double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation+rain;
+        double ability;
         if(Math.abs(getPlace().getLength()-modY)<=5 && Math.abs(getPlace().getLength()-modY)>=4){
             if(getPlace()==recipient.getPlace()){
-                ability = 90+(((float)attributes.getPassing()-15));
+                ability = 95+(((float)attributes.getPassing()-20));
             }
             else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 85+(((float)attributes.getPassing()-15));
+                ability = 90+(((float)attributes.getPassing()-20));
             }
             else{
-                ability = 50+(((float)attributes.getPassing()-15)*6);
+                ability = 80+(((float)attributes.getPassing()-20)*4);
             }
         }
         else if(Math.abs(getPlace().getLength()-modY)<=3 && Math.abs(getPlace().getLength()-modY)>=2){
             if(getPlace()==recipient.getPlace()){
-                ability = 80+(((float)attributes.getPassing()-15)*2);
+                ability = 90+(((float)attributes.getPassing()-20)*1.5);
             }
             else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 75+(((float)attributes.getPassing()-15)*2);
+                ability = 85+(((float)attributes.getPassing()-20)*2);
             }
             else{
-                ability = 50+(((float)attributes.getPassing()-15)*6);
+                ability = 80+(((float)attributes.getPassing()-20)*4);
             }
         }
         else if(Math.abs(getPlace().getLength()-modY)==1){
             if(getPlace()==recipient.getPlace()){
-                ability = 65+(((float)attributes.getPassing()-15)*3);
+                ability = 80+(((float)attributes.getPassing()-20)*3);
             }
             else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 60+(((float)attributes.getPassing()-15)*3);
+                ability = 75+(((float)attributes.getPassing()-20)*3);
             }
             else{
-                ability = 40+(((float)attributes.getPassing()-15)*4);
+                ability = 70+(((float)attributes.getPassing()-20)*4);
             }
         }
         else {
             if(getPlace()==recipient.getPlace()){
-                ability = 40+(((float)attributes.getPassing()-15)*4);
+                ability = 60+(((float)attributes.getPassing()-20)*3);
             }
             else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 35+(((float)attributes.getPassing()-15)*4);
+                ability = 55+(((float)attributes.getPassing()-20)*3);
             }
             else{
-                ability = 40+(((float)attributes.getPassing()-15)*4);
+                ability = 50+(((float)attributes.getPassing()-20)*3);
             }
         }
         if(success<ability){
@@ -376,10 +377,10 @@ public abstract class Player {
      * @param event the event
      * @return the event which will happen then, there might be: normal game, free kick, penalty
      */
-    public int player_tackling(Player opponent, Ball ball, int event, double con, int referee){
+    public int player_tackling(Player opponent, Ball ball, int event, double con, int referee, int rain){
         int modY=0;
         if(team_number==2) modY=5;
-        double chance = random.nextInt(100)+((100-getStamina())/20)-motivation-((100-opponent.getStamina())/10)+opponent.motivation;
+        double chance = random.nextInt(100)+((100-getStamina())/20)-motivation-((100-opponent.getStamina())/10)+opponent.motivation-(rain*5);
         float ability;
         if(Math.abs(getPlace().getLength()-modY)>=2){
             ability = 60+(((float)attributes.getDefending()-15)*2)+(((float)opponent.getAttributes().getDribbling()-15)*2);
@@ -401,7 +402,7 @@ public abstract class Player {
         }
         else{
             float foulrate = 30+(((float)attributes.getAggression()-15)*2);
-            int foulrandom = random.nextInt(100)+referee;
+            int foulrandom = random.nextInt(100)-referee-(rain*5);
             if(foulrandom<foulrate){
                 if(getPlace().getWidth()<=3 && getPlace().getWidth()>=1 && getPlace().getLength()==5-modY){
                     System.out.println(surname+" fouls in the box! Penalty!");
@@ -412,13 +413,13 @@ public abstract class Player {
                     System.out.println(surname+" fouls! Free kick!");
                     event = 7;
                 }
-                double card = random.nextInt(100)+(double)(referee/4);
-                if(card<3){
+                double card = random.nextDouble(100);
+                if(card<(0.4+(double)(referee/25))){
                     stats.addRed();
                     System.out.println(surname+" gets red card! He is sent off!");
                     team_stats.addRed();
                 }
-                else if(card<15){
+                else if(card<(10+(double)(referee/0.83))){
                     stats.addYellow();
                     System.out.println(surname+" gets yellow card!");
                     team_stats.addYellow();
@@ -468,9 +469,9 @@ public abstract class Player {
      * @param event the event
      * @return it returns the event that will happen, here shoot on-target or missed shoot
      */
-    public int player_penalty(Ball ball, int event,double con){
+    public int player_penalty(Ball ball, int event,double con, int rain){
         team_stats.addPenalty();
-        return player_shooting(ball, event,con);
+        return player_shooting(ball, event,con,rain);
     }
 
     /**
@@ -480,16 +481,16 @@ public abstract class Player {
      * @param team the team
      * @return the event that will happen
      */
-    public int player_freekick(Ball ball, int event, Team team, double con){
+    public int player_freekick(Ball ball, int event, Team team, double con, int rain){
         int mod = 0;
         if(team_number==2) mod=5;
         if(Math.abs(getPlace().getLength()-mod)<=1){
             int choice = random.nextInt(2);
-            if(choice==0) event = player_shooting(ball, event, con);
-            else event = player_passing(recipient(team), ball, event, con);
+            if(choice==0) event = player_shooting(ball, event, con, rain);
+            else event = player_passing(recipient(team), ball, event, con, rain);
         }
         else{
-            event = player_passing(recipient(team), ball, event, con);
+            event = player_passing(recipient(team), ball, event, con, rain);
         }
         team_stats.addFreeKick();
         return event;

@@ -13,9 +13,9 @@ public class Goalkeeper extends Player{
     }
 
     @Override
-    public int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con){
+    public int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con, int rain){
         ball.setOwner(this);
-        event = player_passing(recipient(team), ball, event,con);
+        event = player_passing(recipient(team), ball, event,con,rain);
         return event;
     }
 

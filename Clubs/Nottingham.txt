@@ -1,22 +1,22 @@
-Matt Turner G 2 1 1 10 15 15 13
-Gonzalo Montiel D 3
-Santiago Murillo D 2
-Moussa Niakhate D 2
-Nuno Tavares D 1
-Santos Danilo M 2
-Ryan Yates M 2
-Morgan Gibbs-White M 2
-Callum Hudson-Odoi F 3
-Chris Wood F 2
-Anthony Elanga F 1
-Matz Sels G 2
-Ola Aina D 3
-Andrew Omobamidele D 2
-Willy Boly D 2
-Harry Toffolo D 1
-Nicolas Dominguez M 2
-Ibrahim Sangare M 2
-Giovanni Reyna M 2
-Divock Origi F 3
-Taiwo Awoniyi F 2
-Neco Williams F 1
+Matt Turner G 2 1 1 8 15 15 11
+Gonzalo Montiel D 3 7 8 10 11 15 1
+Santiago Murillo D 2 7 7 10 11 15 1
+Moussa Niakhate D 2 7 7 11 11 15 1
+Nuno Tavares D 1 7 8 10 11 15 1
+Santos Danilo M 2 11 11 11 11 15 1
+Ryan Yates M 2 11 11 11 11 15 1
+Morgan Gibbs-White M 2 11 11 11 11 15 1
+Callum Hudson-Odoi F 3 11 11 10 7 15 1
+Chris Wood F 2 11 11 10 7 15 1
+Anthony Elanga F 1 11 11 10 7 15 1
+Matz Sels G 2 1 1 7 15 15 10
+Ola Aina D 3 7 7 10 10 15 1
+Andrew Omobamidele D 2 7 7 10 10 15 1
+Willy Boly D 2 7 7 10 10 15 1
+Harry Toffolo D 1 7 7 10 10 15 1
+Nicolas Dominguez M 2 10 10 10 10 15 1
+Ibrahim Sangare M 2 10 10 10 10 15 1
+Giovanni Reyna M 2 10 10 10 10 15 1
+Divock Origi F 3 10 10 9 7 15 1
+Taiwo Awoniyi F 2 10 10 9 7 15 1
+Neco Williams F 1 10 10 9 7 15 1
