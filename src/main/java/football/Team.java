@@ -11,16 +11,16 @@ import java.util.Scanner;
 
 public class Team {
     Random random = new Random();
-    private String name;
+    private final String name;
     int mentality;
     int motivation;
-    private List<Player> players;
-    private List<Player> lineup;
-    private List<Player> bench;
+    private final List<Player> players;
+    private final List<Player> lineup;
+    private final List<Player> bench;
     private List<Player> red_cards;
-    private Pitch pitch;
-    private int number;
-    private StatsTeam stats;
+    private final Pitch pitch;
+    private final int number;
+    private final StatsTeam stats;
     private Player corners_taker;
     private Player freekicks_taker;
     private Player penalties_taker;
@@ -54,30 +54,6 @@ public class Team {
     }
 
     /**
-     * Choosing the team from the list of clubs
-     * @return name of the team
-     */
-    private String choose_team(){
-        System.out.println("insert team:");
-        Scanner scanner1 = new Scanner(System.in);
-        String team = scanner1.nextLine();
-        try{
-            File file = new File("teams.txt");
-            Scanner scanner2 = new Scanner(file);
-            while(scanner2.hasNextLine()){
-                String current = scanner2.nextLine();
-                if (current.equals(team)){
-                    return current;
-                }
-            }
-        } catch (FileNotFoundException e){
-            System.out.println("NIE");
-            return "";
-        }
-        return "";
-    }
-
-    /**
      * Loading players with their attributes etc. from the team text file
      */
     public boolean load_players(){
@@ -87,35 +63,35 @@ public class Team {
             while(scanner.hasNextLine()){
                 String playername = scanner.nextLine();
                 String[] names = playername.split(" ");
-                for(int i=3; i< names.length; i++){
-                }
-                if(names[2].equals("G")){
-                    Goalkeeper player = new Goalkeeper(names[0], names[1], Integer.parseInt(names[3]),
-                            Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
-                            Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats, mentality, motivation);
-                    players.add(player);
-                }
-                else if(names[2].equals("D")){
-                    Defender player = new Defender(names[0], names[1], Integer.parseInt(names[3]),
-                            Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
-                            Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats, mentality, motivation);
-                    players.add(player);
-                }
-                else if(names[2].equals("M")){
-                    Midfielder player = new Midfielder(names[0], names[1], Integer.parseInt(names[3]),
-                            Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
-                            Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats, mentality,motivation);
-                    players.add(player);
-                }
-                else{
-                    Forward player = new Forward(names[0], names[1], Integer.parseInt(names[3]),
-                            Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
-                            Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
-                            number, stats, mentality, motivation);
-                    players.add(player);
+                switch (names[2]){
+                    case "G":
+                        Goalkeeper playerG = new Goalkeeper(names[0], names[1], Integer.parseInt(names[3]),
+                                Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
+                                Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
+                                number, stats, mentality, motivation);
+                        players.add(playerG);
+                        break;
+                    case "D":
+                        Defender playerD = new Defender(names[0], names[1], Integer.parseInt(names[3]),
+                                Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
+                                Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
+                                number, stats, mentality, motivation);
+                        players.add(playerD);
+                        break;
+                    case "M":
+                        Midfielder playerM = new Midfielder(names[0], names[1], Integer.parseInt(names[3]),
+                                Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
+                                Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
+                                number, stats, mentality,motivation);
+                        players.add(playerM);
+                        break;
+                    case "F":
+                        Forward player = new Forward(names[0], names[1], Integer.parseInt(names[3]),
+                                Integer.parseInt(names[4]), Integer.parseInt(names[5]), Integer.parseInt(names[6]),
+                                Integer.parseInt(names[7]), Integer.parseInt(names[8]), Integer.parseInt(names[9]),
+                                number, stats, mentality, motivation);
+                        players.add(player);
+                        break;
                 }
             }
             return true;
@@ -154,19 +130,13 @@ public class Team {
      * This method is setting default lineup of the team (used before kick-offs)
      */
     public void set_default_lineup(){
-        for(int i=0; i<lineup.size(); i++){
-            if(number==1){
-                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 5);
-                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 4);
-                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 3);
-                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, lineup.get(i).getAttributes().getSide(), 3);
-            }
-            else if(number==2){
-                if(lineup.get(i) instanceof Goalkeeper) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 0);
-                else if(lineup.get(i) instanceof Defender) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 1);
-                else if(lineup.get(i) instanceof Midfielder) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 2);
-                else if(lineup.get(i) instanceof Forward) lineup.get(i).setPlace(pitch, 4-lineup.get(i).getAttributes().getSide(), 2);
-            }
+        for (Player player : lineup) {
+            int modX = 0;
+            if (number == 2) modX = 4;
+            if (player instanceof Goalkeeper) player.setPlace(pitch, Math.abs(modX - player.getAttributes().getSide()), 5);
+            else if (player instanceof Defender) player.setPlace(pitch, Math.abs(modX - player.getAttributes().getSide()), 4);
+            else if (player instanceof Midfielder) player.setPlace(pitch, Math.abs(modX - player.getAttributes().getSide()), 3);
+            else if (player instanceof Forward) player.setPlace(pitch, Math.abs(modX - player.getAttributes().getSide()), 3);
         }
     }
 
@@ -311,14 +281,13 @@ public class Team {
      * @param player the subbed-off player
      */
     public void substitution(Player player){
-        Player holder = player;
         for(int i=0; i<lineup.size(); i++){
             if(lineup.get(i)==player){
                 System.out.println(lineup.get(i).surname+" is subbed off. "+bench.get(i).surname+" changes him.");
                 System.out.println(lineup.get(i).getStamina());
                 System.out.println(bench.get(i).getStamina());
                 lineup.set(i, bench.get(i));
-                bench.set(i, holder);
+                bench.set(i, player);
                 lineup.get(i).setPlace(pitch,bench.get(i).getPlace().getWidth(),bench.get(i).getPlace().getLength());
             }
         }

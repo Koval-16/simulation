@@ -31,9 +31,6 @@ public class StatsTeam {
     public void setBall_time(int ball_time){
         this.ball_time = ball_time;
     }
-    public int getTotal_time(){
-        return total_time;
-    }
     public void setTotal_time(int total_time){
         StatsTeam.total_time = total_time;
     }

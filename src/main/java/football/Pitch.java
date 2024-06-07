@@ -5,7 +5,7 @@ package football;
  */
 
 public class Pitch {
-    private Field[][] pitch;
+    private final Field[][] pitch;
 
     public Pitch(int width, int length){
         pitch = new Field[width][length];

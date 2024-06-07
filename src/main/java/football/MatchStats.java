@@ -25,8 +25,6 @@ public class MatchStats {
         if(!directory.exists()){
             directory.mkdirs();
         }
-        else{
-        }
         try{
             File file = new File(directoryPath+"/"+(match.getTime()/60)+"_"+file_name+".txt");
             file.createNewFile();
@@ -47,11 +45,11 @@ public class MatchStats {
             file.write("\n");
             for(Team team: match.teams){
                 file.write(team.getName()+"\n");
-                file.write(String.format("%-20s %2s %6s %6s %2s %6s %2s %2s %2s %2s %2s %2s\n","Name","MP","Sh(oT)",
+                file.write(String.format("%-20s %2s %2s %6s %6s %2s %6s %2s %2s %2s %2s %2s %2s\n","Name","MP","GS","Sh(oT)",
                         "Pa(Sc)","Dr","Dl(Wn)","Of","YC","RC","LP","IN","SV"));
                 for(int i=0; i<team.getLineup().size(); i++){
-                    file.write(String.format("%-20s %2s %2d(%2d) %2d(%2d) %2d %2d(%2d) %2d %2d %2d %2d %2d %2d\n",
-                            team.getLineup().get(i).surname,team.getLineup().get(i).getStats().getMinutes_played(),
+                    file.write(String.format("%-20s %2d %2d %2d(%2d) %2d(%2d) %2d %2d(%2d) %2d %2d %2d %2d %2d %2d\n",
+                            team.getLineup().get(i).surname,team.getLineup().get(i).getStats().getMinutes_played(), team.getLineup().get(i).getStats().getGoals(),
                             team.getLineup().get(i).getStats().getShoots(),team.getLineup().get(i).getStats().getShoots_on_target(),
                             team.getLineup().get(i).getStats().getPasses_attempts(),team.getLineup().get(i).getStats().getPasses_completed(),
                             team.getLineup().get(i).getStats().getDribbling_completed(),team.getLineup().get(i).getStats().getDuels_attempts(),
@@ -62,8 +60,8 @@ public class MatchStats {
                 }
                 for(int i=0; i<team.getBench().size(); i++){
                     if(team.getBench().get(i).getStats().getMinutes_played()>0){
-                        file.write(String.format("%-20s %2s %2d(%2d) %2d(%2d) %2d %2d(%2d) %2d %2d %2d %2d %2d %2d\n",
-                                team.getBench().get(i).surname,team.getBench().get(i).getStats().getMinutes_played(),
+                        file.write(String.format("%-20s %2d %2d %2d(%2d) %2d(%2d) %2d %2d(%2d) %2d %2d %2d %2d %2d %2d\n",
+                                team.getBench().get(i).surname,team.getBench().get(i).getStats().getMinutes_played(),team.getBench().get(i).getStats().getGoals(),
                                 team.getBench().get(i).getStats().getShoots(),team.getBench().get(i).getStats().getShoots_on_target(),
                                 team.getBench().get(i).getStats().getPasses_attempts(),team.getBench().get(i).getStats().getPasses_completed(),
                                 team.getBench().get(i).getStats().getDribbling_completed(),team.getBench().get(i).getStats().getDuels_attempts(),
@@ -75,8 +73,8 @@ public class MatchStats {
                 }
                 for(int i=0; i<team.getRed_cards().size(); i++){
                     if(team.getRed_cards().get(i).getStats().getMinutes_played()>0){
-                        file.write(String.format("%-20s %2s %2d(%2d) %2d(%2d) %2d %2d(%2d) %2d %2d %2d %2d %2d %2d\n",
-                                team.getRed_cards().get(i).surname,team.getRed_cards().get(i).getStats().getMinutes_played(),
+                        file.write(String.format("%-20s %2d %2d %2d(%2d) %2d(%2d) %2d %2d(%2d) %2d %2d %2d %2d %2d %2d\n",
+                                team.getRed_cards().get(i).surname,team.getRed_cards().get(i).getStats().getMinutes_played(),team.getRed_cards().get(i).getStats().getGoals(),
                                 team.getRed_cards().get(i).getStats().getShoots(),team.getRed_cards().get(i).getStats().getShoots_on_target(),
                                 team.getRed_cards().get(i).getStats().getPasses_attempts(),team.getRed_cards().get(i).getStats().getPasses_completed(),
                                 team.getRed_cards().get(i).getStats().getDribbling_completed(),team.getRed_cards().get(i).getStats().getDuels_attempts(),

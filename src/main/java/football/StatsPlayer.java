@@ -24,9 +24,6 @@ public class StatsPlayer {
     public void addSeconds(int time){
         sec_played += time;
     }
-    public int getSec_played(){
-        return sec_played;
-    }
     public void calculateMinutes(){
         minutes_played = sec_played/60;
     }
@@ -108,9 +105,6 @@ public class StatsPlayer {
     }
     public int getOffsides(){
         return offsides;
-    }
-    public int getFouls(){
-        return fouls;
     }
     public int getRed_cards(){
         return red_cards;

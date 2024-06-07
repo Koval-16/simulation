@@ -8,9 +8,9 @@ import java.util.Random;
 
 public abstract class Player {
     Random random = new Random();
-    private StatsPlayer stats;
-    private StatsTeam team_stats;
-    private AttributesPlayer attributes;
+    private final StatsPlayer stats;
+    private final StatsTeam team_stats;
+    private final AttributesPlayer attributes;
     protected final String name;
     protected final String surname;
     private double stamina = 100;
@@ -45,25 +45,27 @@ public abstract class Player {
         this.team_stats = team_stats;
         this.mentality = mentality;
         this.motivation = motivation;
-        if(mentality>0){
-            attributes.setShooting(attributes.getShooting()+1);
-            attributes.setDribbling(attributes.getDribbling()+1);
+        adjustAttributes();
+    }
+
+    private void adjustAttributes() {
+        if (mentality > 0) {
+            attributes.setShooting(attributes.getShooting() + 1);
+            attributes.setDribbling(attributes.getDribbling() + 1);
+        } else {
+            attributes.setDefending(attributes.getDefending() + 1);
+            attributes.setPassing(attributes.getPassing() - 1);
         }
-        else{
-            attributes.setDefending(attributes.getDefending()+1);
-            attributes.setPassing(attributes.getPassing()-1);
-        }
-        if(motivation>3){
-            attributes.setDefending(attributes.getDefending()+1);
-            attributes.setDribbling(attributes.getDribbling()+1);
-            attributes.setShooting(attributes.getShooting()+1);
-            attributes.setPassing(attributes.getPassing()+1);
-        }
-        else if(motivation<0){
-            attributes.setDefending(attributes.getDefending()-1);
-            attributes.setDribbling(attributes.getDribbling()-1);
-            attributes.setShooting(attributes.getShooting()-1);
-            attributes.setPassing(attributes.getPassing()-1);
+        if (motivation > 3) {
+            attributes.setDefending(attributes.getDefending() + 1);
+            attributes.setDribbling(attributes.getDribbling() + 1);
+            attributes.setShooting(attributes.getShooting() + 1);
+            attributes.setPassing(attributes.getPassing() + 1);
+        } else if (motivation < 0) {
+            attributes.setDefending(attributes.getDefending() - 1);
+            attributes.setDribbling(attributes.getDribbling() - 1);
+            attributes.setShooting(attributes.getShooting() - 1);
+            attributes.setPassing(attributes.getPassing() - 1);
         }
     }
 
@@ -85,9 +87,7 @@ public abstract class Player {
      * @return new event which will happen
      */
     public int decision_no_ball(int event, Team team, Ball ball, double con, int referee, int rain){
-        if(event==-1){}
-        else if(event==0){}
-        else if(event==1){
+        if(event==1){
             if(getPlace().getWidth()==ball.getOwner().getPlace().getWidth() &&
                     getPlace().getLength()==ball.getOwner().getPlace().getLength()){
                 int modY=0;
@@ -104,9 +104,7 @@ public abstract class Player {
                 }
             }
         }
-        else if(event==4){
-            event = player_intercepting(ball, event,con);
-        }
+        else if(event==4) event = player_intercepting(ball, event,con);
         return event;
     }
     public Field getPlace(){
@@ -192,7 +190,6 @@ public abstract class Player {
             stats.addShootOnTarget();
             team_stats.addShoot();
             team_stats.addShootOnTarget();
-            return event;
         }
         else{
             System.out.println(surname+" shoots, but he misses");
@@ -202,8 +199,8 @@ public abstract class Player {
             ball.setX(2);
             if(team_number==2) ball.setY(5);
             else ball.setY(0);
-            return event;
         }
+        return event;
     }
 
     /**
@@ -222,7 +219,7 @@ public abstract class Player {
             if(team.getLineup().get(i)!=this){
                 if(team.getLineup().get(i).getPlace().getWidth()==place.getWidth()
                         && team.getLineup().get(i).getPlace().getLength()==place.getLength()){
-                    distances.get(0).add(team.getLineup().get(i));
+                    distances.getFirst().add(team.getLineup().get(i));
                 }
                 else if(Math.abs(team.getLineup().get(i).getPlace().getLength()-place.getLength())<=1
                 && Math.abs(team.getLineup().get(i).getPlace().getWidth()-place.getWidth())<=1){
@@ -231,7 +228,6 @@ public abstract class Player {
                 else distances.get(2).add(team.getLineup().get(i));
             }
         }
-        Random random = new Random();
         int distance;
         do {
             int prob = random.nextInt(10);
@@ -257,48 +253,16 @@ public abstract class Player {
         double success = ((random.nextInt(100))+1)+((100-getStamina())/10)-motivation+rain;
         double ability;
         if(Math.abs(getPlace().getLength()-modY)<=5 && Math.abs(getPlace().getLength()-modY)>=4){
-            if(getPlace()==recipient.getPlace()){
-                ability = 95+(((float)attributes.getPassing()-20));
-            }
-            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 90+(((float)attributes.getPassing()-20));
-            }
-            else{
-                ability = 80+(((float)attributes.getPassing()-20)*4);
-            }
+            ability = ability_passing(recipient,90,1,1,4);
         }
         else if(Math.abs(getPlace().getLength()-modY)<=3 && Math.abs(getPlace().getLength()-modY)>=2){
-            if(getPlace()==recipient.getPlace()){
-                ability = 90+(((float)attributes.getPassing()-20)*1.5);
-            }
-            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 85+(((float)attributes.getPassing()-20)*2);
-            }
-            else{
-                ability = 80+(((float)attributes.getPassing()-20)*4);
-            }
+            ability = ability_passing(recipient,90,1.5,2,4);
         }
         else if(Math.abs(getPlace().getLength()-modY)==1){
-            if(getPlace()==recipient.getPlace()){
-                ability = 80+(((float)attributes.getPassing()-20)*3);
-            }
-            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 75+(((float)attributes.getPassing()-20)*3);
-            }
-            else{
-                ability = 70+(((float)attributes.getPassing()-20)*4);
-            }
+            ability = ability_passing(recipient,80,3,3,4);
         }
-        else {
-            if(getPlace()==recipient.getPlace()){
-                ability = 60+(((float)attributes.getPassing()-20)*3);
-            }
-            else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
-                ability = 55+(((float)attributes.getPassing()-20)*3);
-            }
-            else{
-                ability = 50+(((float)attributes.getPassing()-20)*3);
-            }
+        else{
+            ability = ability_passing(recipient,60,3,3,3);
         }
         if(success<ability){
             player_get_ball(false);
@@ -313,7 +277,6 @@ public abstract class Player {
             event = 1;
         }
         else {
-
             int choi=0;
             if((Math.abs(getPlace().getLength()-modY)<=1)){
                 choi = random.nextInt(2);
@@ -322,24 +285,34 @@ public abstract class Player {
                 System.out.println(surname+" passes, but he misses!");
                 stats.addPassesAttempts();
                 stats.addLost();
-                event =4;
             }
             else{
                 System.out.println(surname+" passes, but "+recipient.surname+" is off-side!");
                 stats.addPassesAttempts();
                 stats.addOffside();
                 team_stats.addOffside();
-                event=4;
             }
+            event=4;
             player_get_ball(false);
             if(team_number==1) ball.setTeam(2);
             else ball.setTeam(1);
             ball.setX(recipient.getPlace().getWidth());
             ball.setY(recipient.getPlace().getLength());
-
         }
         stamina -= 0.15*con;
         return event;
+    }
+
+    private double ability_passing(Player recipient, int value, double m1, double m2, double m3){
+        if(getPlace()==recipient.getPlace()){
+            return value+(((float)attributes.getPassing()-20)*m1);
+        }
+        else if(Math.abs(getPlace().getWidth()-recipient.getPlace().getWidth())<=1 && Math.abs(getPlace().getLength()-recipient.getPlace().getLength())<=1){
+            return (value-5)+(((float)attributes.getPassing()-20)*m2);
+        }
+        else{
+            return (value-10)+(((float)attributes.getPassing()-20)*m3);
+        }
     }
 
     /**
@@ -419,7 +392,7 @@ public abstract class Player {
                     System.out.println(surname+" gets red card! He is sent off!");
                     team_stats.addRed();
                 }
-                else if(card<(10+(double)(referee/0.83))){
+                else if(card<(10+(referee/0.83))){
                     stats.addYellow();
                     System.out.println(surname+" gets yellow card!");
                     team_stats.addYellow();

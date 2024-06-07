@@ -6,10 +6,10 @@ public class Goalkeeper extends Player{
 
     Random random = new Random();
     public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int passing,
-                      int defending, int aggression, int intelligence, int team_number, StatsTeam stats,
+                      int defending, int aggression, int goalkeeping, int team_number, StatsTeam stats,
                       int mentality, int motivation) {
         super(name, surname, side, shooting, dribbling, passing, defending,
-                aggression, intelligence, team_number, stats, mentality,motivation);
+                aggression, goalkeeping, team_number, stats, mentality,motivation);
     }
 
     @Override
@@ -37,17 +37,16 @@ public class Goalkeeper extends Player{
             modX=4; modY=5;
         }
         int success = random.nextInt(100);
-        float ability = (((float)getAttributes().getDefending()/20)*100);
+        double ability = (((double) getAttributes().getGoalkeeping()/20)*100);
         if(Math.abs(shooter.getPlace().getLength()-modY)==0 && Math.abs(shooter.getPlace().getWidth()-modX)==2){
-            ability = 80+(((float)getAttributes().getDefending()-15)*2)+(((float)shooter.getAttributes().getShooting()-15)*2);
+            ability = 80+(((double)getAttributes().getGoalkeeping()-15)*2)+(((double)shooter.getAttributes().getShooting()-15)*2);
         }
         else if(Math.abs(shooter.getPlace().getLength()-modY)==0 && Math.abs(shooter.getPlace().getWidth()-modX)!=2){
-            ability = 85+(((float)getAttributes().getDefending()-15)*1.5f)+(((float)shooter.getAttributes().getShooting()-15)*1.5f);
+            ability = 85+(((double)getAttributes().getGoalkeeping()-15)*1.5)+(((double)shooter.getAttributes().getShooting()-15)*1.5);
         }
         else if(Math.abs(shooter.getPlace().getLength()-modY)==1){
-            ability = 90+(((float)getAttributes().getDefending()-15))+(((float)shooter.getAttributes().getShooting()-15));
+            ability = 90+(((double)getAttributes().getGoalkeeping()-15))+(((double)shooter.getAttributes().getShooting()-15));
         }
-
         if(success<(ability/2)){
             System.out.println(surname+" catches the shot.");
             shooter.player_get_ball(false);

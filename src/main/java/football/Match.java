@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Match {
+    private static final int MATCH_DURATION = 5400;
     Random random = new Random();
     private int time=0;
     private int no_play_time=0;
@@ -55,26 +56,18 @@ public class Match {
      * game time in seconds. Each half lasts 45 min = 2700 sec.
      */
     public void simulate(){
-        if(!team1.team_exists || !team2.team_exists){
-            return;
-        }
-        while(time<2700){
-            half();
-        }
-        time=2700;
+        if(!team1.team_exists || !team2.team_exists) return;
+        while(time<(MATCH_DURATION/2)) half();
+        time=(MATCH_DURATION/2);
         event=-1;
         stats.stats_to_file(this);
         for(Team team: teams){
             for(int i=0; i<team.getLineup().size(); i++){
-                if((team.getLineup().get(i).getStamina()+15)>100){
-                    team.getLineup().get(i).setStamina(100);
-                }
-                else{
-                    team.getLineup().get(i).setStamina(team.getLineup().get(i).getStamina()+10);
-                }
+                if((team.getLineup().get(i).getStamina()+15)>100) team.getLineup().get(i).setStamina(100);
+                else team.getLineup().get(i).setStamina(team.getLineup().get(i).getStamina()+10);
             }
         }
-        while(time<5400){
+        while(time<MATCH_DURATION){
             for(Team team: teams){
                 for(int i=0; i<team.getLineup().size(); i++){
                     if(team.getLineup().get(i).getStamina()<25){
@@ -101,69 +94,55 @@ public class Match {
     private void half(){
         int help_time = time;
         display_time();
-        if(event==-1){
-            kick_off();
-            time = time+3;
-            no_play_time +=3;
-        }
-        else if(event==0){
-            System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
-            time = time+60;
-            no_play_time += 60;
-            event = -1;
-        }
-        else if (event==1){
-            time = time+3;
-            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
-            moving();
-            action();
-            players_react();
-            if(event!=1){
-                time += 15;
-                no_play_time += 15;
-            }
-        }
-        else if(event==6){
-            time += 3;
-            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
-            for(Team team: teams){
-                set_piece_prep(team, team.getCorners_taker());
-            }
-            for(Team team: teams){
-                set_piece(team, team.getCorners_taker());
-            }
-            players_react();
-        }
-        else if(event==7){
-            for(Team team: teams){
-                team.red_player();
-            }
-            time += 3;
-            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
-            for(Team team:teams){
-                int modY = 0;
-                if(team.getNumber()==2) modY= 5;
-                if(team.getNumber()==ball.getTeam()){
-                    if(Math.abs(ball.getOwner().getPlace().getLength()-modY)<=1){
-                        for(Team team1: teams){
-                            set_piece_prep(team1, team1.getFreekicks_taker());
-                        }
-                    }
+        switch(event){
+            case -1:
+                kick_off();
+                time = time+3;
+                no_play_time +=3;
+                break;
+            case 0:
+                System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
+                time = time+60;
+                no_play_time += 60;
+                event = -1;
+                break;
+            case 1:
+                time = time+3;
+                teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
+                moving();
+                action();
+                players_react();
+                if(event!=1){
+                    time += 15;
+                    no_play_time += 15;
                 }
-            }
-            for(Team team: teams){
-                set_piece(team, ball.getOwner());
-            }
-            players_react();
-        }
-        else if(event==8){
-            for(Team team: teams){
-                team.red_player();
-            }
-            time += 3;
-            teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
-            set_penalty();
-            players_react();
+                break;
+            case 6:
+                time += 3;
+                teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
+                for(Team team: teams) set_piece_prep(team, team.getCorners_taker());
+                for(Team team: teams) set_piece(team, team.getCorners_taker());
+                players_react();
+                break;
+            case 7:
+                for(Team team: teams) team.red_player();
+                time += 3;
+                teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
+                for(Team team:teams){
+                    int modY = 0;
+                    if(team.getNumber()==2) modY= 5;
+                    if(team.getNumber()==ball.getTeam()) if(Math.abs(ball.getOwner().getPlace().getLength()-modY)<=1) for(Team team1: teams) set_piece_prep(team1, team1.getFreekicks_taker());
+                }
+                for(Team team: teams) set_piece(team, ball.getOwner());
+                players_react();
+                break;
+            case 8:
+                for(Team team: teams) team.red_player();
+                time += 3;
+                teams[ball.getTeam()-1].getStats().setBall_time(teams[ball.getTeam()-1].getStats().getBall_time()+3);
+                set_penalty();
+                players_react();
+                break;
         }
         teams[ball.getTeam()-1].getStats().setTotal_time(time-no_play_time);
         teams[ball.getTeam()-1].getStats().caculate_possession();
@@ -188,27 +167,16 @@ public class Match {
                 team.getLineup().get(i).player_get_ball(false);
             }
         }
-        if(time==0){
+        if(time==0 || ball.getTeam()==2){
             team1.getLineup().get(team1.getLineup().size()-2).player_get_ball(true);
             ball.setOwner(team1.getLineup().get(team1.getLineup().size()-2));
             ball.setTeam(team1.getLineup().get(team1.getLineup().size()-2).team_number);
         }
-        else if(time==2700){
+        else if(time==(MATCH_DURATION/2) || ball.getTeam()==1){
             team2.getLineup().get(team2.getLineup().size()-2).player_get_ball(true);
             ball.setOwner(team2.getLineup().get(team2.getLineup().size()-2));
             ball.setTeam(team2.getLineup().get(team2.getLineup().size()-2).team_number);
         }
-        else if(ball.getTeam()==2){
-            team1.getLineup().get(team1.getLineup().size()-2).player_get_ball(true);
-            ball.setOwner(team1.getLineup().get(team1.getLineup().size()-2));
-            ball.setTeam(team1.getLineup().get(team1.getLineup().size()-2).team_number);
-        }
-        else if(ball.getTeam()==1){
-            team2.getLineup().get(team2.getLineup().size()-2).player_get_ball(true);
-            ball.setOwner(team2.getLineup().get(team2.getLineup().size()-2));
-            ball.setTeam(team2.getLineup().get(team2.getLineup().size()-2).team_number);
-        }
-
         event = 1;
     }
 
@@ -236,9 +204,9 @@ public class Match {
      */
     private void action(){
         for(Team team: teams){
-            if(team.getLineup().get(0).ball_possessed){
-                if(team.getLineup().get(0) instanceof Goalkeeper){
-                    event = team.getLineup().get(0).decision_ball(football_pitch,ball,team,event,condition_modifier,rain_modifier);
+            if(team.getLineup().getFirst().ball_possessed){
+                if(team.getLineup().getFirst() instanceof Goalkeeper){
+                    event = team.getLineup().getFirst().decision_ball(football_pitch,ball,team,event,condition_modifier,rain_modifier);
                     break;
                 }
             }
@@ -258,25 +226,22 @@ public class Match {
     private void players_react(){
         for(Team team: teams){
             if(team.getNumber()!=ball.getOwner().team_number){
-                if((event==2 || event==9)&& team.getLineup().get(0) instanceof Goalkeeper){
-                    event = ((Goalkeeper)team.getLineup().get(0)).decision_no_ball(event,ball.getOwner());
+                if((event==2 || event==9)&& team.getLineup().getFirst() instanceof Goalkeeper){
+                    event = ((Goalkeeper)team.getLineup().getFirst()).decision_no_ball(event,ball.getOwner());
                     return;
                 }
                 List<Player> available = new ArrayList<>();
                 int dist = 0;
                 do {
                     for(int i=1; i<team.getLineup().size(); i++){
-                        if(Math.abs(team.getLineup().get(i).getPlace().getWidth()-ball.getX())<=dist &&
-                                Math.abs(team.getLineup().get(i).getPlace().getLength()-ball.getY())<=dist){
+                        if(Math.abs(team.getLineup().get(i).getPlace().getWidth()-ball.getX())<=dist && Math.abs(team.getLineup().get(i).getPlace().getLength()-ball.getY())<=dist){
                             available.add(team.getLineup().get(i));
                         }
                     }
                     dist++;
                 }while(available.isEmpty());
-                if(!available.isEmpty()){
-                    int play = random.nextInt(available.size());
-                    event = available.get(play).decision_no_ball(event,team,ball,condition_modifier,referee,rain_modifier);
-                }
+                int play = random.nextInt(available.size());
+                event = available.get(play).decision_no_ball(event,team,ball,condition_modifier,referee,rain_modifier);
                 return;
             }
         }
