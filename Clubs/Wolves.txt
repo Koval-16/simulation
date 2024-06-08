@@ -1,21 +1,22 @@
-Jose Sa G 2 1 1 11 15 15 15
-Nelson Semedo D 3
-Max Kilman D 2
-Toti Gomes D 2
-Rayan Ait-Nouri D 1
-Joao Gomes M 2
-Mario Lemina M 2
-Jean-Ricner Bellegarde M 2
-Pedro Neto F 3
-Hee-Chan Hwang F 2
-Matheus Cunha F 1
-Daniel Bentley G 2
-Matt Doherty D 3
-Craig Dawson D 2
-Santiago Bueno D 2
-Hugo Bueno D 2
-Boubacar Traore M 2
-Noha Lemina M 2
-Pablo Sarabia F 3
-Nathan Fraser F 2
-Leon Chiwome F 1
+Jose Sa G 2 1 1 10 13 13 13
+Nelson Semedo D 3 8 8 13 13 13 1
+Max Kilman D 2 8 8 13 13 13 1
+Toti Gomes D 2 8 8 13 13 13 1
+Rayan Ait-Nouri D 1 8 8 13 13 13 1
+Joao Gomes M 2 13 13 13 13 13 1
+Mario Lemina M 2 13 13 13 13 13 1
+Jean-Ricner Bellegarde M 2 13 13 13 13 13 1
+Pedro Neto F 3 13 13 13 9 11 1
+Hee-Chan Hwang F 2 14 14 14 11 12 1
+Matheus Cunha F 1 13 14 14 10 11 1
+Daniel Bentley G 2 1 1 10 13 13 12
+Matt Doherty D 3 8 8 12 12 13 1
+Craig Dawson D 2 8 8 12 12 13 1
+Santiago Bueno D 2 8 8 12 12 13 1
+Hugo Bueno D 1 8 8 12 12 13 1
+Boubacar Traore M 2 10 10 9 10 13 1
+Luke Cundle M 2 11 11 11 11 11 1
+Noha Lemina M 2 11 11 12 12 12 1
+Pablo Sarabia M 2 10 10 10 10 13 1
+Nathan Fraser F 3 12 12 11 7 11 1
+Leon Chiwome F 2 12 12 11 7 10 1

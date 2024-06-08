@@ -307,8 +307,6 @@ public class Team {
         for(int i=0; i<lineup.size(); i++){
             if(lineup.get(i)==player){
                 System.out.println(lineup.get(i).surname+" is subbed off. "+bench.get(i).surname+" changes him.");
-                System.out.println(lineup.get(i).getStamina());
-                System.out.println(bench.get(i).getStamina());
                 lineup.set(i, bench.get(i));
                 bench.set(i, player);
                 lineup.get(i).setPlace(pitch,bench.get(i).getPlace().getWidth(),bench.get(i).getPlace().getLength());

@@ -1,22 +1,22 @@
-Jordan Pickford G 2 1 1 12 15 16 17
-Nathan Petterson D 3
-Jarrad Branthwaite D 2
-James Tarkowski D 2
-Vitaliy Mykolenko D 1
-Amadou Onana M 2
-Idrissa Gueye M 2
-Abdoulaye Doucoure M 2
-James Garner F 3
-Dominc Calvert-Lewin F 2
-Dwight McNeil F 1
-Joao Virgina G 2
-Seamus Coleman D 3
-Ben Godfrey D 2
-Mason Holgate D 2
-Ashley Young D 1
-Andre Gomes M 2
-Michael Keane M 2
-Lewis Warrington M 2
-Youssef Chermiti F 3
-Norberto Beto F 2
-Arnaut Danjuma F 1
+Jordan Pickford G 2 1 1 10 13 13 13
+Nathan Petterson D 3 8 8 13 13 13 1
+Jarrad Branthwaite D 2 8 8 13 13 13 1
+James Tarkowski D 2 8 8 13 13 13 1
+Vitaliy Mykolenko D 1 8 8 13 13 13 1
+Amadou Onana M 2 13 13 13 13 13 1
+Idrissa Gueye M 2 13 13 13 13 13 1
+Abdoulaye Doucoure M 2 13 13 13 13 13 1
+James Garner F 3 13 13 13 9 11 1
+Dominc Calvert-Lewin F 2 14 14 14 11 12 1
+Dwight McNeil F 1 13 14 14 10 11 1
+Joao Virgina G 2 1 1 10 13 13 12
+Seamus Coleman D 3 8 8 12 12 13 1
+Ben Godfrey D 2 8 8 12 12 13 1
+Mason Holgate D 2 8 8 12 12 13 1
+Ashley Young D 1 8 8 12 12 13 1
+Andre Gomes M 2 10 10 9 10 13 1
+Michael Keane M 2 11 11 12 12 12 1
+Lewis Warrington M 2 10 10 10 10 13 1
+Youssef Chermiti F 3 12 12 11 7 11 1
+Norberto Beto F 2 12 12 11 7 10 1
+Arnaut Danjuma F 1 12 12 12 8 10 1

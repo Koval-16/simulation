@@ -10,7 +10,7 @@ Cole Palmer F 3 17 18 18 13 13 1
 Christopher Nkunku F 2 18 17 17 12 12 1
 Mykhailo Mudryk F 1 16 17 16 10 13 1
 Robert Sanchez G 2 1 1 11 15 15 14
-Malo Gusto D 3 11 13 16 16 1
+Malo Gusto D 3 11 13 13 16 16 1
 Benoit Badiashille D 2 9 9 15 16 17 1
 Wesley Fofana D 2 10 10 16 16 15 1
 Marc Cucurella D 1 11 12 16 16 14 1
