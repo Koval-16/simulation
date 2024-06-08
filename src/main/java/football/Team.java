@@ -9,6 +9,26 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Class represents team.
+ * <p>Attributes:</p>
+ * <ul>
+ *     <li>name: team's name</li>
+ *     <li>mentality: team's tactical mentality</li>
+ *     <li>motivation: team's motivation and attitude</li>
+ *     <li>players: list of team's players</li>
+ *     <li>lineup: list of team's players who are currently on the pitch</li>
+ *     <li>bench: list of team's players who are sitting on the bench</li>
+ *     <li>red_cards: list of team's players who received red card, and cant perform any action anymore</li>
+ *     <li>pitch: pitch</li>
+ *     <li>number: team's ID number</li>
+ *     <li>stats: team's stats</li>
+ *     <li>corners_taker: player who is corner taker</li>
+ *     <li>freekicks_taker: player who is direct free kicks taker</li>
+ *     <li>penalties_taker: player who shoots penalties</li>
+ *     <li>team_exists: holds info if team exists (if it's false, match can't be performed)</li>
+ * </ul>
+ */
 public class Team {
     Random random = new Random();
     private final String name;
@@ -27,9 +47,12 @@ public class Team {
     boolean team_exists;
 
     /**
-     * Constructor of the class football.Team
+     * Constructor of class Team
      * @param pitch pitch of the game
-     * @param number the index of the team
+     * @param number team's ID number
+     * @param name team's name
+     * @param mentality team's tactical mentality
+     * @param motivation team's motivaiton
      */
     public Team(Pitch pitch, int number, String name, int mentality, int motivation){
         this.number = number;
@@ -54,7 +77,8 @@ public class Team {
     }
 
     /**
-     * Loading players with their attributes etc. from the team text file
+     * This method is loading players from .txt file
+     * @return information if loading players was successful
      */
     public boolean load_players(){
         try{
@@ -108,7 +132,8 @@ public class Team {
     }
 
     /**
-     * This method is setting the starting lineup and the bench of the team.
+     * This method is setting starting lineup.
+     * @return information if setting lineup was successful
      */
     public boolean set_lineup(){
         try {
@@ -127,7 +152,7 @@ public class Team {
     }
 
     /**
-     * This method is setting default lineup of the team (used before kick-offs)
+     * This method is setting default lineup of the team (used before kick-offs). Players simply come back to their halfs.
      */
     public void set_default_lineup(){
         for (Player player : lineup) {
@@ -277,7 +302,7 @@ public class Team {
     }
 
     /**
-     * this method is making a substituion
+     * This method is making a substitution. Player from the pitch is replaced with player from the bench.
      * @param player the subbed-off player
      */
     public void substitution(Player player){

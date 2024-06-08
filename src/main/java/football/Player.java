@@ -1,11 +1,27 @@
-package football;/**
- * Klasa <code>football.Player</code> reprezentująca piłkarza.
- */
+package football;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class representing the player in a game.
+ * This class contains player's stats, his attributes, name, the value of his stamina, his current place, ball possession.
+ * <p>Attributes:</p>
+ * <ul>
+ *     <li>stats: individual stats of the player</li>
+ *     <li>team_stats: team stats of the team player belongs to</li>
+ *     <li>attributes: player's attributes</li>
+ *     <li>name: player's name</li>
+ *     <li>surname: player's surname</li>
+ *     <li>stamina: value of player's stamina (100 is full stamina)</li>
+ *     <li>place: the area where player is</li>
+ *     <li>ball_possessed: whether the player possesses the ball or no</li>
+ *     <li>team_number: the number of the team player belongs to</li>
+ *     <li>mentality: mentality of the player(common for players from the same team)</li>
+ *     <li>motivation: motivation of the player(common for players from the same team)</li>
+ * </ul>
+ */
 public abstract class Player {
     Random random = new Random();
     private final StatsPlayer stats;
@@ -17,30 +33,33 @@ public abstract class Player {
     protected Field place;
     protected boolean ball_possessed;
     protected int team_number;
-    int mentality;
-    int motivation;
+    protected int mentality;
+    protected int motivation;
 
     /**
-     * Constructor of class <code>football.Player</code> with his name, surname, and attributes
-     * @param name player's name
-     * @param surname player's surname
-     * @param side player's side, 1=left, 2=center, 3=right
-     * @param shooting player's shooting ability
-     * @param dribbling player's dribbling ability
-     * @param passing player's passing ability
-     * @param defending player's defending ability
-     * @param aggression player's aggression
-     * @param intelligence player's intelligence
-     * @param team_number the index of player's team
+     * Constructor of class Player with the specified attributes.
+     * @param name name of the player
+     * @param surname surname of the player
+     * @param side the side of the player; left(1), center(2) or right(3)
+     * @param shooting the shooting ability of the player
+     * @param dribbling the dribbling ability of the player
+     * @param passing the passing ability of the player
+     * @param defending the defending ability of the player
+     * @param aggression the aggression of the player
+     * @param goalkeeping the goalkeeping ability of the player
+     * @param team_number the number of the team player belongs to
+     * @param team_stats the stats of the team player belongs to
+     * @param mentality the mentality of the player
+     * @param motivation the motivation of the player
      */
     public Player(String name, String surname, int side, int shooting, int dribbling,int passing,
-                  int defending, int aggression, int intelligence, int team_number,
+                  int defending, int aggression, int goalkeeping, int team_number,
                   StatsTeam team_stats, int mentality, int motivation){
         this.name = name;
         this.surname = surname;
         this.ball_possessed = false;
         this.stats = new StatsPlayer();
-        this.attributes = new AttributesPlayer(side, shooting, dribbling, passing, defending, aggression, intelligence);
+        this.attributes = new AttributesPlayer(side, shooting, dribbling, passing, defending, aggression, goalkeeping);
         this.team_number = team_number;
         this.team_stats = team_stats;
         this.mentality = mentality;
@@ -48,6 +67,13 @@ public abstract class Player {
         adjustAttributes();
     }
 
+    /**
+     * Method adjustAttributes adjusts player's attributes based on mentality and motivation.
+     * High value of motivation increases the ability of: shooting, dribbling, passing, defending.
+     * Low value of motivation decreases the ability of: shooting, dribbling, passing, defending.
+     * Positive value of mentality (offensive) increases ability of: shooting and dribbling.
+     * Negative value of mentality (defensive) increases defending but decreases passing.
+     */
     private void adjustAttributes() {
         if (mentality > 0) {
             attributes.setShooting(attributes.getShooting() + 1);
@@ -70,20 +96,28 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>decision_ball</code> makes a player's with ball decision
+     * The abstract method decision_ball. Makes decision when player owns the ball.
+     * The decision-making depend on player's position (other for goalkeepers, defenders etc.)
      * @param pitch the pitch of the game
-     * @param ball the ball of the game
-     * @param team the team of the player
-     * @param event the event which occurred
+     * @param ball the ball
+     * @param team the team of the player who makes a decision
+     * @param event the event
+     * @param con the condition modifier
+     * @param rain the rain modifier
      * @return new event which will happen
      */
     public abstract int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con, int rain);
 
     /**
-     * Method <code>decison_no_ball</code> makes a player's with no ball decision
-     * @param event the event which occurred
-     * @param team the team of the player
-     * @param ball the ball of the game
+     * The method decision_no_ball. Makes decision when player doesn't own the ball.
+     * Player might try to tackle a ball from an opponent or take over the ball, when the other team lost it.
+     * Player's decision depends on the current place on the pitch of the player.
+     * @param event the event
+     * @param team the team of the player who makes a decision
+     * @param ball the ball
+     * @param con the condition modifier
+     * @param referee the severity of the referee
+     * @param rain the rain modifier
      * @return new event which will happen
      */
     public int decision_no_ball(int event, Team team, Ball ball, double con, int referee, int rain){
@@ -116,12 +150,20 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_moving</code> moves a player without ball. football.Player's movement depends on his position,
-     * current ball state (where the ball is, which team owns the ball).
+     * The method player_moving moves the player who doesn't have the ball.
+     * The movement depends on:
+     * - player's position
+     * - player's current place
+     * - ball's current place
+     * - team which possesses the ball
+     * Movement in X-coordinates is common for all players.
+     * Movement in Y-coordinates depends on player's position.
+     * Movement decreases player's stamina. The loss of stamina is higher when player's team don't have the ball.
      * @param pitch the pitch of the game
-     * @param ball_X X coordinate of the ball
-     * @param ball_Y Y coordinate of the ball
+     * @param ball_X ball X-coordinate
+     * @param ball_Y ball Y-coordinate
      * @param ball_team team which owns the ball
+     * @param con condition modifier
      */
     public void player_moving(Pitch pitch, int ball_X, int ball_Y, int ball_team, double con){
         int newWidth = place.getWidth();
@@ -150,18 +192,26 @@ public abstract class Player {
 
     /**
      * Method <code>player_get_ball</code> sets if the player has the ball.
-     * @param ball_possesed true=has ball, false=doesn't have ball
+     * @param ball_possessed true=has ball, false=doesn't have ball
      */
-    public void player_get_ball(boolean ball_possesed){
-        this.ball_possessed = ball_possesed;
+    public void player_get_ball(boolean ball_possessed){
+        this.ball_possessed = ball_possessed;
     }
 
     /**
-     * Method <code>player_shooting</code> makes player shoots. Shot can be either on-target or missed. It depends on
-     * player's shooting ability and distance from the goal.
+     * The method player_shooting makes player shoots.
+     * Shot might be either on-target or missed. The success of making a shot-on-target depends on:
+     * - player's shooting ability
+     * - place where he shoots from
+     * - player's stamina
+     * - player's motivation
+     * - weather (rain)
+     * If players misses, the game will be resumed by enemy goalkeeper. If the shoot is on target, enemy goalkeeper needs to save it.
      * @param ball the ball
      * @param event the event
-     * @return the event which will happen, it might be shot on-target or ball out of game
+     * @param con condition modifier
+     * @param rain rain modifier
+     * @return new event which will happen
      */
     public int player_shooting(Ball ball, int event, double con, int rain){
         int modX=0; int modY=0;
@@ -204,11 +254,11 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>recipient</code> chooses the recipient of the pass. It divides players from the same team into
-     * few pots depending on their distance from the <code>football.Player</code>. It's more likely to choose a recipient
+     * Method recipient chooses the recipient of the pass. It divides players from the same team into
+     * few pots depending on their distance from the football.Player. It's more likely to choose a recipient
      * who is closer to the player.
-     * @param team the player's team
-     * @return returns the recipient of the pass
+     * @param team team of the player
+     * @return the recipient of the pass
      */
     public Player recipient(Team team){
         List<List<Player>> distances = new ArrayList<>();
@@ -240,12 +290,21 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_passing</code> makes football.Player pass. He passes to the chosen recipient. Pass can be either
-     * successful, missed, or off-side. It depends on player's pass ability, and the distance from the recipient.
-     * @param recipient the chosen recipient of the pass
+     * The method player_passing makes player pass.
+     * The pass may be successful, missed or off-side.
+     * The success of making an accurate pass depends on:
+     * - player's passing ability
+     * - place where he passes from
+     * - player's stamina
+     * - player's motivation
+     * - weather (rain)
+     * When the pass is successful, the recipient gets the ball. When it's missed, an opponent takes over the ball.
+     * @param recipient the player who is recipient of the pass
      * @param ball the ball
      * @param event the event
-     * @return returns event that will happen, there might be normal game, missed ball or free kick(after off-side)
+     * @param con condition modifier
+     * @param rain rain modifier
+     * @return new event which will happen
      */
     public int player_passing(Player recipient, Ball ball, int event, double con,int rain){
         int modY=0;
@@ -303,6 +362,15 @@ public abstract class Player {
         return event;
     }
 
+    /**
+     * Method ability_passing calculates the actual ability of the specific pass.
+     * @param recipient recipient of the pass
+     * @param value basic value
+     * @param m1 modifier1
+     * @param m2 modifier2
+     * @param m3 modifier3
+     * @return the ability of the specific pass
+     */
     private double ability_passing(Player recipient, int value, double m1, double m2, double m3){
         if(getPlace()==recipient.getPlace()){
             return value+(((float)attributes.getPassing()-20)*m1);
@@ -316,9 +384,12 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_dribbling</code> makes football.Player with ball dribbles.
-     * @param pitch the pitch
-     * @param ball the ball
+     * Method player_dribbling makes player with the ball dribbles.
+     * Player can dribble without changing his field, or he can dribble into neighboring field.
+     * Dribbling causes big loss of stamina.
+     * @param pitch pitch of the game
+     * @param ball ball
+     * @param con condition modifier
      */
     public void player_dribbling(Pitch pitch, Ball ball, double con){
         Random random = new Random();
@@ -341,14 +412,27 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_tackling</code> makes football.Player tackle. Depending on player's defending ability, and opponent's
-     * dribbling ability it might be successful or unsuccessful. It might result in foul as well. There's a chance, that
-     * player who fouls will receive a yellow or red card. The higher player's aggression is the more chance for foul
-     * and card player has. Foul ends in free kick (if foul happened outside the box) or penalty (if inside the box).
-     * @param opponent the opponent with the ball, football.Player tries to take the ball from him.
+     * Method player_tackling makes player tackle.
+     * Tackle might be successful or unsuccessful. Unsuccessful tackle might result in foul.
+     * The success of tackle depends on:
+     * - player's defending ability
+     * - opponent's dribbling ability
+     * - player's and opponent's stamina
+     * - player's and opponent's motivation
+     * - place where the player tries to tackle
+     * - weather (rain)
+     * If the tackle was not successful, it might result in foul, and even in yellow or red card. It depends on:
+     * - player's aggression
+     * - referee's severity
+     * - weather (rain)
+     * Tackling decreases player's stamina. If foul occurred, also opponent's stamina is decreased.
+     * @param opponent the player who owns the ball
      * @param ball the ball
      * @param event the event
-     * @return the event which will happen then, there might be: normal game, free kick, penalty
+     * @param con condition modifier
+     * @param referee the severity of the referee
+     * @param rain rain modifier
+     * @return new event which will happen
      */
     public int player_tackling(Player opponent, Ball ball, int event, double con, int referee, int rain){
         int modY=0;
@@ -420,9 +504,10 @@ public abstract class Player {
 
 
     /**
-     * Method <code>player_intercepting</code> makes football.Player take over the ball, when nobody owns the ball.
+     * Method player_intercepting makes player take over the ball, when nobody owns it.
      * @param ball the ball
      * @param event the event
+     * @param con condition modifier
      * @return the event that will happen, here it's always the normal game
      */
     public int player_intercepting(Ball ball, int event, double con){
@@ -437,9 +522,10 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_penalty</code> makes football.Player take a penalty. It's simple shoot, but it's more possible to score.
+     * Method player_penalty makes player take a penalty. It's simple shoot, but it's more possible to score.
      * @param ball the ball
      * @param event the event
+     * @param rain rain modifier
      * @return it returns the event that will happen, here shoot on-target or missed shoot
      */
     public int player_penalty(Ball ball, int event,double con, int rain){
@@ -448,10 +534,12 @@ public abstract class Player {
     }
 
     /**
-     * Method <code>player_freekick</code> makes football.Player take a free kick. It can be either pass or shoot.
+     * Method player_freekick makes player take a free kick. It can be either pass or shoot.
      * @param ball the ball
      * @param event the event
      * @param team the team
+     * @param con condition modifier
+     * @param rain rain modifier
      * @return the event that will happen
      */
     public int player_freekick(Ball ball, int event, Team team, double con, int rain){

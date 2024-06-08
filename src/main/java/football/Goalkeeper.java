@@ -2,16 +2,46 @@ package football;
 
 import java.util.Random;
 
+/**
+ * Class representing the goalkeeper in a game.
+ * This class extends Player class.
+ * Goalkeeper has an extra method which allows him to save shoots.
+ */
 public class Goalkeeper extends Player{
 
     Random random = new Random();
-    public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int passing,
-                      int defending, int aggression, int goalkeeping, int team_number, StatsTeam stats,
-                      int mentality, int motivation) {
-        super(name, surname, side, shooting, dribbling, passing, defending,
-                aggression, goalkeeping, team_number, stats, mentality,motivation);
+
+    /**
+     * Constructor of class Goalkeeper with the specified attributes.
+     * @param name name of the player
+     * @param surname surname of the player
+     * @param side the side of the player; left(1), center(2) or right(3)
+     * @param shooting the shooting ability of the player
+     * @param dribbling the dribbling ability of the player
+     * @param passing the passing ability of the player
+     * @param defending the defending ability of the player
+     * @param aggression the aggression of the player
+     * @param goalkeeping the goalkeeping ability of the player
+     * @param team_number the number of the team player belongs to
+     * @param stats the stats of the team player belongs to
+     * @param mentality the mentality of the player
+     * @param motivation the motivation of the player
+     */
+    public Goalkeeper(String name, String surname, int side, int shooting, int dribbling, int passing, int defending, int aggression, int goalkeeping, int team_number, StatsTeam stats, int mentality, int motivation) {
+        super(name, surname, side, shooting, dribbling, passing, defending, aggression, goalkeeping, team_number, stats, mentality,motivation);
     }
 
+    /**
+     * Method decision_ball of goalkeeper.
+     * When goalkeeper has the ball, he can only pass the ball.
+     * @param pitch the pitch of the game
+     * @param ball the ball
+     * @param team the team of the player who makes a decision
+     * @param event the event
+     * @param con the condition modifier
+     * @param rain the rain modifier
+     * @return new event which will happen
+     */
     @Override
     public int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con, int rain){
         ball.setOwner(this);

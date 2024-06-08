@@ -1,5 +1,8 @@
 package football;
 
+/**
+ * Class StatsPlayer collects statistics of the player.
+ */
 public class StatsPlayer {
     private int sec_played;
     private int minutes_played;

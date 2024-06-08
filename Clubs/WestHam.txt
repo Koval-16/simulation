@@ -15,7 +15,7 @@ Konstantinos Mavropanos D 2 10 10 14 14 15 1
 Angelo Ogbonna D 2 10 10 14 14 15 1
 Aaron Cresswell D 1 10 10 14 14 15 1
 George Earthy M 2 12 12 11 12 15 1
-Kalvin Philipps M 2 13 13 14 14 1
+Kalvin Philipps M 2 13 13 14 14 14 1
 Flynn Downes M 2 12 12 12 12 15 1
 Maxwel Cornet F 3 14 14 13 9 13 1
 Danny Ings F 2 14 14 13 9 12 1

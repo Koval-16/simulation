@@ -1,11 +1,29 @@
-package football; /**
- * Class <code>football.Match</code> it's the match.
- */
+package football;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class representing football match.
+ * <p>Attributes:</p>
+ * <ul>
+ *     <li>MATCH_DURATION: time of match duration</li>
+ *     <li>time: the current time of the game</li>
+ *     <li>no_play_time: helper variable, holds time without actual game</li>
+ *     <li>event: current event: -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:balllost ; 5:offside
+ *     ; 6:corner ; 7:freekick ; 8:penalty ; 9:ballout</li>
+ *     <li>football_pitch: pitch of the game</li>
+ *     <li>team1: first team</li>
+ *     <li>team2: second team</li>
+ *     <li>ball: ball of the game</li>
+ *     <li>weather: the weather type</li>
+ *     <li>condition_modifier: modifier which affects players stamina</li>
+ *     <li>rain_modifier: modifier which affects players actions success</li>
+ *     <li>referee: referee's severity which affects fouls and cards frequency</li>
+ *     <li>stats: match's stats summarising</li>
+ * </ul>
+ */
 public class Match {
     private static final int MATCH_DURATION = 5400;
     Random random = new Random();
@@ -13,16 +31,16 @@ public class Match {
     private int no_play_time=0;
     private int event=-1; /* -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:balllost ; 5:offside
     ; 6:corner ; 7:freekick ; 8:penalty ; 9:ballout */
-    Pitch football_pitch;
+    private Pitch football_pitch;
     Team team1;
     Team team2;
-    Ball ball;
+    private Ball ball;
     Team[] teams;
-    int weather;
-    double condition_modifier = 1;
-    int rain_modifier = 0;
-    int referee = 0;
-    MatchStats stats;
+    private int weather;
+    private double condition_modifier = 1;
+    private int rain_modifier = 0;
+    private int referee = 0;
+    private MatchStats stats;
 
     /**
      * The constructor of the class football.Match. It creates a pitch for the game, two teams and the ball.
@@ -39,6 +57,9 @@ public class Match {
         this.stats = new MatchStats(this);
     }
 
+    /**
+     * This method makes modification basing on weather.
+     */
     public void influenceWeather(){
         switch (weather){
             case 0:
@@ -51,13 +72,16 @@ public class Match {
                 break;
         }
     }
+
     /**
-     * Method <code>simulate</code> simulates the match. The game is divided into two halfs. Time represents the
-     * game time in seconds. Each half lasts 45 min = 2700 sec.
+     * Method simulate simulates the match. The match won't be simulated if some team doesn't exist.
+     * The match is divided into two halfs.
+     * After each half there is saving match stats into the text file.
+     * During second half there might be substitutions.
      */
     public void simulate(){
         if(!team1.team_exists || !team2.team_exists) return;
-        while(time<(MATCH_DURATION/2)) half();
+        while(time<(MATCH_DURATION/2)) situation();
         time=(MATCH_DURATION/2);
         event=-1;
         stats.stats_to_file(this);
@@ -82,16 +106,19 @@ public class Match {
                     }
                 }
             }
-            half();
+            situation();
         }
         System.out.println(team1.getName()+" "+team1.getStats().getGoals()+":"+team2.getStats().getGoals()+" "+team2.getName());
         stats.stats_to_file(this);
     }
 
     /**
-     * Method <code>half</code> checks which event currently happens, and depending on it certain actions take place.
+     * Method situation is the single action during the game. There are 3 phases of situation.
+     * First: players without ball are moving.
+     * Second: player with ball is making his action (pass, shoot etc.)
+     * Third: one player from opposite team might react (defender can try to tackle, goalkeeper to save)
      */
-    private void half(){
+    private void situation(){
         int help_time = time;
         display_time();
         switch(event){
@@ -155,7 +182,7 @@ public class Match {
     }
 
     /**
-     * Method <code>kick_off</code> happens after goals and at the beginning of each half. Players are set up at their
+     * Method kick_off happens after goals and at the beginning of each half. Players are set up at their
      * starting fields and the ball is for team who has lost a goal.
      */
     private void kick_off(){
@@ -180,6 +207,9 @@ public class Match {
         event = 1;
     }
 
+    /**
+     * This method displays current time.
+     */
     private void display_time(){
         int min = time/60;
         int sec = time%60;
@@ -187,7 +217,7 @@ public class Match {
     }
 
     /**
-     * Method <code>moving</code> moves every player who doesn't have a ball.
+     * Method moving makes every player without ball moves.
      */
     private void moving(){
         for(Team team: teams){
@@ -200,7 +230,7 @@ public class Match {
     }
 
     /**
-     * Method <code>action</code> makes an action of player who has the ball.
+     * Method action makes an action of player who has the ball.
      */
     private void action(){
         for(Team team: teams){
@@ -220,7 +250,7 @@ public class Match {
     }
 
     /**
-     * Method <code>players_react</code> makes one of the opponent team player's reaction. It might be tackle
+     * Method players_react makes one of the opponent team player's reaction. It might be tackle
      * or interception, or goalkeepers save if it's a shoot.
      */
     private void players_react(){
@@ -247,11 +277,22 @@ public class Match {
         }
     }
 
+    /**
+     * Method set_piece makes a set piece taker makes a set piece.
+     * @param team team
+     * @param player player
+     */
     private void set_piece(Team team, Player player){
         if(team.getNumber()==ball.getTeam()){
             event = player.decision_ball(football_pitch,ball,team,event,condition_modifier,rain_modifier);
         }
     }
+
+    /**
+     * Method set_piece_prep makes both teams prepare for the corner or free kick if it's necessary.
+     * @param team team
+     * @param player player
+     */
     private void set_piece_prep(Team team, Player player){
         if(team.getNumber()==ball.getTeam()){
             ball.getOwner().player_get_ball(false);
@@ -260,7 +301,10 @@ public class Match {
         }
         team.set_corner_lineup(event);
     }
-    
+
+    /**
+     * Method set_penalty makes a penalty in game.
+     */
     private void set_penalty(){
         for(Team team: teams){
             team.set_penalty_lineup();

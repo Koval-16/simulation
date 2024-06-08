@@ -1,7 +1,7 @@
 package football;
 
 /**
- * Klasa <code>football.Pitch</code> reprezentuje boisko o wymiarach 5x6 pól.
+ * Class pitch represents the football pitch.
  */
 
 public class Pitch {

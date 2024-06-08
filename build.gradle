@@ -19,6 +19,24 @@ test {
     useJUnitPlatform()
 }
 
+task generateJavadoc(type: Javadoc){
+    source = sourceSets.main.allJava
+    destinationDir = file("$buildDir/docs/javadoc")
+    options.encoding = 'UTF-8'
+    options.memberLevel = JavadocMemberLevel.PROTECTED
+    options.author = true
+    options.version = true
+    options.links("https://docs.oracle.com/javase/8/docs/api/")
+}
+
 application{
     mainClass = 'football.Main'
+}
+
+apply plugin: 'java'
+
+jar{
+    manifest{
+        attributes 'Main-Class': 'football.Main'
+    }
 }

@@ -6,11 +6,18 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class MatchStats saves stats of the match into files.
+ */
 public class MatchStats {
     Match match;
     String match_time;
     String file_name;
 
+    /**
+     * The constructor of the class.
+     * @param match match
+     */
     public MatchStats(Match match){
         this.match = match;
         LocalDateTime now = LocalDateTime.now();
@@ -19,6 +26,10 @@ public class MatchStats {
         this.file_name = match.team1.getName()+"_"+match.team2.getName()+"_"+match_time;
     }
 
+    /**
+     * Method stats_to_file saves all stats into the file.
+     * @param match match
+     */
     public void stats_to_file(Match match){
         String directoryPath = "Matches/"+file_name;
         File directory = new File(directoryPath);

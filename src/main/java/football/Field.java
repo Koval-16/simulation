@@ -1,7 +1,7 @@
 package football;
 
 /**
- * Klasa <code>football.Field</code> reprezentująca pojedyńcze pole.
+ * Class Field represents single field of the pitch.
  */
 
 public class Field {

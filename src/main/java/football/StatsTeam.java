@@ -1,5 +1,8 @@
 package football;
 
+/**
+ * Class StatsTeam collects team's statistics.
+ */
 public class StatsTeam {
     private int goals;
     private double ball_possession;

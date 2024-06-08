@@ -15,7 +15,7 @@ Adam Webster D 2 10 10 14 14 15 1
 Jan-Paul van-Hecke D 2 10 10 14 14 15 1
 Valentin Barco D 1 10 10 14 14 15 1
 James Milner M 2 12 12 11 12 15 1
-Facundo Buonanotte M 2 13 13 14 14 1
+Facundo Buonanotte M 2 13 13 14 14 14 1
 Carlos Baleba M 2 12 12 12 12 15 1
 Simon Adingra F 3 14 14 13 9 13 1
 Evan Ferguson F 2 14 14 13 9 12 1

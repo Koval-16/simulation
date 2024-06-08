@@ -1,13 +1,51 @@
 package football;
 
+/**
+ * Class representing Forward in a game.
+ * This class extends Player class.
+ */
 public class Forward extends Player{
-    public Forward(String name, String surname, int side, int shooting, int dribbling, int passing,
-                   int defending, int aggression, int goalkeeping, int team_number,
-                   StatsTeam stats, int mentality, int motivation) {
-        super(name, surname, side, shooting, dribbling, passing,
-                defending, aggression, goalkeeping, team_number, stats, mentality, motivation);
+    /**
+     * Constructor of class Forward with the specified attributes.
+     * @param name name of the player
+     * @param surname surname of the player
+     * @param side the side of the player; left(1), center(2) or right(3)
+     * @param shooting the shooting ability of the player
+     * @param dribbling the dribbling ability of the player
+     * @param passing the passing ability of the player
+     * @param defending the defending ability of the player
+     * @param aggression the aggression of the player
+     * @param goalkeeping the goalkeeping ability of the player
+     * @param team_number the number of the team player belongs to
+     * @param stats the stats of the team player belongs to
+     * @param mentality the mentality of the player
+     * @param motivation the motivation of the player
+     */
+    public Forward(String name, String surname, int side, int shooting, int dribbling, int passing, int defending, int aggression, int goalkeeping, int team_number, StatsTeam stats, int mentality, int motivation) {
+        super(name, surname, side, shooting, dribbling, passing, defending, aggression, goalkeeping, team_number, stats, mentality, motivation);
     }
 
+    /**
+     * Method decision_ball of forward.
+     * Defender can perform actions:
+     * - passing
+     * - dribbling
+     * - shooting
+     * - free kick
+     * - penalty
+     * His choice depends on:
+     * - event which occurred
+     * - place
+     * - stamina
+     * - mentality
+     * @param pitch the pitch of the game
+     * @param ball the ball
+     * @param team the team of the player who makes a decision
+     * @param event the event
+     * @param con the condition modifier
+     * @param rain the rain modifier
+     * @return new event which will happen
+     */
     public int decision_ball(Pitch pitch, Ball ball, Team team, int event, double con, int rain){
         switch (event){
             case 1:
@@ -47,6 +85,17 @@ public class Forward extends Player{
         }
         return event;
     }
+    /**
+     * Method player_moving for forward.
+     * Moving in X-coordinates is common for defenders, midfielders, forwards.
+     * Moving in Y-coordinates is specific for other positions.
+     * It depends on player's current place, ball place, and what team possesses the ball.
+     * @param pitch the pitch of the game
+     * @param ball_X ball X-coordinate
+     * @param ball_Y ball Y-coordinate
+     * @param ball_team team which owns the ball
+     * @param con condition modifier
+     */
     public void player_moving(Pitch pitch, int ball_X, int ball_Y, int ball_team,double con){
         super.player_moving(pitch, ball_X, ball_Y, ball_team,con);
         int modifier = 0;
