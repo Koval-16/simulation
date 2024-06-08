@@ -1,6 +1,4 @@
-package football; /**
- * Class <code>football.Team</code> represents team, with its players, set pieces takers, lineup, bench, name.
- */
+package football;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -10,7 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Class represents team.
+ * Class represents team. Team contains 22 {@link Player}s.
  * <p>Attributes:</p>
  * <ul>
  *     <li>name: team's name</li>

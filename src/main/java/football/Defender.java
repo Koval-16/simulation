@@ -2,7 +2,7 @@ package football;
 
 /**
  * Class representing Defender in a game.
- * This class extends Player class.
+ * This class extends {@link Player} class.
  */
 public class Defender extends Player{
     /**

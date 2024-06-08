@@ -1,7 +1,7 @@
 package football;
 
 /**
- * Class StatsTeam collects team's statistics.
+ * Class collects statistics of {@link Team}
  */
 public class StatsTeam {
     private int goals;
@@ -19,9 +19,15 @@ public class StatsTeam {
     private int yellow_cards;
     private int red_cards;
 
+    /**
+     * Constructor of class StatsTeam
+     */
     public StatsTeam(){
     }
 
+    /**
+     * Method calculates team's ball possession.
+     */
     public void caculate_possession(){
         ball_possession = ((double)ball_time/(double)total_time);
     }

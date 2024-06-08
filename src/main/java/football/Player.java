@@ -7,6 +7,7 @@ import java.util.Random;
 /**
  * Class representing the player in a game.
  * This class contains player's stats, his attributes, name, the value of his stamina, his current place, ball possession.
+ * There are 4 classes which extends Player, they are: {@link Goalkeeper}, {@link Defender}, {@link Midfielder}, {@link Forward}
  * <p>Attributes:</p>
  * <ul>
  *     <li>stats: individual stats of the player</li>

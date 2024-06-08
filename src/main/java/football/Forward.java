@@ -2,7 +2,7 @@ package football;
 
 /**
  * Class representing Forward in a game.
- * This class extends Player class.
+ * This class extends {@link Player} class.
  */
 public class Forward extends Player{
     /**
@@ -27,7 +27,7 @@ public class Forward extends Player{
 
     /**
      * Method decision_ball of forward.
-     * Defender can perform actions:
+     * Forward can perform actions:
      * - passing
      * - dribbling
      * - shooting

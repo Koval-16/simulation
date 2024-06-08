@@ -1,7 +1,7 @@
 package football;
 
 /**
- * Class which stores attributes of a player, such as: shooting, passing etc.
+ * Class which stores attributes of a {@link Player}, such as: shooting, passing etc.
  * This class provides setters and getters to access the attributes
  * <p>Attributes:</p>
  * <ul>
@@ -43,10 +43,6 @@ public class AttributesPlayer {
         this.goalkeeping = goalkeeping;
     }
 
-    /**
-     * Side getter
-     * @return side
-     */
     public int getSide(){
         return side;
     }

@@ -2,7 +2,7 @@ package football;
 
 /**
  * Class representing Midfielder in a game.
- * This class extends Player class.
+ * This class extends {@link Player} class.
  */
 public class Midfielder extends Player{
     /**
@@ -27,7 +27,7 @@ public class Midfielder extends Player{
 
     /**
      * Method decision_ball of midfielder.
-     * Defender can perform actions:
+     * Midfielder can perform actions:
      * - passing
      * - dribbling
      * - shooting
@@ -54,7 +54,6 @@ public class Midfielder extends Player{
                     modY=5;
                 }
                 double action = random.nextInt(100)-((100-getStamina())/10)+mentality;
-                System.out.println("Action: "+action);
                 if(Math.abs(getPlace().getLength()-modY)>=2){
                     if(action<75) event=player_passing(recipient(team),ball,event,con,rain);
                     else player_dribbling(pitch,ball,con);

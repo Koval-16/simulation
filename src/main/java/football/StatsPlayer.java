@@ -1,7 +1,7 @@
 package football;
 
 /**
- * Class StatsPlayer collects statistics of the player.
+ * Class StatsPlayer collects statistics of the {@link Player}
  */
 public class StatsPlayer {
     private int sec_played;
@@ -22,6 +22,9 @@ public class StatsPlayer {
     private int interceptions;
     private int saves;
 
+    /**
+     * Constructor of class StatsPlayer
+     */
     public StatsPlayer(){
     }
     public void addSeconds(int time){

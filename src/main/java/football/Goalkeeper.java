@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Class representing the goalkeeper in a game.
- * This class extends Player class.
+ * This class extends {@link Player} class.
  * Goalkeeper has an extra method which allows him to save shoots.
  */
 public class Goalkeeper extends Player{
