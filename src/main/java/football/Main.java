@@ -1,5 +1,8 @@
 package football;
 
+/**
+ * Main class of the program. Receives args and runs simulation
+ */
 public class Main {
     /**
      *
@@ -18,18 +21,15 @@ public class Main {
      *             If the team with given name doesn't exist, the match won't happen.
      */
     public static void main(String[] args){
-        // Initialize default values
         String team1_name = "holder";
         String team2_name = "holder";
-        int[] parameters = new int[5]; // default values are 0
+        int[] parameters = new int[5];
         int weather = 0;
 
         if (args.length >= 2) {
             team1_name = args[0];
             team2_name = args[1];
         }
-
-        // Set parameters with default values
         for (int i = 2; i < 7; i++) {
             try {
                 if (args.length > i && Integer.parseInt(args[i]) >= -5 && Integer.parseInt(args[i]) <= 5) {
@@ -42,7 +42,6 @@ public class Main {
             }
         }
 
-        // Set weather with default value
         try {
             if (args.length > 7 && Integer.parseInt(args[7]) >= 0 && Integer.parseInt(args[7]) <= 2) {
                 weather = Integer.parseInt(args[7]);
