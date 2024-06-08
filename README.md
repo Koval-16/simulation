@@ -14,5 +14,10 @@ umiejętności przeciwników oraz innych zmiennych. Możliwe jest zadanie parame
 motywacja drużyn. Program zbiera statystyki meczowe zawodników oraz drużyn i zapisuje je do plików.
 
 ## Diagramy:
+[link]https://github.com/Koval-16/simulation/blob/main/diagram.png
 
 ## Dokumentacja:
+[link]https://github.com/Koval-16/simulation/blob/main/docs/index.html
+
+## Uruchomienie:
+- 'java -jar match.jar <arg1> <arg2> <arg3> <arg4> <arg5> <arg6> <arg7> <arg8>'
