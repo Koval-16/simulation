@@ -1,5 +1,6 @@
 # Dokumentacja
 Autor: [Jakub Kowalski] (https://github.com/Koval-16)
+Projekt: (https://github.com/Koval-16/simulation)
 
 ## Skład grupy projektowej:
 - Jakub Kowalski - Lider
@@ -21,5 +22,6 @@ motywacja drużyn. Program zbiera statystyki meczowe zawodników oraz drużyn i 
 
 ## Uruchomienie:
 - 'java -jar match.jar arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8'
-- arg1 oraz arg2 muszą być klubami z bazy - dostępne kluby są w zawarte w pliku teams.txt
+- arg1 oraz arg2 muszą być klubami z bazy - dostępne kluby są w zawarte w pliku teams.txt:
+Arsenal, AstonVilla, Bournemouth, Brentford, Brighton, Burnley, Chelsea, CrystalPalace, Everton, Fulham, Liverpool, Luton, ManCity, ManUnited, Newcastle, Nottingham, Sheffield, Tottenham, WestHam, Wolves
 - pozostale argumenty to wartosci liczbowe int
