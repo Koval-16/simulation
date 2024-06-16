@@ -2,6 +2,24 @@ package football;
 
 /**
  * Class StatsPlayer collects statistics of the {@link Player}
+ * <p>Attributes:</p>
+ * <ul>
+ *     <li>sec_played: seconds played</li>
+ *     <li>minutes_played: minutes played by player</li>
+ *     <li>goals: goals scored</li>
+ *     <li>shoots: total shoots made by player</li>
+ *     <li>shoots_on_target: shoots on target made by player</li>
+ *     <li>dribbling_completed: successful dribbles</li>
+ *     <li>duels_attempts: attempts of duels</li>
+ *     <li>duels_won: duels won by player</li>
+ *     <li>offsides: number of times when player was caught offside</li>
+ *     <li>fouls: number of fouls made by player</li>
+ *     <li>yellow_cards: number of player's yellow cards</li>
+ *     <li>red_cards: number of player's red cards</li>
+ *     <li>lost_possession: number of times when player lost the ball</li>
+ *     <li>interceptions: interceptions made by player</li>
+ *     <li>saves: shoots saved by player</li>
+ * </ul>
  */
 public class StatsPlayer {
     private int sec_played;

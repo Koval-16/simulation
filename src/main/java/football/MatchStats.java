@@ -8,6 +8,31 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Class MatchStats saves stats of the match into files.
+ * Abbreviations for Team Stats
+ * Goals - Goals Scored by Team
+ * Ball% - Ball possession in percentage
+ * Sh(oT) - Shoots(on target)
+ * Pas - Passes completed
+ * FK - Free Kicks
+ * Cor - Corners
+ * Pen - Penalties
+ * Off - Offsides
+ * Fou - Fouls
+ * YC - Yellow Cards
+ * RC - Red Cards
+ * Abbreviations for Player Stats
+ * MP - Minutes Played
+ * GS - Goals Scored
+ * Sh(oT) - Shoots(on target)
+ * Pa(Sc) - Passes(Completed)
+ * Dr - Dribbles completed
+ * Dl(Wn) - Duels(won)
+ * Of - Offsides
+ * YC - Yellow Cards
+ * RC - Red Cards
+ * LP - Lost possession
+ * IN - Interceptions
+ * SV - saves
  */
 public class MatchStats {
     Match match;

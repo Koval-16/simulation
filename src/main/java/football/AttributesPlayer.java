@@ -32,6 +32,8 @@ public class AttributesPlayer {
      * @param defending the defending ability of the player
      * @param aggression the aggression of the player
      * @param goalkeeping the goalkeeping ability of the player
+     * Side might be: 1=left, 2=center, 3=right
+     * Other parameters gets value from 1 to 20, while 1 is the worst, 20 the best
      */
     public AttributesPlayer(int side, int shooting, int dribbling, int passing, int defending, int aggression,int goalkeeping){
         this.side = side;

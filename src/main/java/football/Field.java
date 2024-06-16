@@ -2,6 +2,7 @@ package football;
 
 /**
  * Class Field represents single field of the pitch.
+ * Each field has its own coordinates
  */
 
 public class Field {

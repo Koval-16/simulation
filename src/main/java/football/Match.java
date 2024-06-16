@@ -11,8 +11,8 @@ import java.util.Random;
  *     <li>MATCH_DURATION: time of match duration</li>
  *     <li>time: the current time of the game</li>
  *     <li>no_play_time: helper variable, holds time without actual game</li>
- *     <li>event: current event: -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:balllost ; 5:offside
- *     ; 6:corner ; 7:freekick ; 8:penalty ; 9:ballout</li>
+ *     <li>event: current event: -1:kickoff ; 0:goal ; 1:play ; 2:shoot ; 3:highball ; 4:ball lost ; 5:offside
+ *     ; 6:corner ; 7:free kick ; 8:penalty ; 9:ball out</li>
  *     <li>football_pitch: pitch of the game</li>
  *     <li>team1: first team</li>
  *     <li>team2: second team</li>

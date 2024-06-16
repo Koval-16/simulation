@@ -2,6 +2,12 @@ package football;
 
 /**
  * Class pitch represents the football pitch.
+ * It contains fields.
+ * The pitch should be 5x6.
+ * The X-coordinate divides pitch into sides:
+ * (left wing, left half-space, center, right half-space, right wing)
+ * The Y-coordinate divides pitch into zones:
+ * (defensive, center, offensive)
  */
 
 public class Pitch {

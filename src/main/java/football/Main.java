@@ -1,7 +1,11 @@
 package football;
 
 /**
- * Main class of the program. Receives args and runs simulation
+ * Main class of the program. Receives args and runs simulation.
+ * To run simulation type:
+ * java -jar match.jar [arg1] [arg2] [arg3] [arg4] [arg5] [arg6] [arg7] [arg8]
+ * Match stats are saved into text files which are in match folder.
+ * You can find your match in folder called Matches
  */
 public class Main {
     /**
@@ -19,6 +23,7 @@ public class Main {
      *             </ul>
      *             If any of int values are invalid, they will be set to default value = 0.
      *             If the team with given name doesn't exist, the match won't happen.
+     *             The list of available teams is given in file teams.txt
      */
     public static void main(String[] args){
         String team1_name = "holder";

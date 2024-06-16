@@ -2,6 +2,22 @@ package football;
 
 /**
  * Class collects statistics of {@link Team}
+ * <p>Attributes:</p>
+ * <ul>
+ *     <li>goals: goals scored by team</li>
+ *     <li>ball_time: total time when team had the ball</li>
+ *     <li>total_time: match total time</li>
+ *     <li>shoots: shoots made by team</li>
+ *     <li>shoots_on_target: shoots on target made by team</li>
+ *     <li>passes: passes completed by team</li>
+ *     <li>free_kicks: number of team's free kicks</li>
+ *     <li>corners: number of team's corners</li>
+ *     <li>penalties: number of team's penalties</li>
+ *     <li>offsides: team's offsides</li>
+ *     <li>fouls: number of fouls made by team's players</li>
+ *     <li>yellow_cards: number of team's yellow cards</li>
+ *     <li>red_cards: number of team's red cards</li>
+ * </ul>
  */
 public class StatsTeam {
     private int goals;
